@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import IntroVideoSection from './components/IntroVideoSection';
@@ -13,6 +13,7 @@ import CollegeDetailPage from './components/CollegeDetailPage';
 import InteractiveMap from './components/InteractiveMap';
 import OrbChatbot from './components/OrbChatbot';
 import BlogsPage from './components/BlogsPage';
+import { CATEGORIES_LIST, REVIEW_PERSPECTIVES } from './components/ReviewsHierarchyTable';
 import VirtualAdvisorModal from './components/VirtualAdvisorModal';
 import AuthModal from './components/AuthModal';
 import ProfileModal from './components/ProfileModal';
@@ -240,8 +241,48 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
     : '';
   const college = collegeId ? institutes.find(institute => institute.id === collegeId) : undefined;
   const isCollegePath = pathname.startsWith('/college/');
+  const localitySlug = pathname.startsWith('/locality/')
+    ? pathname.slice('/locality/'.length)
+    : '';
+  const isKnownLocality = localitySlug
+    ? INDORE_LOCALITY_GROUPS.some(group =>
+      group.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') === localitySlug
+    )
+    : false;
+  const publicRoutePaths = new Set([
+    '/',
+    '/explore',
+    '/register',
+    '/dashboard',
+    '/reviews',
+    '/blogs',
+    '/about',
+    '/careers',
+    '/contact',
+    '/college-portal',
+    '/admin-panel',
+  ]);
+  const editorialParts = pathname.match(/^\/(reviews|blogs)\/([^/]+)(?:\/([^/]+))?$/);
+  const editorialCategorySlugs = new Set(CATEGORIES_LIST.map(category =>
+    category.id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  ));
+  const editorialPerspectiveSlugs = new Set(REVIEW_PERSPECTIVES.map(perspective =>
+    perspective.type.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  ));
+  const isEditorialDetail = Boolean(
+    editorialParts
+    && editorialCategorySlugs.has(editorialParts[2])
+    && (!editorialParts[3] || editorialPerspectiveSlugs.has(editorialParts[3]))
+  );
 
-  if (isCollegePath && !college) return null;
+  if (
+    (isCollegePath && !college)
+    || (pathname.startsWith('/explore/') && !categorySeo)
+    || (pathname.startsWith('/locality/') && !isKnownLocality)
+    || (!college && !categorySeo && !publicRoutePaths.has(pathname) && !isEditorialDetail && !isKnownLocality)
+  ) {
+    return null;
+  }
 
   const pageTitle = college
     ? getCollegeSeoTitle(college)
@@ -306,6 +347,10 @@ function ScrollToTopAndSEO({ institutes }: { institutes: Institute[] }) {
     const seo = getPageSeo(pathname, institutes);
     if (!seo) {
       removeCollegeJsonLd();
+      document.title = 'Page Not Found | Indore Colleges';
+      document.head
+        .querySelectorAll('link[rel="canonical"], meta[name="description"], meta[property^="og:"], meta[name^="twitter:"]')
+        .forEach(tag => tag.remove());
       return;
     }
     const college = pathname.startsWith('/college/')
@@ -336,6 +381,35 @@ function ScrollToTopAndSEO({ institutes }: { institutes: Institute[] }) {
   return null;
 }
 
+function NotFoundPage() {
+  return (
+    <section className="mx-auto flex min-h-[50vh] max-w-3xl flex-col items-center justify-center px-4 py-16 text-center">
+      <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-700">Indore Colleges</p>
+      <h1 className="mt-3 text-3xl font-bold text-gray-900">Page not found</h1>
+      <p className="mt-3 max-w-xl text-gray-600">The page you requested may have moved or may no longer be available.</p>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <Link className="rounded-lg bg-red-700 px-5 py-3 font-semibold text-white hover:bg-red-800" to="/">Go to homepage</Link>
+        <Link className="rounded-lg border border-gray-300 px-5 py-3 font-semibold text-gray-800 hover:bg-gray-50" to="/explore">Explore colleges</Link>
+      </div>
+    </section>
+  );
+}
+
+function EditorialRoute() {
+  const { categorySlug, perspectiveSlug } = useParams<{ categorySlug?: string; perspectiveSlug?: string }>();
+  const categoryExists = CATEGORIES_LIST.some(category =>
+    category.id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') === categorySlug
+  );
+  const perspectiveExists = REVIEW_PERSPECTIVES.some(perspective =>
+    perspective.type.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') === perspectiveSlug
+  );
+
+  if (!categoryExists || (perspectiveSlug && !perspectiveExists)) {
+    return <NotFoundPage />;
+  }
+  return <BlogsPage />;
+}
+
 function CollegeDetailRoute({
   institutes,
   institutesLoaded,
@@ -357,8 +431,8 @@ function CollegeDetailRoute({
   const navigate = useNavigate();
   const college = institutes.find(i => i.id === id) || INDORE_INSTITUTES.find(i => i.id === id);
 
-  if (!college && institutesLoaded && institutes.length > 0) {
-    return <Navigate to="/explore" replace />;
+  if (!college && institutesLoaded) {
+    return <NotFoundPage />;
   }
 
   if (!college) {
@@ -424,8 +498,12 @@ function ExploreRoute({
     )
     : null;
 
+  if (streamParam && !CATEGORY_SEO[streamParam]) {
+    return <NotFoundPage />;
+  }
+
   if (localitySlug && !selectedLocality) {
-    return <Navigate to="/" replace />;
+    return <NotFoundPage />;
   }
 
   if (selectedLocality) {
@@ -1533,7 +1611,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                 >
-                  <BlogsPage />
+                  <EditorialRoute />
                 </motion.div>
               }
             />
@@ -1545,7 +1623,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                 >
-                  <BlogsPage />
+                  <EditorialRoute />
                 </motion.div>
               }
             />
@@ -1571,7 +1649,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                 >
-                  <BlogsPage />
+                  <EditorialRoute />
                 </motion.div>
               }
             />
@@ -1583,7 +1661,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                 >
-                  <BlogsPage />
+                  <EditorialRoute />
                 </motion.div>
               }
             />
@@ -1659,7 +1737,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
             />
 
             {/* Catch-all Route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AnimatePresence>
       </main>

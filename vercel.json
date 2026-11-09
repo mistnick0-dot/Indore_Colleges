@@ -3,6 +3,12 @@
   "framework": "vite",
   "buildCommand": "npm run build:frontend",
   "outputDirectory": "dist",
+  "trailingSlash": false,
+  "functions": {
+    "api/college/**/*.ts": {
+      "includeFiles": "dist/{index.html,404.html,college/**/index.html}"
+    }
+  },
   "headers": [
     {
       "source": "/api/proxy/:path*",
@@ -14,14 +20,57 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/EXPLORE",
+      "destination": "/explore",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/ENGINEERING",
+      "destination": "/explore/engineering",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/BBA",
+      "destination": "/explore/bba",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/BCA",
+      "destination": "/explore/bca",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/MBA",
+      "destination": "/explore/mba",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/LAW",
+      "destination": "/explore/law",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/MEDICAL",
+      "destination": "/explore/medical",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/DESIGN",
+      "destination": "/explore/design",
+      "permanent": true
+    },
+    {
+      "source": "/COLLEGE/IIT-INDORE",
+      "destination": "/college/iit-indore",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/proxy/:path*",
       "destination": "https://indore-colleges-i560.onrender.com/api/:path*"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/robots.txt"
     },
     {
       "source": "/explore",
@@ -56,8 +105,12 @@
       "destination": "/explore/design/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/college/:id",
+      "destination": "/api/college/:id"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://indore-colleges-i560.onrender.com/api/:path*"
     }
   ]
 }

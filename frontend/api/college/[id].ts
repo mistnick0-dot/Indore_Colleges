@@ -15,7 +15,6 @@ interface VercelResponse {
   setHeader(name: string, value: string): VercelResponse;
   send(body: string): VercelResponse;
   json(body: unknown): VercelResponse;
-  redirect(code: number, url: string): VercelResponse;
 }
 
 type CachedPartner = {
@@ -177,13 +176,46 @@ async function readTemplate() {
   throw new Error('Frontend template was not found');
 }
 
+async function sendNotFound(response: VercelResponse) {
+  let body: string;
+  try {
+    body = await readFile(path.join(process.cwd(), 'dist', '404.html'), 'utf8');
+  } catch (error) {
+    if (typeof error !== 'object' || error === null || !('code' in error) || error.code !== 'ENOENT') {
+      throw error;
+    }
+    body = 'Not Found';
+  }
+
+  return response
+    .status(404)
+    .setHeader('Content-Type', body === 'Not Found' ? 'text/plain; charset=utf-8' : 'text/html; charset=utf-8')
+    .send(body);
+}
+
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (request.method && request.method !== 'GET') {
     return response.status(405).setHeader('Allow', 'GET').send('Method Not Allowed');
   }
 
   const id = getQueryId(request);
-  if (!id || staticCollegeIds.has(id)) return response.redirect(302, '/explore');
+  if (!id) return sendNotFound(response);
+  if (staticCollegeIds.has(id)) {
+    const profilePath = path.join(process.cwd(), 'dist', 'college', id, 'index.html');
+    try {
+      const html = await readFile(profilePath, 'utf8');
+      return response
+        .status(200)
+        .setHeader('Content-Type', 'text/html; charset=utf-8')
+        .setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60')
+        .send(html);
+    } catch (error) {
+      if (typeof error !== 'object' || error === null || !('code' in error) || error.code !== 'ENOENT') {
+        throw error;
+      }
+      return sendNotFound(response);
+    }
+  }
 
   let institute: Institute | null;
   try {
@@ -193,12 +225,12 @@ export default async function handler(request: VercelRequest, response: VercelRe
     return response.status(503).send('Partner college service temporarily unavailable');
   }
 
-  if (!institute) return response.redirect(302, '/explore');
+  if (!institute) return sendNotFound(response);
 
   try {
     const route = `/college/${encodeURIComponent(institute.id)}`;
     const {appHtml, seo, jsonLd} = renderPage(route, [...INDORE_INSTITUTES, institute]);
-    if (!seo || !jsonLd) return response.redirect(302, '/explore');
+    if (!seo || !jsonLd) return sendNotFound(response);
 
     const template = await readTemplate();
     const initialDataScript = `<script>window.__INITIAL_INSTITUTES__=${serializeInitialData(institute)};</script>`;

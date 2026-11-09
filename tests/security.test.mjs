@@ -135,13 +135,16 @@ test('admin session and one-time OTP helper behavior', async () => {
   assert.equal(await consumeIssuedOtp(collection, testEmail, '333444', new Date(5000)), false);
 });
 
-test('Vercel forwards same-origin API requests to Render before the SPA fallback', async () => {
+test('Vercel forwards API requests to Render without a homepage fallback', async () => {
   const config = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
   const proxyIndex = config.rewrites.findIndex(rewrite => rewrite.source === '/api/proxy/:path*');
-  const fallbackIndex = config.rewrites.findIndex(rewrite => rewrite.source === '/(.*)');
+  const apiIndex = config.rewrites.findIndex(rewrite => rewrite.source === '/api/:path*');
 
   assert.notEqual(proxyIndex, -1);
-  assert.ok(proxyIndex < fallbackIndex);
+  assert.notEqual(apiIndex, -1);
+  assert.ok(proxyIndex < apiIndex);
+  assert.equal(config.rewrites.some(rewrite => rewrite.source === '/(.*)'), false);
+  assert.equal(config.trailingSlash, false);
   assert.equal(
     config.rewrites[proxyIndex].destination,
     'https://indore-colleges-i560.onrender.com/api/:path*',

@@ -2461,6 +2461,10 @@ Instructions:
     }
   });
 
+  app.use('/api', (_req, res) => {
+    res.status(404).json({ error: 'API endpoint not found.' });
+  });
+
   // Vite development vs production asset delivery
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
@@ -2470,25 +2474,15 @@ Instructions:
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    const indexPath = path.join(distPath, 'index.html');
+    const notFoundPath = path.join(distPath, '404.html');
     if (fs.existsSync(distPath)) {
       app.use(express.static(distPath));
     }
-    app.get('*', (req, res) => {
-      if (fs.existsSync(indexPath)) {
-        res.sendFile(indexPath);
-      } else {
-        res.status(200).json({
-          status: 'ok',
-          service: 'Indore Colleges Backend API',
-          message: 'API backend is operational on Render. Frontend is hosted on Vercel.',
-          health: '/api/health',
-          endpoints: {
-            institutes: '/api/institutes',
-            reviews: '/api/reviews'
-          }
-        });
+    app.use((_req, res) => {
+      if (fs.existsSync(notFoundPath)) {
+        return res.status(404).sendFile(notFoundPath);
       }
+      return res.status(404).type('text/plain').send('Not Found');
     });
   }
 

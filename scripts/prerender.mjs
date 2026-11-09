@@ -94,7 +94,10 @@ await build({
 
 const template = await readFile(templatePath, 'utf8');
 const renderer = await import(`${pathToFileURL(serverBundlePath).href}?build=${Date.now()}`);
-const routes = [...baseRoutes, ...renderer.getStaticCollegeRoutes()];
+const collegeRoutes = renderer.getStaticCollegeRoutes();
+const localityRoutes = renderer.getStaticLocalityRoutes();
+const editorialRoutes = renderer.getStaticEditorialRoutes();
+const routes = [...baseRoutes, ...collegeRoutes, ...localityRoutes, ...editorialRoutes];
 
 for (const route of routes) {
   const {appHtml, seo, jsonLd} = renderer.renderPage(route);
@@ -110,4 +113,4 @@ const sitemapPaths = getSitemapPaths(renderer.getStaticCollegeRoutes());
 await writeFile(path.join(outputDirectory, 'sitemap.xml'), createSitemapXml(sitemapPaths), 'utf8');
 
 await rm(serverBundleDirectory, {recursive: true, force: true});
-console.log(`Prerendered ${routes.length} routes (${routes.length - baseRoutes.length} colleges) to ${outputDirectory}`);
+console.log(`Prerendered ${routes.length} routes (${collegeRoutes.length} colleges, ${localityRoutes.length} localities, ${editorialRoutes.length} editorial routes) to ${outputDirectory}`);

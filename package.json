@@ -10,6 +10,7 @@
     "build:prerender": "node scripts/prerender.mjs",
     "build:backend": "esbuild backend/server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "test:security": "node --import=tsx --test tests/security.test.mjs",
+    "test:routing": "node --import=tsx --test tests/routing.test.mjs",
     "start": "node dist/server.cjs",
     "start:backend": "node dist/server.cjs",
     "clean": "rm -rf dist",
