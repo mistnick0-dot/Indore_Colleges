@@ -244,11 +244,12 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
   const localitySlug = pathname.startsWith('/locality/')
     ? pathname.slice('/locality/'.length)
     : '';
-  const isKnownLocality = localitySlug
-    ? INDORE_LOCALITY_GROUPS.some(group =>
+  const localityGroup = localitySlug
+    ? INDORE_LOCALITY_GROUPS.find(group =>
       group.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') === localitySlug
     )
-    : false;
+    : undefined;
+  const isKnownLocality = Boolean(localityGroup);
   const publicRoutePaths = new Set([
     '/',
     '/explore',
@@ -263,22 +264,41 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
     '/admin-panel',
   ]);
   const editorialParts = pathname.match(/^\/(reviews|blogs)\/([^/]+)(?:\/([^/]+))?$/);
-  const editorialCategorySlugs = new Set(CATEGORIES_LIST.map(category =>
-    category.id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  ));
-  const editorialPerspectiveSlugs = new Set(REVIEW_PERSPECTIVES.map(perspective =>
-    perspective.type.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  ));
+  const editorialCategory = editorialParts
+    ? CATEGORIES_LIST.find(category =>
+      category.id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') === editorialParts[2]
+    )
+    : undefined;
+  const editorialPerspective = editorialParts?.[3]
+    ? REVIEW_PERSPECTIVES.find(perspective =>
+      perspective.type.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') === editorialParts[3]
+    )
+    : undefined;
   const isEditorialDetail = Boolean(
     editorialParts
-    && editorialCategorySlugs.has(editorialParts[2])
-    && (!editorialParts[3] || editorialPerspectiveSlugs.has(editorialParts[3]))
+    && editorialCategory
+    && (!editorialParts[3] || editorialPerspective)
   );
+  const isEditorialPage = Boolean(isEditorialDetail && editorialParts && editorialCategory);
+  const editorialSection = editorialParts?.[1] === 'reviews' ? 'College Reviews' : 'College Guides';
+  const localityName = localityGroup?.name.replace(/\s*\/\s*/g, ' and ');
+  const localityDescription = localityGroup
+    ? `Explore colleges near ${localityName} in Indore. Compare ${localityGroup.collegeIds.length} colleges by courses, fees, admissions and facilities.`
+    : '';
+  const editorialSubject = editorialCategory ? `${editorialCategory.title.toLowerCase()} options` : '';
+  const editorialTitle = editorialCategory
+    ? editorialPerspective
+      ? `${editorialCategory.title} — ${editorialPerspective.title} | ${editorialSection} | Indore Colleges`
+      : `${editorialCategory.title} | ${editorialSection} in Indore | Indore Colleges`
+    : '';
+  const editorialDescription = editorialCategory
+    ? `${editorialParts?.[1] === 'reviews' ? 'Read' : 'Explore'} ${editorialPerspective ? `${editorialPerspective.title.toLowerCase()} about ` : 'college reviews and admission insights for '}${editorialSubject} in Indore. Find college insights, admissions information and student perspectives.`
+    : '';
 
   if (
     (isCollegePath && !college)
     || (pathname.startsWith('/explore/') && !categorySeo)
-    || (pathname.startsWith('/locality/') && !isKnownLocality)
+    || (pathname.startsWith('/locality/') && !localityGroup)
     || (!college && !categorySeo && !publicRoutePaths.has(pathname) && !isEditorialDetail && !isKnownLocality)
   ) {
     return null;
@@ -286,7 +306,11 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
 
   const pageTitle = college
     ? getCollegeSeoTitle(college)
-    : categorySeo?.title || (() => {
+    : categorySeo?.title || (localityGroup
+      ? `${localityName} Colleges in Indore | Locality Guide | Indore Colleges`
+      : isEditorialPage
+      ? editorialTitle
+      : (() => {
     let title = HOMEPAGE_SEO.title;
     if (pathname === '/explore') {
       title = "Explore Top Colleges & Universities in Indore | Indore Colleges";
@@ -310,7 +334,7 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
       title = "Admin Control Portal | Indore Colleges";
     }
     return title;
-  })();
+  })());
 
   const isCategoryPage = Boolean(categorySeo);
   const publicPagePaths = new Set(['/explore', '/blogs', '/about', '/careers', '/contact']);
@@ -318,16 +342,24 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
     ? `${SEO_ORIGIN}/college/${encodeURIComponent(college.id)}`
     : isCategoryPage
     ? `${SEO_ORIGIN}/explore/${streamParam}`
+    : (localityGroup || isEditorialPage)
+    ? `${SEO_ORIGIN}${pathname}`
     : publicPagePaths.has(pathname)
     ? `${SEO_ORIGIN}${pathname}`
     : HOMEPAGE_SEO.canonical;
-  const socialUrl = college || isCategoryPage || publicPagePaths.has(pathname) ? canonical : HOMEPAGE_SEO.socialUrl;
+  const socialUrl = college || isCategoryPage || localityGroup || isEditorialPage || publicPagePaths.has(pathname)
+    ? canonical
+    : HOMEPAGE_SEO.socialUrl;
   const description = college
     ? getCollegeSeoDescription(college)
-    : categorySeo?.description || HOMEPAGE_SEO.description;
+    : categorySeo?.description || (localityGroup
+      ? localityDescription
+      : isEditorialPage
+      ? editorialDescription
+      : HOMEPAGE_SEO.description);
   const ogDescription = college
     ? description
-    : categorySeo?.description || HOMEPAGE_SEO.ogDescription;
+    : categorySeo?.description || (localityGroup || isEditorialPage ? description : HOMEPAGE_SEO.ogDescription);
   const image = college ? getAbsoluteSeoImage(college.image) : HOMEPAGE_SEO.image;
 
   return { title: pageTitle, description, canonical, socialUrl, ogDescription, image };

@@ -5,6 +5,7 @@ import {readFile, access} from 'node:fs/promises';
 import {after, before, test} from 'node:test';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import path from 'node:path';
+import {getPageSeo} from '../frontend/src/App.tsx';
 import {INDORE_INSTITUTES, INDORE_LOCALITY_GROUPS} from '../frontend/src/data/indoreData.ts';
 import {
   getStaticCollegeRoutes,
@@ -120,6 +121,50 @@ const partnerFixture = id => ({
   isPartnerRegistered: true,
 });
 
+function getSingleMatch(html, pattern, label, route) {
+  const matches = [...html.matchAll(pattern)];
+  assert.equal(matches.length, 1, `${label} tag count for ${route}`);
+  return matches[0][1]
+    .replaceAll('&amp;', '&')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>');
+}
+
+function getHtmlSeo(html, route) {
+  return {
+    title: getSingleMatch(html, /<title>([^<]*)<\/title>/gi, 'title', route),
+    description: getSingleMatch(html, /<meta name="description" content="([^"]*)"[^>]*\/>/gi, 'description', route),
+    canonical: getSingleMatch(html, /<link rel="canonical" href="([^"]*)"[^>]*\/>/gi, 'canonical', route),
+    ogUrl: getSingleMatch(html, /<meta property="og:url" content="([^"]*)"[^>]*\/>/gi, 'Open Graph URL', route),
+    ogTitle: getSingleMatch(html, /<meta property="og:title" content="([^"]*)"[^>]*\/>/gi, 'Open Graph title', route),
+    ogDescription: getSingleMatch(html, /<meta property="og:description" content="([^"]*)"[^>]*\/>/gi, 'Open Graph description', route),
+    twitterUrl: getSingleMatch(html, /<meta name="twitter:url" content="([^"]*)"[^>]*\/>/gi, 'Twitter URL', route),
+    twitterTitle: getSingleMatch(html, /<meta name="twitter:title" content="([^"]*)"[^>]*\/>/gi, 'Twitter title', route),
+    twitterDescription: getSingleMatch(html, /<meta name="twitter:description" content="([^"]*)"[^>]*\/>/gi, 'Twitter description', route),
+  };
+}
+
+async function assertGeneratedSeo(route) {
+  const filePath = path.join(root, 'dist', route.slice(1), 'index.html');
+  const html = await readFile(filePath, 'utf8');
+  const actual = getHtmlSeo(html, route);
+  const expected = getPageSeo(route, INDORE_INSTITUTES);
+  assert.ok(expected, `Expected SEO for ${route}`);
+  assert.deepEqual(actual, {
+    title: expected.title,
+    description: expected.description,
+    canonical: expected.canonical,
+    ogUrl: expected.socialUrl,
+    ogTitle: expected.title,
+    ogDescription: expected.ogDescription,
+    twitterUrl: expected.socialUrl,
+    twitterTitle: expected.title,
+    twitterDescription: expected.ogDescription,
+  }, `Generated metadata for ${route}`);
+  return actual;
+}
+
 before(async () => {
   const running = await startBackend();
   child = running.child;
@@ -156,6 +201,41 @@ test('invalid college, category, locality, and unknown routes have no SEO metada
     '/reviews/technical-college/unknown-perspective',
   ]) {
     assert.equal(renderPage(route).seo, null, route);
+  }
+});
+
+test('prerendered locality and editorial pages have unique route-specific SEO metadata', async () => {
+  const localityRoutes = getStaticLocalityRoutes();
+  const editorialRoutes = getStaticEditorialRoutes();
+  assert.equal(localityRoutes.length, 4);
+  assert.equal(editorialRoutes.length, 48);
+
+  const routeSpecificMetadata = [];
+  for (const route of [...localityRoutes, ...editorialRoutes]) {
+    const metadata = await assertGeneratedSeo(route);
+    assert.notEqual(metadata.title, 'Indore Colleges | Compare Courses, Fees & Admission', route);
+    assert.notEqual(metadata.description, getPageSeo('/', INDORE_INSTITUTES).description, route);
+    assert.equal(metadata.canonical, `https://indorecolleges.in${route}`, route);
+    assert.equal(metadata.ogUrl, metadata.canonical, route);
+    assert.equal(metadata.twitterUrl, metadata.canonical, route);
+    routeSpecificMetadata.push(metadata);
+  }
+
+  assert.equal(new Set(routeSpecificMetadata.map(metadata => metadata.title)).size, 52);
+  assert.equal(new Set(routeSpecificMetadata.map(metadata => metadata.description)).size, 52);
+});
+
+test('all generated college and category pages retain their route-specific SEO metadata', async () => {
+  const collegeRoutes = getStaticCollegeRoutes();
+  const categoryRoutes = categorySlugs.map(slug => `/explore/${slug}`);
+  assert.equal(collegeRoutes.length, 62);
+  assert.equal(categoryRoutes.length, 7);
+
+  for (const route of [...collegeRoutes, ...categoryRoutes]) {
+    const metadata = await assertGeneratedSeo(route);
+    assert.equal(metadata.canonical, `https://indorecolleges.in${route}`, route);
+    assert.equal(metadata.ogUrl, metadata.canonical, route);
+    assert.equal(metadata.twitterUrl, metadata.canonical, route);
   }
 });
 
