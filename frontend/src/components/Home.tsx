@@ -305,13 +305,16 @@ export default function Home({
     }, 100);
   };
 
-  const handleLocalityClick = (locality: string) => {
+  const handleLocalityClick = (locality: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
     setInstituteTypeFilter('college');
     setSelectedCategory('All');
     setSelectedBoard('All');
     setSelectedLocation(locality);
     setSearchQuery('');
     if (onViewLocality) {
+      event.preventDefault();
       onViewLocality(locality);
       return;
     }
@@ -549,7 +552,7 @@ export default function Home({
 
         <div className="mx-auto max-w-5xl w-full relative z-10 text-center flex flex-col items-center justify-center -mt-2 sm:-mt-3 md:-mt-4">
           <motion.h1
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-black tracking-tight leading-[1.28] font-outfit max-w-5xl mx-auto text-center"
@@ -1393,11 +1396,11 @@ export default function Home({
           {/* Localities Pill Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {LOCALITIES.map((loc) => (
-              <motion.button
-                type="button"
+              <motion.a
                 key={loc.name}
+                href={`/locality/${loc.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}
                 whileHover={{ scale: 1.02, y: -2 }}
-                onClick={() => handleLocalityClick(loc.name)}
+                onClick={(event) => handleLocalityClick(loc.name, event)}
                 className="group cursor-pointer bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-lg hover:border-red-600/30 hover:bg-red-600/5 transition-all flex items-center text-left"
               >
                 <div className="flex items-center space-x-3 sm:space-x-3.5 min-w-0">
@@ -1409,7 +1412,7 @@ export default function Home({
                     <span className="text-xs text-gray-500">{loc.collegeIds.length} colleges</span>
                   </div>
                 </div>
-              </motion.button>
+              </motion.a>
             ))}
           </div>
         </div>

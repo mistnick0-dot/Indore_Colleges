@@ -327,11 +327,11 @@ export default function Footer({
             &copy; {new Date().getFullYear()} Indore Colleges. All Rights Reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3.5">
-            <a href="#" className="hover:text-white hover:underline transition">Terms &amp; Conditions</a>
+            <span>Terms &amp; Conditions</span>
             <span className="text-red-600 hidden md:inline">|</span>
-            <a href="#" className="hover:text-white hover:underline transition">Privacy Policy</a>
+            <span>Privacy Policy</span>
             <span className="text-red-600 hidden md:inline">|</span>
-            <a href="#" className="hover:text-white hover:underline transition">Refund Policy</a>
+            <span>Refund Policy</span>
           </div>
         </div>
 

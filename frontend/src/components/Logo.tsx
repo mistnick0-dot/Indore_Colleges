@@ -28,6 +28,8 @@ export function LogoIcon({
     <img 
       src={light ? "/logo-transparent.svg" : "/logo.svg"} 
       alt="Indore Colleges Logo" 
+      width={1123}
+      height={928}
       className={`${className} object-contain shrink-0`}
     />
   );
@@ -69,6 +71,8 @@ export default function Logo({
           <img 
             src="/logo.svg" 
             alt="Indore Colleges" 
+            width={1123}
+            height={928}
             className={`${currentHeight} w-auto object-contain shrink-0 transition-transform duration-300 group-hover:scale-105`}
           />
         </div>
@@ -76,10 +80,11 @@ export default function Logo({
         <img 
           src="/logo.svg" 
           alt="Indore Colleges" 
+          width={1123}
+          height={928}
           className={`${currentHeight} w-auto object-contain shrink-0 transition-transform duration-300 group-hover:scale-105`}
         />
       )}
     </div>
   );
 }
-

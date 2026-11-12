@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { INDORE_INSTITUTES } from '../data/indoreData';
 import { 
   GraduationCap, 
@@ -274,7 +274,6 @@ function getVideosForPerspective(category: CategoryType, perspective: ReviewPers
 
 export default function ReviewsHierarchyTable() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { categorySlug, perspectiveSlug } = useParams<{ categorySlug?: string; perspectiveSlug?: string }>();
   const [searchParams] = useSearchParams();
   const requestedCollegeId = searchParams.get('college');
@@ -419,13 +418,10 @@ export default function ReviewsHierarchyTable() {
                 const isSelected = activeCategory === cat.id;
 
                 return (
-                  <button
+                  <Link
                     key={cat.id}
-                    type="button"
-                    onClick={() => {
-                      setSelectedCategory(cat.id);
-                      navigate(`${basePath}/${cat.id.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
-                    }}
+                    to={`${basePath}/${cat.id.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                    onClick={() => setSelectedCategory(cat.id)}
                     className={`w-full p-3 sm:p-4 md:p-5 rounded-2xl text-center transition-all duration-200 cursor-pointer bg-white border flex flex-col items-center justify-between gap-2 sm:gap-2.5 group min-h-[135px] sm:min-h-[150px] ${
                       isSelected
                         ? 'border-2 border-[#F66710] shadow-sm ring-2 sm:ring-4 ring-orange-500/10'
@@ -467,7 +463,7 @@ export default function ReviewsHierarchyTable() {
                         </span>
                       ))}
                     </div>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -475,15 +471,13 @@ export default function ReviewsHierarchyTable() {
           ) : (
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-              <button
-                onClick={() => {
-                  navigate(basePath, { replace: true });
-                }}
+              <Link
+                to={basePath}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-[#F66710] text-white text-xs font-bold transition shadow-xs cursor-pointer self-start"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Categories</span>
-              </button>
+              </Link>
               <span className="text-xs text-slate-500 font-semibold">{activeCategory}</span>
             </div>
 
@@ -496,15 +490,12 @@ export default function ReviewsHierarchyTable() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {REVIEW_PERSPECTIVES.map((persp) => {
                 const IconComponent = persp.icon;
+                const perspectivePath = persp.type.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
                 return (
-                  <button
+                  <Link
                     key={persp.type}
-                    type="button"
-                    onClick={() => {
-                      const perspectivePath = persp.type.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                      navigate(`${categoryPath}/${perspectivePath}`);
-                    }}
+                    to={`${categoryPath}/${perspectivePath}`}
                     className="w-full bg-white rounded-3xl border border-slate-200 hover:border-[#F66710] hover:shadow-lg p-6 sm:p-8 transition-all duration-200 cursor-pointer text-center flex flex-col items-center justify-center gap-3.5 group min-h-[170px]"
                   >
                     {/* At the center top: Icon */}
@@ -520,7 +511,7 @@ export default function ReviewsHierarchyTable() {
                         {persp.title}
                       </h3>
                     </div>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -540,33 +531,29 @@ export default function ReviewsHierarchyTable() {
         >
           {/* Top Bar: Return Button & Breadcrumbs */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-            <button
-              onClick={() => navigate(categoryPath, { replace: true })}
+            <Link
+              to={categoryPath}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-[#F66710] text-white text-xs font-bold transition shadow-xs cursor-pointer self-start"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Reviews</span>
-            </button>
+            </Link>
 
             {/* Breadcrumb Navigation */}
             <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold flex-wrap">
-              <button 
-                onClick={() => {
-                  navigate(basePath, { replace: true });
-                }}
+              <Link
+                to={basePath}
                 className="hover:text-[#F66710] transition cursor-pointer"
               >
                 Categories
-              </button>
+              </Link>
               <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-              <button 
-                onClick={() => {
-                  navigate(categoryPath, { replace: true });
-                }}
+              <Link
+                to={categoryPath}
                 className="hover:text-[#F66710] transition cursor-pointer"
               >
                 {activeCategory}
-              </button>
+              </Link>
               <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
               <span className="text-[#F66710] font-black">{selectedPerspectiveForVideos}</span>
             </div>
@@ -621,6 +608,7 @@ export default function ReviewsHierarchyTable() {
                     <img 
                       src={video.thumbnail} 
                       alt={video.collegeName}
+                      loading="lazy"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-85 transition-all duration-500"
                       onError={(e) => {
@@ -733,14 +721,12 @@ export default function ReviewsHierarchyTable() {
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                navigate(categoryPath, { replace: true });
-              }}
+            <Link
+              to={categoryPath}
               className="px-4 py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-bold text-xs transition cursor-pointer shrink-0"
             >
               ← Back to Reviews
-            </button>
+            </Link>
           </div>
           )}
         </motion.div>

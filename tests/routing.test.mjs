@@ -5,7 +5,7 @@ import {readFile, access} from 'node:fs/promises';
 import {after, before, test} from 'node:test';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import path from 'node:path';
-import {getPageSeo} from '../frontend/src/App.tsx';
+import {getPageSeo, updateRobotsMeta} from '../frontend/src/App.tsx';
 import {INDORE_INSTITUTES, INDORE_LOCALITY_GROUPS} from '../frontend/src/data/indoreData.ts';
 import {
   getStaticCollegeRoutes,
@@ -14,6 +14,7 @@ import {
   renderPage,
 } from '../frontend/src/entry-server.tsx';
 import partnerHandler from '../frontend/api/college/[id].ts';
+import {createSitemapXml, getSitemapPaths} from '../shared/sitemap.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const serverEntry = path.join(root, 'backend', 'server.ts');
@@ -142,7 +143,79 @@ function getHtmlSeo(html, route) {
     twitterUrl: getSingleMatch(html, /<meta name="twitter:url" content="([^"]*)"[^>]*\/>/gi, 'Twitter URL', route),
     twitterTitle: getSingleMatch(html, /<meta name="twitter:title" content="([^"]*)"[^>]*\/>/gi, 'Twitter title', route),
     twitterDescription: getSingleMatch(html, /<meta name="twitter:description" content="([^"]*)"[^>]*\/>/gi, 'Twitter description', route),
+    robots: getSingleMatch(html, /<meta name="robots" content="([^"]*)"[^>]*\/>/gi, 'robots', route),
   };
+}
+
+async function readPrerenderedHtml(route) {
+  const filePath = route === '/'
+    ? path.join(root, 'dist', 'index.html')
+    : path.join(root, 'dist', route.slice(1), 'index.html');
+  return readFile(filePath, 'utf8');
+}
+
+function getInternalAnchorHrefs(html) {
+  return [...html.matchAll(/<a\b[^>]*\bhref=(["'])(.*?)\1[^>]*>/gi)]
+    .map(match => match[2].replaceAll('&amp;', '&'))
+    .filter(href => href.startsWith('/'));
+}
+
+function parseSitemapXml(xml) {
+  const tokens = xml.match(/<\?xml[^?]*\?>|<\/?[^>]+>|[^<]+/g) || [];
+  assert.equal(tokens.join(''), xml, 'Sitemap must contain only well-formed XML tokens and text');
+  assert.match(tokens[0] || '', /^<\?xml version="1\.0" encoding="UTF-8"\?>$/);
+
+  const stack = [];
+  const urls = [];
+  let currentUrl = '';
+  let sawRoot = false;
+
+  for (const token of tokens.slice(1)) {
+    if (token.startsWith('</')) {
+      const name = token.slice(2, -1);
+      assert.equal(stack.pop(), name, `Unexpected closing XML tag ${token}`);
+      if (name === 'url') {
+        urls.push(currentUrl);
+        currentUrl = '';
+      }
+      continue;
+    }
+
+    if (token.startsWith('<')) {
+      if (token.startsWith('<urlset ')) {
+        assert.equal(token, '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+        assert.equal(sawRoot, false, 'Sitemap must have exactly one root element');
+        assert.equal(stack.length, 0);
+        sawRoot = true;
+        stack.push('urlset');
+      } else if (token === '<url>') {
+        assert.equal(stack.at(-1), 'urlset');
+        stack.push('url');
+      } else if (token === '<loc>') {
+        assert.equal(stack.at(-1), 'url');
+        stack.push('loc');
+      } else {
+        assert.fail(`Unexpected XML element ${token}`);
+      }
+      continue;
+    }
+
+    if (stack.at(-1) === 'loc') {
+      assert.doesNotMatch(token, /&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9a-f]+;)/i);
+      currentUrl += token
+        .replaceAll('&amp;', '&')
+        .replaceAll('&lt;', '<')
+        .replaceAll('&gt;', '>')
+        .replaceAll('&quot;', '"')
+        .replaceAll('&apos;', "'");
+    } else {
+      assert.match(token, /^\s*$/, 'Sitemap may only contain whitespace outside loc elements');
+    }
+  }
+
+  assert.equal(sawRoot, true, 'Sitemap must have a urlset root element');
+  assert.deepEqual(stack, [], 'All XML elements must be closed');
+  return urls;
 }
 
 async function assertGeneratedSeo(route) {
@@ -161,6 +234,7 @@ async function assertGeneratedSeo(route) {
     twitterUrl: expected.socialUrl,
     twitterTitle: expected.title,
     twitterDescription: expected.ogDescription,
+    robots: expected.robots,
   }, `Generated metadata for ${route}`);
   return actual;
 }
@@ -239,6 +313,258 @@ test('all generated college and category pages retain their route-specific SEO m
   }
 });
 
+test('utility routes are noindex and public SEO routes remain indexable in prerendered HTML', async () => {
+  const utilityRoutes = ['/register', '/college-portal', '/dashboard', '/admin-panel'];
+  for (const route of utilityRoutes) {
+    const metadata = await assertGeneratedSeo(route);
+    assert.equal(metadata.robots, 'noindex, follow', route);
+    const html = await readPrerenderedHtml(route);
+    const head = html.slice(0, html.indexOf('</head>'));
+    assert.equal([...head.matchAll(/<meta name="robots"/gi)].length, 1, `${route} robots tag count`);
+  }
+
+  const publicRoutes = [
+    '/',
+    '/reviews',
+    '/blogs',
+    '/explore',
+    '/about',
+    '/careers',
+    '/contact',
+    '/explore/engineering',
+    '/college/iit-indore',
+    getStaticLocalityRoutes()[0],
+    getStaticEditorialRoutes()[0],
+  ];
+  for (const route of publicRoutes) {
+    const metadata = await assertGeneratedSeo(route);
+    assert.equal(metadata.robots, 'index, follow', route);
+  }
+
+  const robotsTxt = await readFile(path.join(root, 'frontend', 'public', 'robots.txt'), 'utf8');
+  assert.match(robotsTxt, /Sitemap:\s*https:\/\/indorecolleges\.in\/sitemap\.xml/);
+  for (const route of utilityRoutes) {
+    assert.doesNotMatch(robotsTxt, new RegExp(`^Disallow:\\s*${route.replaceAll('/', '\\/')}`, 'm'));
+  }
+});
+
+test('client-side navigation resets robots metadata when SEO configuration is absent', () => {
+  const originalDocument = globalThis.document;
+  const metaTags = [];
+  const createMetaTag = () => {
+    const attributes = new Map([['name', 'robots']]);
+    return {
+      setAttribute(name, value) {
+        attributes.set(name, value);
+      },
+      getAttribute(name) {
+        return attributes.get(name) ?? null;
+      },
+      remove() {
+        const index = metaTags.indexOf(this);
+        if (index !== -1) metaTags.splice(index, 1);
+      },
+    };
+  };
+  const head = {
+    querySelectorAll(selector) {
+      const match = selector.match(/^meta\[name="([^"]+)"\]$/);
+      return match ? metaTags.filter(tag => tag.getAttribute('name') === match[1]) : [];
+    },
+    appendChild(tag) {
+      metaTags.push(tag);
+      return tag;
+    },
+  };
+  globalThis.document = {
+    head,
+    createElement(tagName) {
+      assert.equal(tagName, 'meta');
+      return createMetaTag();
+    },
+  };
+
+  const assertRobots = expected => {
+    assert.equal(metaTags.length, 1, 'There must be exactly one robots meta tag');
+    assert.equal(metaTags[0].getAttribute('content'), expected);
+  };
+
+  try {
+    metaTags.push(createMetaTag(), createMetaTag());
+    updateRobotsMeta(getPageSeo('/dashboard', INDORE_INSTITUTES));
+    assertRobots('noindex, follow');
+    updateRobotsMeta(null);
+    assertRobots('noindex, follow');
+
+    updateRobotsMeta(getPageSeo('/', INDORE_INSTITUTES));
+    assertRobots('index, follow');
+    updateRobotsMeta(null);
+    assertRobots('noindex, follow');
+
+    updateRobotsMeta(null);
+    assertRobots('noindex, follow');
+    updateRobotsMeta(getPageSeo('/reviews', INDORE_INSTITUTES));
+    assertRobots('index, follow');
+
+    updateRobotsMeta(null);
+    assertRobots('noindex, follow');
+    updateRobotsMeta(getPageSeo('/register', INDORE_INSTITUTES));
+    assertRobots('noindex, follow');
+  } finally {
+    if (originalDocument === undefined) {
+      delete globalThis.document;
+    } else {
+      globalThis.document = originalDocument;
+    }
+  }
+});
+
+test('reviews and informational pages have unique, route-appropriate metadata', async () => {
+  const routes = ['/reviews', '/blogs', '/explore', '/about', '/careers', '/contact'];
+  const metadata = [];
+  for (const route of routes) {
+    metadata.push(await assertGeneratedSeo(route));
+  }
+
+  const reviews = metadata[0];
+  assert.notEqual(reviews.title, getPageSeo('/', INDORE_INSTITUTES).title);
+  assert.notEqual(reviews.description, getPageSeo('/', INDORE_INSTITUTES).description);
+  assert.equal(reviews.canonical, 'https://indorecolleges.in/reviews');
+  assert.equal(reviews.ogUrl, reviews.canonical);
+  assert.equal(reviews.twitterUrl, reviews.canonical);
+  assert.equal(reviews.ogTitle, reviews.title);
+  assert.equal(reviews.ogDescription, reviews.description);
+  assert.equal(reviews.twitterTitle, reviews.title);
+  assert.equal(reviews.twitterDescription, reviews.description);
+
+  const informational = metadata.slice(1);
+  assert.equal(new Set(informational.map(page => page.description)).size, informational.length);
+  assert.equal(new Set(informational.map(page => page.description)).size, routes.length - 1);
+  for (const [page, topic] of informational.map((page, index) => [
+    page,
+    [/reviews|guides/i, /browse|colleges|course/i, /learn|mission|institutions/i, /careers|team/i, /contact|fees|counselling/i][index],
+  ])) {
+    assert.match(page.description, topic);
+  }
+  for (const page of informational) {
+    assert.notEqual(page.description, getPageSeo('/', INDORE_INSTITUTES).description);
+    assert.equal(page.ogUrl, page.canonical);
+    assert.equal(page.twitterUrl, page.canonical);
+  }
+});
+
+test('homepage H1 is visible before hydration and JSON-LD entity references are consistent', async () => {
+  const html = await readPrerenderedHtml('/');
+  const heading = html.match(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/i);
+  assert.ok(heading, 'Homepage H1 must be present in generated HTML');
+  assert.match(heading[2], /Find the best colleges in Indore/);
+  assert.doesNotMatch(heading[1], /opacity\s*:\s*0(?:[;\s]|$)/i);
+
+  const schemaScripts = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)];
+  assert.equal(schemaScripts.length, 1, 'Homepage must have one JSON-LD block');
+  const schema = JSON.parse(schemaScripts[0][1]);
+  const entities = schema['@graph'];
+  const websites = entities.filter(entity => entity['@type'] === 'WebSite');
+  const organizations = entities.filter(entity => entity['@type'] === 'EducationalOrganization');
+  assert.equal(websites.length, 1);
+  assert.equal(organizations.length, 1);
+  assert.equal(websites[0]['@id'], 'https://indorecolleges.in/#website');
+  assert.equal(websites[0].publisher['@id'], organizations[0]['@id']);
+  assert.equal(organizations[0]['@id'], 'https://indorecolleges.in/#organization');
+  assert.ok(
+    (organizations[0].sameAs || []).every(url => !/^https:\/\/(www\.)?(facebook|twitter|instagram)\.com\/?$/i.test(url)),
+    'sameAs must not contain generic social-network homepages',
+  );
+});
+
+test('footer policy labels are not placeholder links', async () => {
+  const footer = await readFile(path.join(root, 'frontend', 'src', 'components', 'Footer.tsx'), 'utf8');
+  for (const label of ['Terms &amp; Conditions', 'Privacy Policy', 'Refund Policy']) {
+    assert.doesNotMatch(footer, new RegExp(`<a\\s+href="#"[^>]*>${label}</a>`, 'i'));
+  }
+  const html = await readPrerenderedHtml('/');
+  assert.doesNotMatch(html, /<a\b[^>]*href="#"[^>]*>(?:Terms &amp; Conditions|Privacy Policy|Refund Policy)<\/a>/i);
+});
+
+test('image hints use known logo dimensions and lazy-load only below-fold media', async () => {
+  const homepage = await readPrerenderedHtml('/');
+  assert.match(homepage, /<img\b[^>]*src="\/logo\.svg"[^>]*width="1123"[^>]*height="928"/i);
+  assert.doesNotMatch(homepage, /<img\b[^>]*src="\/bg2\.jpeg"[^>]*loading="lazy"/i);
+
+  const reviews = await readFile(path.join(root, 'frontend', 'src', 'components', 'ReviewsHierarchyTable.tsx'), 'utf8');
+  assert.match(reviews, /src=\{video\.thumbnail\}[\s\S]{0,100}loading="lazy"/);
+  const collegeDetail = await readFile(path.join(root, 'frontend', 'src', 'components', 'CollegeDetailPage.tsx'), 'utf8');
+  assert.match(collegeDetail, /src=\{institute\.image\}[\s\S]{0,100}loading="lazy"/);
+});
+
+test('prerendered locality and editorial navigation uses valid crawlable links', async () => {
+  const localityRoutes = getStaticLocalityRoutes();
+  const editorialRoutes = getStaticEditorialRoutes();
+  const editorialRouteSet = new Set(editorialRoutes);
+  const homepageHtml = await readPrerenderedHtml('/');
+  const localityLinks = getInternalAnchorHrefs(homepageHtml)
+    .filter(href => localityRoutes.includes(href));
+
+  assert.equal(localityRoutes.length, 4);
+  assert.deepEqual([...localityLinks].sort(), [...localityRoutes].sort());
+  assert.equal(localityLinks.length, new Set(localityLinks).size, 'Each locality card must have one unique href');
+
+  const editorialNavigationLinks = [];
+  for (const basePath of ['/reviews', '/blogs']) {
+    const landingHtml = await readPrerenderedHtml(basePath);
+    const categoryRoutes = editorialRoutes.filter(route =>
+      route.startsWith(`${basePath}/`) && route.slice(basePath.length + 1).indexOf('/') === -1
+    );
+    const categoryLinks = getInternalAnchorHrefs(landingHtml)
+      .filter(href => editorialRouteSet.has(href));
+
+    assert.deepEqual([...categoryLinks].sort(), [...categoryRoutes].sort(), `${basePath} category links`);
+    assert.equal(categoryLinks.length, new Set(categoryLinks).size, `${basePath} category links must be unique`);
+    editorialNavigationLinks.push(...categoryLinks);
+
+    for (const categoryRoute of categoryRoutes) {
+      const categoryHtml = await readPrerenderedHtml(categoryRoute);
+      const perspectiveRoutes = editorialRoutes.filter(route => route.startsWith(`${categoryRoute}/`));
+      const perspectiveLinks = getInternalAnchorHrefs(categoryHtml)
+        .filter(href => editorialRouteSet.has(href));
+
+      assert.deepEqual(
+        [...perspectiveLinks].sort(),
+        [...perspectiveRoutes].sort(),
+        `${categoryRoute} perspective links`,
+      );
+      assert.equal(
+        perspectiveLinks.length,
+        new Set(perspectiveLinks).size,
+        `${categoryRoute} perspective links must be unique`,
+      );
+      editorialNavigationLinks.push(...perspectiveLinks);
+
+      for (const perspectiveRoute of perspectiveRoutes) {
+        const perspectiveHtml = await readPrerenderedHtml(perspectiveRoute);
+        const breadcrumbLinks = getInternalAnchorHrefs(perspectiveHtml);
+        assert.ok(breadcrumbLinks.includes(basePath), `${perspectiveRoute} must link to ${basePath}`);
+        assert.ok(
+          breadcrumbLinks.includes(categoryRoute),
+          `${perspectiveRoute} must link to parent category ${categoryRoute}`,
+        );
+      }
+    }
+  }
+
+  assert.equal(editorialRoutes.length, 48);
+  assert.deepEqual([...new Set(editorialNavigationLinks)].sort(), [...editorialRoutes].sort());
+  assert.equal(editorialNavigationLinks.length, 48, 'Editorial routes must be reached through unique anchors');
+  for (const href of [...localityLinks, ...editorialNavigationLinks]) {
+    assert.ok(
+      localityRoutes.includes(href) || editorialRouteSet.has(href),
+      `Unexpected internal navigation target ${href}`,
+    );
+    const response = await fetch(`${baseUrl}${href}`);
+    assert.equal(response.status, 200, `Crawlable internal link ${href}`);
+  }
+});
+
 test('Vercel config provides 308 normalization and no homepage fallback rewrite', async () => {
   const config = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
   const redirects = new Map(config.redirects.map(rule => [rule.source, rule]));
@@ -297,13 +623,83 @@ test('production HTTP server serves all generated routes and returns genuine 404
   }
 
   const sitemapXml = await readFile(path.join(root, 'dist', 'sitemap.xml'), 'utf8');
-  const sitemapPaths = [...sitemapXml.matchAll(/<loc>https?:\/\/indorecolleges\.in([^<]*)<\/loc>/g)]
-    .map(match => match[1]);
-  assert.equal(sitemapPaths.length, 75);
+  const sitemapUrls = parseSitemapXml(sitemapXml);
+  const sitemapPaths = sitemapUrls.map(url => {
+    const parsedUrl = new URL(url);
+    assert.equal(parsedUrl.origin, 'https://indorecolleges.in');
+    assert.equal(parsedUrl.pathname + parsedUrl.search + parsedUrl.hash, parsedUrl.pathname);
+    return parsedUrl.pathname;
+  });
+  assert.equal(sitemapPaths.length, 128);
+  assert.equal(sitemapPaths.filter(route => route === '/').length, 1);
+  assert.equal(sitemapPaths.filter(route => /^\/explore\/[^/]+$/.test(route)).length, 7);
+  assert.equal(sitemapPaths.filter(route => route.startsWith('/college/')).length, 62);
+  assert.equal(sitemapPaths.filter(route => route.startsWith('/locality/')).length, 4);
+  assert.equal(sitemapPaths.filter(route => /^\/(reviews|blogs)\//.test(route)).length, 48);
+  assert.equal(sitemapPaths.filter(route => route === '/reviews').length, 1);
+  assert.equal(sitemapPaths.filter(route => ['/explore', '/blogs', '/about', '/careers', '/contact'].includes(route)).length, 5);
+  const expectedSitemapPaths = getSitemapPaths(
+    collegeRoutes,
+    [],
+    localityRoutes,
+    editorialRoutes,
+  );
+  assert.deepEqual(new Set(sitemapPaths), new Set(expectedSitemapPaths));
+  assert.equal(sitemapPaths.length, new Set(sitemapPaths).size, 'Sitemap URLs must be unique');
+
+  const categoryRoutes = categorySlugs.map(slug => `/explore/${slug}`);
+  for (const route of [
+    ...collegeRoutes,
+    ...categoryRoutes,
+    ...localityRoutes,
+    ...editorialRoutes,
+    '/',
+    '/reviews',
+    '/explore',
+    '/blogs',
+    '/about',
+    '/careers',
+    '/contact',
+  ]) {
+    assert.ok(sitemapPaths.includes(route), `Expected sitemap route ${route}`);
+  }
+
+  for (const route of [
+    '/register',
+    '/dashboard',
+    '/college-portal',
+    '/admin-panel',
+  ]) {
+    assert.ok(!sitemapPaths.includes(route), `Private utility route must not be in sitemap: ${route}`);
+  }
+
+  const vercelConfig = JSON.parse(await readFile(path.join(root, 'frontend', 'vercel.json'), 'utf8'));
+  assert.deepEqual(vercelConfig.routes[0], {handle: 'filesystem'});
+  assert.deepEqual(vercelConfig.routes[1], {src: '/sitemap.xml', dest: '/api/sitemap'});
+
   for (const route of sitemapPaths) {
     const response = await fetch(`${baseUrl}${route}`);
     assert.equal(response.status, 200, `Sitemap route ${route}`);
   }
+});
+
+test('sitemap generator includes only canonical public route shapes and deduplicates URLs', () => {
+  const routes = getSitemapPaths(
+    ['/college/iit-indore', '/college/iit-indore', '/college/invalid id'],
+    [],
+    ['/locality/indore-city', '/locality/not a locality'],
+    ['/reviews/technical-college', '/blogs/technical-college/review-by-actual-students', '/blogs/unknown/path/extra'],
+  );
+  const xml = createSitemapXml([...routes, ...routes, '/admin-panel', '/dashboard']);
+  const urls = parseSitemapXml(xml);
+
+  assert.equal(urls.length, new Set(urls).size);
+  assert.ok(urls.includes('https://indorecolleges.in/reviews'));
+  assert.ok(urls.includes('https://indorecolleges.in/college/iit-indore'));
+  assert.ok(urls.includes('https://indorecolleges.in/locality/indore-city'));
+  assert.ok(urls.includes('https://indorecolleges.in/reviews/technical-college'));
+  assert.ok(urls.includes('https://indorecolleges.in/blogs/technical-college/review-by-actual-students'));
+  assert.ok(!urls.some(url => /admin-panel|dashboard|invalid|extra/.test(url)));
 });
 
 test('unknown APIs return JSON 404 and counseling remains authorization-protected', async () => {

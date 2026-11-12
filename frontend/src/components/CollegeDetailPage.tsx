@@ -734,6 +734,7 @@ export default function CollegeDetailPage({
                             <img
                               src={institute.image}
                               alt={institute.name}
+                              loading="lazy"
                               className="w-full h-full object-cover"
                             />
                           ) : (

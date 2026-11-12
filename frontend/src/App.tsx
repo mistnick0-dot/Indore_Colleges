@@ -100,6 +100,7 @@ export type PageSeo = {
   socialUrl: string;
   ogDescription: string;
   image: string;
+  robots: string;
 };
 
 function normalizeSeoText(value?: string) {
@@ -162,6 +163,10 @@ function updateMetaTag(attribute: 'name' | 'property', value: string, content: s
   }
   tags.slice(1).forEach(duplicate => duplicate.remove());
   tag.setAttribute('content', content);
+}
+
+export function updateRobotsMeta(seo: PageSeo | null) {
+  updateMetaTag('name', 'robots', seo?.robots ?? 'noindex, follow');
 }
 
 function updateCanonicalUrl(url: string) {
@@ -320,6 +325,8 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
       title = "Direct College & School Application | Indore Colleges";
     } else if (pathname === '/dashboard') {
       title = "Counselling Dashboard & Lead Status | Indore Colleges";
+    } else if (pathname === '/reviews') {
+      title = 'College Reviews in Indore | Student & College Perspectives | Indore Colleges';
     } else if (pathname === '/blogs') {
       title = "Admission Guides & Education Blogs | Indore Colleges";
     } else if (pathname === '/about') {
@@ -337,7 +344,16 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
   })());
 
   const isCategoryPage = Boolean(categorySeo);
-  const publicPagePaths = new Set(['/explore', '/blogs', '/about', '/careers', '/contact']);
+  const publicPagePaths = new Set(['/explore', '/reviews', '/blogs', '/about', '/careers', '/contact']);
+  const routeDescriptions: Record<string, string> = {
+    '/reviews': 'Browse Indore college review categories and perspectives from students, Indore Colleges, and college authorities.',
+    '/blogs': 'Browse college reviews and admission guides by education category, with perspectives on colleges in Indore.',
+    '/explore': 'Browse colleges in Indore by course and category, and compare available institute information.',
+    '/about': 'Learn about Indore Colleges and its mission to help students explore institutions and education options in the region.',
+    '/careers': 'Explore careers at Indore Colleges and learn about the team and work supporting students and families.',
+    '/contact': 'Contact Indore Colleges with questions about fees, affiliation boards, courses, or campus counselling, and find office details.',
+  };
+  const noindexPaths = new Set(['/register', '/dashboard', '/college-portal', '/admin-panel']);
   const canonical = college
     ? `${SEO_ORIGIN}/college/${encodeURIComponent(college.id)}`
     : isCategoryPage
@@ -356,13 +372,23 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
       ? localityDescription
       : isEditorialPage
       ? editorialDescription
-      : HOMEPAGE_SEO.description);
+      : routeDescriptions[pathname] || HOMEPAGE_SEO.description);
   const ogDescription = college
     ? description
-    : categorySeo?.description || (localityGroup || isEditorialPage ? description : HOMEPAGE_SEO.ogDescription);
+    : categorySeo?.description || (localityGroup || isEditorialPage || routeDescriptions[pathname]
+      ? description
+      : HOMEPAGE_SEO.ogDescription);
   const image = college ? getAbsoluteSeoImage(college.image) : HOMEPAGE_SEO.image;
 
-  return { title: pageTitle, description, canonical, socialUrl, ogDescription, image };
+  return {
+    title: pageTitle,
+    description,
+    canonical,
+    socialUrl,
+    ogDescription,
+    image,
+    robots: noindexPaths.has(pathname) ? 'noindex, follow' : 'index, follow',
+  };
 }
 
 function ScrollToTopAndSEO({ institutes }: { institutes: Institute[] }) {
@@ -377,6 +403,7 @@ function ScrollToTopAndSEO({ institutes }: { institutes: Institute[] }) {
 
   useEffect(() => {
     const seo = getPageSeo(pathname, institutes);
+    updateRobotsMeta(seo);
     if (!seo) {
       removeCollegeJsonLd();
       document.title = 'Page Not Found | Indore Colleges';

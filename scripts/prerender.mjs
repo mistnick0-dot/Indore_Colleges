@@ -56,9 +56,11 @@ function applySeo(template, seo) {
   const socialUrl = escapeAttribute(seo.socialUrl);
   const ogDescription = escapeAttribute(seo.ogDescription);
   const image = escapeAttribute(seo.image);
+  const robots = escapeAttribute(seo.robots);
 
   let html = replaceTag(template, /<title>[^<]*<\/title>/i, `<title>${title}</title>`);
   html = replaceTag(html, /<meta name="description"[^>]*>/i, `<meta name="description" content="${description}" />`);
+  html = replaceTag(html, /<meta name="robots"[^>]*>/i, `<meta name="robots" content="${robots}" />`);
   html = replaceTag(html, /<link rel="canonical"[^>]*>/i, `<link rel="canonical" href="${canonical}" />`);
   html = replaceTag(html, /<meta property="og:url"[^>]*>/i, `<meta property="og:url" content="${socialUrl}" />`);
   html = replaceTag(html, /<meta property="og:title"[^>]*>/i, `<meta property="og:title" content="${title}" />`);
@@ -109,7 +111,7 @@ for (const route of routes) {
   await writeFile(outputPath, html, 'utf8');
 }
 
-const sitemapPaths = getSitemapPaths(renderer.getStaticCollegeRoutes());
+const sitemapPaths = getSitemapPaths(collegeRoutes, [], localityRoutes, editorialRoutes);
 await writeFile(path.join(outputDirectory, 'sitemap.xml'), createSitemapXml(sitemapPaths), 'utf8');
 
 await rm(serverBundleDirectory, {recursive: true, force: true});
