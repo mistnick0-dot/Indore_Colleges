@@ -886,8 +886,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 275000,
     rating: 4.0,
     totalReviews: 40,
-    image: '/CollegeImages/SUAS/SUAS.jpg',
-    campusPhoto: '/CollegeImages/SUAS/SUAS.jpg',
+    image: '/CollegeImages/SUAS/SUAS-Symbiosis University of Applied Sciences (SUAS).png',
+    campusPhoto: '/CollegeImages/SUAS/SUAS-Symbiosis University of Applied Sciences (SUAS).png',
     description: 'Symbiosis University of Applied Sciences (SUAS) Indore, established in 2016, is a self-financed private university specializing in skill development. Offering robust hands-on vocational models, modern laboratory layouts, and exceptional industry collaborations (including German universities), it focuses on producing industry-ready professionals in high employment tech and business sectors.',
     facilities: [
       'German Skill Labs',
