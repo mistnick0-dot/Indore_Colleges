@@ -32,14 +32,31 @@ import StreamSelector from './StreamSelector';
 import { INDORE_INSTITUTES, INDORE_LOCATIONS, INDORE_LOCALITY_GROUPS, CATEGORIES } from '../data/indoreData';
 import { Institute } from '../types';
 
-const HOME_CATEGORY_LINKS = [
-  { label: 'Engineering colleges', slug: 'engineering' },
-  { label: 'Medical colleges', slug: 'medical' },
-  { label: 'MBA colleges', slug: 'mba' },
-  { label: 'BBA colleges', slug: 'bba' },
-  { label: 'BCA colleges', slug: 'bca' },
-  { label: 'Law colleges', slug: 'law' },
-  { label: 'Design colleges', slug: 'design' },
+const HOME_FAQS = [
+  {
+    question: 'How can I find the best colleges in Indore?',
+    answer: 'You can explore colleges on IndoreColleges.in by course, review available college profiles and compare information such as courses, fees, eligibility and placements.'
+  },
+  {
+    question: 'Which are the best engineering colleges in Indore?',
+    answer: 'Explore the engineering colleges listed on IndoreColleges.in and compare their courses, admission requirements, facilities and available placement information.'
+  },
+  {
+    question: 'How can I compare MBA colleges in Indore?',
+    answer: 'Compare MBA colleges based on specializations, fees, eligibility, admission requirements and available placement records.'
+  },
+  {
+    question: 'Are there government and private colleges in Indore?',
+    answer: 'Indore has both government and private higher education institutions. Check individual college profiles for verified ownership and admission information.'
+  },
+  {
+    question: 'How can I find BBA and BCA colleges in Indore?',
+    answer: 'Use the course discovery options on IndoreColleges.in to explore BBA and BCA colleges and review their available course and admission information.'
+  },
+  {
+    question: 'What should I check before selecting a college?',
+    answer: 'Review accreditation, course recognition, fees, eligibility, infrastructure, faculty information, location and verified placement records before making a decision.'
+  }
 ] as const;
 
 interface HomeProps {
@@ -79,6 +96,7 @@ export default function Home({
   const [selectedLocationVal, setSelectedLocationVal] = useState('All');
   // CarDekho style Searched Colleges tab state
   const [activeSearchedTab, setActiveSearchedTab] = useState<'Engineering' | 'BBA' | 'BCA' | 'MBA' | 'LAW' | 'MEDICAL' | 'DESIGN'>('Engineering');
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   // Hero Background (Keeping only bg2 for now; video will be added later)
   const heroBackgrounds = [
@@ -591,21 +609,20 @@ export default function Home({
             transition={{ delay: 0.3 }}
             className="flex flex-wrap items-center justify-center gap-3 pt-5 mx-auto"
           >
-            <button
-              type="button"
+            <Link
+              to="/explore"
               onClick={() => {
                 setInstituteTypeFilter('college');
                 setSelectedCategory('All');
                 setSelectedBoard('All');
                 setSelectedLocation('All');
                 setSearchQuery('');
-                setActiveTab('explore');
               }}
               className="inline-flex bg-white hover:bg-gray-100 active:scale-95 text-gray-900 font-extrabold px-6 py-3 rounded-xl transition-all duration-200 shadow-xl text-xs sm:text-sm tracking-wider uppercase items-center gap-2 cursor-pointer"
             >
               Explore Top Colleges
               <ArrowUpRight className="h-4 w-4" />
-            </button>
+            </Link>
 
             <button
               type="button"
@@ -1079,20 +1096,19 @@ export default function Home({
 
                 {/* View Many More Colleges Button */}
                 <div className="mt-8 text-center">
-                  <button
-                    type="button"
+                  <Link
+                    to={`/explore/${activeSearchedTab.toLowerCase()}`}
                     onClick={() => {
                       setInstituteTypeFilter('college');
                       if (activeSearchedTab) {
                         setSelectedCategory(activeSearchedTab);
                       }
-                      setActiveTab('explore');
                     }}
                     className="inline-flex items-center justify-center gap-2 bg-[#0F244C] hover:bg-red-600 text-white text-sm sm:text-base font-extrabold py-3.5 px-8 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 cursor-pointer font-outfit group"
                   >
                     <span>View Many More {activeSearchedTab} Colleges</span>
                     <ArrowUpRight className="h-5 w-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             );
@@ -1418,6 +1434,48 @@ export default function Home({
         </div>
       </section>
 
+      <section className="py-10 sm:py-12 bg-slate-50 border-y border-gray-100" aria-labelledby="homepage-faq-heading">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 id="homepage-faq-heading" className="mb-6 text-center text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0F244C] font-outfit">
+            Frequently Asked Questions About Colleges in Indore
+          </h2>
+          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white divide-y divide-gray-200">
+            {HOME_FAQS.map((faq, index) => {
+              const isExpanded = openFaqIndex === index;
+              const questionId = `homepage-faq-question-${index + 1}`;
+              const answerId = `homepage-faq-answer-${index + 1}`;
+
+              return (
+                <div key={faq.question}>
+                  <h3>
+                    <button
+                      id={questionId}
+                      type="button"
+                      aria-expanded={isExpanded}
+                      aria-controls={answerId}
+                      onClick={() => setOpenFaqIndex(isExpanded ? null : index)}
+                      className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left text-sm sm:text-base font-bold text-[#0F244C] transition hover:text-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-[-2px]"
+                    >
+                      <span>{faq.question}</span>
+                      <ChevronRight className={`h-5 w-5 shrink-0 text-gray-500 transition-transform ${isExpanded ? 'rotate-90' : ''}`} aria-hidden="true" />
+                    </button>
+                  </h3>
+                  <div
+                    id={answerId}
+                    role="region"
+                    aria-labelledby={questionId}
+                    hidden={!isExpanded}
+                    className="px-4 pb-4 text-sm leading-6 text-gray-600"
+                  >
+                    {faq.answer}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <section className="sr-only" aria-labelledby="homepage-comparison-heading">
         <h2 id="homepage-comparison-heading">How to compare colleges in Indore</h2>
         <p>
@@ -1434,20 +1492,6 @@ export default function Home({
         <p>
           For college admission in Indore, compare colleges for the specific course you want rather than relying on a single overall label such as best or top. Confirm important details with the college before applying.
         </p>
-        <nav aria-label="College category pages">
-          <ul>
-            {HOME_CATEGORY_LINKS.map(category => (
-              <li key={category.slug}>
-                <Link
-                  to={`/explore/${category.slug}`}
-                  className="focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
-                >
-                  {category.label} in Indore
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </section>
 
     </div>

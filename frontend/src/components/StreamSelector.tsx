@@ -53,22 +53,26 @@ export default function StreamSelector({ onSelectStream }: StreamSelectorProps) 
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
         {streams.map((stream, index) => (
-          <motion.button
+          <motion.a
             id={`stream-box-${stream.id}`}
             key={stream.id}
-            type="button"
+            href={`/explore/${stream.id}`}
             whileHover={{ scale: 1.05, y: -4 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.04 }}
-            onClick={() => onSelectStream(stream.id)}
+            onClick={event => {
+              if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              onSelectStream(stream.id);
+            }}
             className="flex items-center justify-center p-6 bg-white border border-gray-100 hover:bg-red-50/30 hover:border-red-200 rounded-2xl transition cursor-pointer text-center group h-28 shadow-xs hover:shadow-md"
           >
             <span className="text-sm font-extrabold tracking-wider uppercase text-gray-800 group-hover:text-red-600 transition duration-200">
               {stream.name}
             </span>
-          </motion.button>
+          </motion.a>
         ))}
       </div>
 
