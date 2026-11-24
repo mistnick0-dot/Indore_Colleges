@@ -886,7 +886,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 275000,
     rating: 4.0,
     totalReviews: 40,
-    image: '/symbiosis-university.jpg',
+    image: '/CollegeImages/SUAS/SUAS.jpg',
+    campusPhoto: '/CollegeImages/SUAS/SUAS.jpg',
     description: 'Symbiosis University of Applied Sciences (SUAS) Indore, established in 2016, is a self-financed private university specializing in skill development. Offering robust hands-on vocational models, modern laboratory layouts, and exceptional industry collaborations (including German universities), it focuses on producing industry-ready professionals in high employment tech and business sectors.',
     facilities: [
       'German Skill Labs',
@@ -901,6 +902,16 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Basketball Court',
       'Cricket Grounds'
     ],
+    facilityImages: {
+      'German Skill Labs': '/CollegeImages/SUAS/SUAS-Computer Labs.png',
+      'Mock Retail Stores': '/CollegeImages/SUAS/SUAS-Mock Retail Stores.jpg',
+      'Tech Garages': '/CollegeImages/SUAS/SUAS-Tech Garages.png',
+      'Computer Labs (Fully Wi-Fi)': '/CollegeImages/SUAS/SUAS-Computer Labs.png',
+      'Hostel Blocks (Boys & Girls)': '/CollegeImages/SUAS/SUAS-Hostel Blocks.jpg',
+      'Rich Library (20,410+ books)': '/CollegeImages/SUAS/SUAS-Rich Library.jpg',
+      'Badminton Courts': '/CollegeImages/SUAS/SUAS-Badminton Courts.jpg',
+      'Table Tennis Room': '/CollegeImages/SUAS/SUAS-Table Tennis Room.jpg'
+    },
     establishedYear: 2016,
     coordinates: { lat: 22.768, lng: 75.811 },
     address: 'Bada Bangadda, Super Corridor, New Airport, Indore - 453112, Madhya Pradesh, India',
