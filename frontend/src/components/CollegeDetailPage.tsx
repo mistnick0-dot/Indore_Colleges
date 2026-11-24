@@ -175,21 +175,21 @@ export default function CollegeDetailPage({
       'Wi-Fi Access Points': '/college-images/IET-DAVV/IET-DAVV-Computer Labs.webp'
     },
     'medi-caps-university': {
-      'High Speed Computer Labs': '/CollegeImages/Medi-Caps University/medicaps Computer-Lab.jpg',
-      'State of art Workshops': '/CollegeImages/Medi-Caps University/MEDI-CAPS-State of art Workshops.webp',
-      'Basketball Stadium': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Basketball Stadium.webp',
-      'Modern Gym': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Modern Gym.webp',
-      'Central Library (e-Resources)': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Central Library.webp',
-      'Separate Girls/Boys Hostels': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Separate Hostels.webp',
-      'Hygienic Canteens': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Canteens.webp',
-      'Research Centers': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Research Centers.webp'
+      'High Speed Computer Labs': '/college-images/Medi-Caps University/medicaps Computer-Lab.jpg',
+      'State of art Workshops': '/college-images/Medi-Caps University/MEDI-CAPS-State of art Workshops.webp',
+      'Basketball Stadium': '/college-images/Medi-Caps University/MEDI-CAPS-Basketball Stadium.webp',
+      'Modern Gym': '/college-images/Medi-Caps University/MEDI-CAPS-Modern Gym.webp',
+      'Central Library (e-Resources)': '/college-images/Medi-Caps University/MEDI-CAPS-Central Library.webp',
+      'Separate Girls/Boys Hostels': '/college-images/Medi-Caps University/MEDI-CAPS-Separate Hostels.webp',
+      'Hygienic Canteens': '/college-images/Medi-Caps University/MEDI-CAPS-Canteens.webp',
+      'Research Centers': '/college-images/Medi-Caps University/MEDI-CAPS-Research Centers.webp'
     }
   };
   const liveHeroImageOverrides: Record<string, string> = {
     'sgsits': '/college-images/SGSITS/sgsits.webp',
     'iist-indore': '/college-images/IIST/IIST.avif',
     'iet-davv': '/college-images/IET-DAVV/IET-DAVV.webp',
-    'medi-caps-university': '/CollegeImages/Medi-Caps University/MEDI-CAPS.webp'
+    'medi-caps-university': '/college-images/Medi-Caps University/MEDI-CAPS.webp'
   };
   const heroImage = encodeURI(liveHeroImageOverrides[institute.id] || institute.image);
   const getFacilityImage = (facility: string) =>
