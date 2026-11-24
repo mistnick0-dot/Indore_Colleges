@@ -3029,7 +3029,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     googleRating: 4,
     indoreRating: 4.3,
     totalReviews: 1100,
-    image: '/ips-engineering.jpg',
+    image: '/college-images/IPS Academy/IPS-ACADEMY.webp',
+    campusPhoto: '/college-images/IPS Academy/IPS-ACADEMY.webp',
     videoUrl: '/IPS .mp4',
     description: 'IPS Academy Institute of Engineering & Science (IES IPS Academy), established in 1994 on the IPS Academy campus at Knowledge Village, Rajendra Nagar, Indore, is an engineering institute approved by AICTE with NBA and NAAC accreditation. It offers undergraduate and postgraduate engineering programs, including Computer Science, IT, AI & ML, Data Science, IoT, Fire Technology & Safety Engineering, and core branches.',
     facilities: [
@@ -3042,6 +3043,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Auditorium',
       'Cricket Stadium'
     ],
+    facilityImages: {
+      'Fire Drills Ground': '/college-images/IPS Academy/IPS-Fire Drills Ground.jpg',
+      'Advanced Physics & Chemistry Labs': '/college-images/IPS Academy/IPS-Advanced Physics & Chemistry Labs.webp',
+      'Incubator Cell': '/college-images/IPS Academy/IPS-Incubator Cell.jpg',
+      'Swimming Pool (Olympic size)': "/college-images/IPS Academy/IPS-'Swimming Pool.webp",
+      'Central Library (1 Lakh+ books)': '/college-images/IPS Academy/IPS-Central Library.webp',
+      'Auditorium': '/college-images/IPS Academy/IPS-Auditorium.webp',
+      'Cricket Stadium': '/college-images/IPS Academy/IPS-Cricket Stadium.webp'
+    },
     establishedYear: 1994,
     coordinates: { lat: 22.674, lng: 75.828 },
     address: 'Knowledge Village, Rajendra Nagar, A.B. Road, Indore - 452012, Madhya Pradesh, India',
@@ -3132,7 +3142,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 70000,
     rating: 3.9,
     totalReviews: 43,
-    image: '/lncts-indore.jpg',
+    image: '/college-images/LNCTS/LNCTS.jpeg',
+    campusPhoto: '/college-images/LNCTS/LNCTS.jpeg',
     description: 'Lakshmi Narain College of Technology & Science (LNCT / LNCTS Indore), established in 2004 along Sanwer Road at Bhawrasala (Reoti Range), is part of the LNCT Group in Indore. It offers undergraduate, postgraduate, and diploma programs across engineering, technology, and management.',
     facilities: [
       'Advanced Computer Labs',
@@ -3143,6 +3154,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Sports Complex',
       'Canteen'
     ],
+    facilityImages: {
+      'Advanced Computer Labs': '/college-images/LNCTS/LNCTS Computer Labs.webp',
+      'Electrical & Electronics Workshops': "/college-images/LNCTS/LNCTS-Electrical & Electronics Workshops'.webp",
+      'Central Library': '/college-images/LNCTS/LNCTS-Central Library.webp',
+      'Spacious Classrooms': "/college-images/LNCTS/LNTCS'Spacious Classrooms.webp",
+      'Bus Fleet Services': '/college-images/LNCTS/LNCTS-Bus Fleet Services.webp',
+      'Sports Complex': '/college-images/LNCTS/LNCTS-Sports Complex.webp',
+      'Canteen': '/college-images/LNCTS/LNCTS-Canteen.webp'
+    },
     establishedYear: 2004,
     coordinates: { lat: 22.784, lng: 75.929 },
     address: 'Bhawrasala, Reoti Range, Sanwer Road, Indore, Madhya Pradesh - 453555, India',
@@ -3440,7 +3460,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     googleRating: 4,
     indoreRating: 4.2,
     totalReviews: 812,
-    image: '/piemr-indore.jpg',
+    image: '/college-images/PIMER/PIMER.webp',
+    campusPhoto: '/college-images/PIMER/PIMER.webp',
     videoUrl: '/PIEMR.mp4',
     description: 'Prestige Institute of Engineering Management and Research (PIEMR), established in 2008 under the Prestige Education Society, is located at Prestige Vihar, Scheme No. 74C, Vijay Nagar, Indore. It offers undergraduate and postgraduate programs across engineering, technology, and design.',
     facilities: [
@@ -3453,6 +3474,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Canteen',
       'Indoor/Outdoor Sports Area'
     ],
+    facilityImages: {
+      'Automated Labs': '/college-images/PIMER/PIMER-Automated Labs.webp',
+      'Placement Interview Cabin': '/college-images/PIMER/PIMER-Placement Interview Cabin.webp',
+      'Hi-tech Library': '/college-images/PIMER/PIMER-Hi-tech Library.webp',
+      'Robotics Wing': '/college-images/PIMER/PIMER-Robotics Wing.webp',
+      'Smart Classrooms': '/college-images/PIMER/PIMER-Smart Classrooms.jpeg',
+      'Auditorium': '/college-images/PIMER/PIMER-Auditorium.jpeg',
+      'Indoor/Outdoor Sports Area': '/college-images/PIMER/PIMER-Indoor Outdoor Sports Area.jpeg'
+    },
     establishedYear: 2008,
     coordinates: { lat: 22.7542, lng: 75.8858 },
     address: 'Prestige Vihar, Scheme No. 74C, Sector-D, Vijay Nagar, Indore - 452010, Madhya Pradesh, India',
@@ -6102,7 +6132,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     rating: 3.6,
     googleRating: 3.6,
     totalReviews: 111,
-    image: '/skitm-indore.jpg',
+    image: '/college-images/SKITM/SKITM.jpeg',
+    campusPhoto: '/college-images/SKITM/SKITM.jpeg',
     description: 'Shivajirao Kadam Institute of Technology & Management (SKITM Indore), established in 2009 near Ralamandal Sanctuary at Tillore Khurd along the Indore Bypass Road, is a private autonomous technical and professional institution offering undergraduate, postgraduate, and integrated programs across engineering, management, commerce, pharmacy, and law.',
     facilities: [
       'Auditorium',
@@ -6112,6 +6143,13 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Sports Facilities',
       'Career Development Cell'
     ],
+    facilityImages: {
+      'Auditorium': '/college-images/SKITM/SKITM-Auditorium.webp',
+      'Computer Labs': "/college-images/SKITM/SKITM-Computer Labs'.webp",
+      'Boys & Girls Hostels with Mess': '/college-images/SKITM/SKITM-HOSTALS.webp',
+      'Sports Facilities': '/college-images/SKITM/SKITM-Sports Facilities.webp',
+      'Career Development Cell': '/college-images/SKITM/SKITM-Career Development Cell.webp'
+    },
     establishedYear: 2009,
     coordinates: { lat: 22.659, lng: 75.903 },
     address: 'Near Ralamandal Sanctuary, Tillore Khurd, Indore - 452020, Madhya Pradesh, India',
