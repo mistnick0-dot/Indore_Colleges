@@ -82,11 +82,11 @@ const CATEGORY_SEO: Record<string, CategorySeo> = {
 };
 
 const HOMEPAGE_SEO = {
-  title: 'Indore Colleges | Compare Courses, Fees & Admission',
-  description: 'Explore colleges in Indore by course. Compare engineering, medical, MBA, BBA, BCA, law and design colleges, then review fees, eligibility, placements and facilities.',
+  title: 'Best Colleges in Indore | Compare Courses & Fees',
+  description: 'Explore the best colleges in Indore for Engineering, MBA, BBA, BCA, Medical and more. Compare courses, fees, placements and admission details.',
   canonical: 'https://indorecolleges.in/',
-  socialUrl: 'https://indorecolleges.in',
-  ogDescription: 'Explore colleges in Indore by course. Compare engineering, medical, MBA, BBA, BCA, law and design colleges, then review fees, eligibility, placements and facilities.',
+  socialUrl: 'https://indorecolleges.in/',
+  ogDescription: 'Explore the best colleges in Indore for Engineering, MBA, BBA, BCA, Medical and more. Compare courses, fees, placements and admission details.',
   image: 'https://indorecolleges.in/logo.svg'
 };
 

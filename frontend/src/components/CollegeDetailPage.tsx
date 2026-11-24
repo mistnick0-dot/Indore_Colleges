@@ -121,8 +121,6 @@ export default function CollegeDetailPage({
   const getShortName = () => {
     if (institute.id === 'iet-davv') return 'IET DAVV';
     if (institute.id === 'sgsits') return 'SGSITS';
-    if (institute.id === 'piemr-indore') return 'PIEMR';
-    if (institute.id === 'symbiosis-university') return 'SUAS';
     const words = institute.name
       .replace(/[,.-]/g, ' ')
       .split(/\s+/)
@@ -185,43 +183,13 @@ export default function CollegeDetailPage({
       'Separate Girls/Boys Hostels': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Separate Hostels.webp',
       'Hygienic Canteens': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Canteens.webp',
       'Research Centers': '/CollegeImages/Medi-Caps University/MEDI-CAPS-Research Centers.webp'
-    },
-    'ips-engineering': {
-      'Fire Drills Ground': '/college-images/IPS Academy/IPS-Fire Drills Ground.jpg',
-      'Advanced Physics & Chemistry Labs': '/college-images/IPS Academy/IPS-Advanced Physics & Chemistry Labs.webp',
-      'Incubator Cell': '/college-images/IPS Academy/IPS-Incubator Cell.jpg',
-      'Swimming Pool (Olympic size)': "/college-images/IPS Academy/IPS-'Swimming Pool.webp",
-      'Central Library (1 Lakh+ books)': '/college-images/IPS Academy/IPS-Central Library.webp',
-      'Hostel Accommodations': '/college-images/IPS Academy/IPS-ACADEMY.webp',
-      'Auditorium': '/college-images/IPS Academy/IPS-Auditorium.webp',
-      'Cricket Stadium': '/college-images/IPS Academy/IPS-Cricket Stadium.webp'
-    },
-    'lncts-indore': {
-      'Advanced Computer Labs': '/college-images/LNCTS/LNCTS Computer Labs.webp',
-      'Electrical & Electronics Workshops': "/college-images/LNCTS/LNCTS-Electrical & Electronics Workshops'.webp",
-      'Central Library': '/college-images/LNCTS/LNCTS-Central Library.webp',
-      'Spacious Classrooms': "/college-images/LNCTS/LNTCS'Spacious Classrooms.webp",
-      'Bus Fleet Services': '/college-images/LNCTS/LNCTS-Bus Fleet Services.webp',
-      'Sports Complex': '/college-images/LNCTS/LNCTS-Sports Complex.webp',
-      'Canteen': '/college-images/LNCTS/LNCTS-Canteen.webp'
-    },
-    'skitm-indore': {
-      'Auditorium': '/college-images/SKITM/SKITM-Auditorium.webp',
-      'Computer Labs': "/college-images/SKITM/SKITM-Computer Labs'.webp",
-      'Engineering Labs': "/college-images/SKITM/SKITM-Computer Labs'.webp",
-      'Boys & Girls Hostels with Mess': '/college-images/SKITM/SKITM-HOSTALS.webp',
-      'Sports Facilities': '/college-images/SKITM/SKITM-Sports Facilities.webp',
-      'Career Development Cell': '/college-images/SKITM/SKITM-Career Development Cell.webp'
     }
   };
   const liveHeroImageOverrides: Record<string, string> = {
     'sgsits': '/college-images/SGSITS/sgsits.webp',
     'iist-indore': '/college-images/IIST/IIST.avif',
     'iet-davv': '/college-images/IET-DAVV/IET-DAVV.webp',
-    'medi-caps-university': '/CollegeImages/Medi-Caps University/MEDI-CAPS.webp',
-    'ips-engineering': '/college-images/IPS Academy/IPS-ACADEMY.webp',
-    'lncts-indore': '/college-images/LNCTS/LNCTS.jpeg',
-    'skitm-indore': '/college-images/SKITM/SKITM.jpeg'
+    'medi-caps-university': '/CollegeImages/Medi-Caps University/MEDI-CAPS.webp'
   };
   const heroImage = encodeURI(liveHeroImageOverrides[institute.id] || institute.image);
   const getFacilityImage = (facility: string) =>
