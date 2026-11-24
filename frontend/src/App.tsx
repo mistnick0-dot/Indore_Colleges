@@ -26,6 +26,7 @@ import { Institute, SearchFilters, UserProfile } from './types';
 import { Search, MapPin, Award, IndianRupee, HelpCircle, PhoneCall, Check, X, Compass, ChevronRight, HelpCircle as HelpIcon, Cpu, Briefcase, Laptop, Scale, HeartPulse, Palette, TrendingUp, ChevronLeft, Sparkles, GraduationCap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { INDORE_INSTITUTES, INDORE_LOCATIONS, INDORE_LOCALITY_GROUPS, CATEGORIES, BOARDS } from './data/indoreData';
+import { preserveRepositoryInstituteImages } from './utils/instituteImages';
 
 export function getInstituteZone(locationStr: string): string {
   const loc = (locationStr || '').toLowerCase();
@@ -1334,7 +1335,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
       if (!res.ok) throw new Error(`Institute API returned ${res.status}`);
       const data: unknown = await res.json();
       if (!Array.isArray(data)) throw new Error('Institute API returned invalid data');
-      setInstitutes(data);
+      setInstitutes(preserveRepositoryInstituteImages(data));
     } catch (err) {
       console.error('Error fetching Indore institutes:', err);
     } finally {
