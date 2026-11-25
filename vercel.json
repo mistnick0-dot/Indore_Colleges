@@ -83,6 +83,31 @@
       "permanent": true
     },
     {
+      "source": "/EXPLORE/MCA",
+      "destination": "/explore/mca",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/PARAMEDICAL",
+      "destination": "/explore/paramedical",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/PHARMACY",
+      "destination": "/explore/pharmacy",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/BCOM",
+      "destination": "/explore/bcom",
+      "permanent": true
+    },
+    {
+      "source": "/EXPLORE/BSC",
+      "destination": "/explore/bsc",
+      "permanent": true
+    },
+    {
       "source": "/EXPLORE/LAW",
       "destination": "/explore/law",
       "permanent": true
@@ -127,6 +152,26 @@
     {
       "source": "/explore/mba",
       "destination": "/explore/mba/index.html"
+    },
+    {
+      "source": "/explore/mca",
+      "destination": "/explore/mca/index.html"
+    },
+    {
+      "source": "/explore/paramedical",
+      "destination": "/explore/paramedical/index.html"
+    },
+    {
+      "source": "/explore/pharmacy",
+      "destination": "/explore/pharmacy/index.html"
+    },
+    {
+      "source": "/explore/bcom",
+      "destination": "/explore/bcom/index.html"
+    },
+    {
+      "source": "/explore/bsc",
+      "destination": "/explore/bsc/index.html"
     },
     {
       "source": "/explore/law",

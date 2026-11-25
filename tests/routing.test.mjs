@@ -20,7 +20,7 @@ import {createSitemapXml, getSitemapPaths} from '../shared/sitemap.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const serverEntry = path.join(root, 'backend', 'server.ts');
 const builtInColleges = INDORE_INSTITUTES.filter(institute => institute.type === 'college');
-const categorySlugs = ['engineering', 'bba', 'bca', 'mba', 'law', 'medical', 'design'];
+const categorySlugs = ['engineering', 'bba', 'bca', 'mba', 'mca', 'paramedical', 'pharmacy', 'bcom', 'bsc', 'law', 'medical', 'design'];
 const baseRoutes = [
   '/',
   '/explore',
@@ -576,6 +576,11 @@ test('Vercel config provides 308 normalization and no homepage fallback rewrite'
     ['/EXPLORE/BBA', '/explore/bba'],
     ['/EXPLORE/BCA', '/explore/bca'],
     ['/EXPLORE/MBA', '/explore/mba'],
+    ['/EXPLORE/MCA', '/explore/mca'],
+    ['/EXPLORE/PARAMEDICAL', '/explore/paramedical'],
+    ['/EXPLORE/PHARMACY', '/explore/pharmacy'],
+    ['/EXPLORE/BCOM', '/explore/bcom'],
+    ['/EXPLORE/BSC', '/explore/bsc'],
     ['/EXPLORE/LAW', '/explore/law'],
     ['/EXPLORE/MEDICAL', '/explore/medical'],
     ['/EXPLORE/DESIGN', '/explore/design'],
@@ -632,9 +637,9 @@ test('production HTTP server serves all generated routes and returns genuine 404
     assert.equal(parsedUrl.pathname + parsedUrl.search + parsedUrl.hash, parsedUrl.pathname);
     return parsedUrl.pathname;
   });
-  assert.equal(sitemapPaths.length, 128);
+  assert.equal(sitemapPaths.length, 133);
   assert.equal(sitemapPaths.filter(route => route === '/').length, 1);
-  assert.equal(sitemapPaths.filter(route => /^\/explore\/[^/]+$/.test(route)).length, 7);
+  assert.equal(sitemapPaths.filter(route => /^\/explore\/[^/]+$/.test(route)).length, 12);
   assert.equal(sitemapPaths.filter(route => route.startsWith('/college/')).length, 62);
   assert.equal(sitemapPaths.filter(route => route.startsWith('/locality/')).length, 4);
   assert.equal(sitemapPaths.filter(route => /^\/(reviews|blogs)\//.test(route)).length, 48);

@@ -2,13 +2,17 @@ import { motion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
 const streams = [
-  { id: 'engineering', name: 'Engineering' },
-  { id: 'bba', name: 'BBA' },
-  { id: 'bca', name: 'BCA' },
-  { id: 'mba', name: 'MBA' },
-  { id: 'law', name: 'Law' },
-  { id: 'medical', name: 'Medical' },
-  { id: 'design', name: 'Design' },
+  { id: 'engineering', name: 'Engineering', hoverAccent: 'hover:bg-blue-50/40 hover:border-blue-200 group-hover:text-blue-600' },
+  { id: 'bba', name: 'BBA', hoverAccent: 'hover:bg-emerald-50/40 hover:border-emerald-200 group-hover:text-emerald-600' },
+  { id: 'mba', name: 'MBA', hoverAccent: 'hover:bg-rose-50/40 hover:border-rose-200 group-hover:text-rose-600' },
+  { id: 'bca', name: 'BCA', hoverAccent: 'hover:bg-violet-50/40 hover:border-violet-200 group-hover:text-violet-600' },
+  { id: 'mca', name: 'MCA', hoverAccent: 'hover:bg-cyan-50/40 hover:border-cyan-200 group-hover:text-cyan-600' },
+  { id: 'paramedical', name: 'Paramedical', hoverAccent: 'hover:bg-teal-50/40 hover:border-teal-200 group-hover:text-teal-600' },
+  { id: 'pharmacy', name: 'Pharmacy', hoverAccent: 'hover:bg-pink-50/40 hover:border-pink-200 group-hover:text-pink-600' },
+  { id: 'bcom', name: 'B.Com.', hoverAccent: 'hover:bg-amber-50/40 hover:border-amber-200 group-hover:text-amber-600' },
+  { id: 'bsc', name: 'B.Sc.', hoverAccent: 'hover:bg-indigo-50/40 hover:border-indigo-200 group-hover:text-indigo-600' },
+  { id: 'design', name: 'Design', hoverAccent: 'hover:bg-fuchsia-50/40 hover:border-fuchsia-200 group-hover:text-fuchsia-600' },
+  { id: 'law', name: 'Law', hoverAccent: 'hover:bg-red-50/40 hover:border-red-200 group-hover:text-red-600' },
 ];
 
 interface StreamSelectorProps {
@@ -46,12 +50,9 @@ export default function StreamSelector({ onSelectStream }: StreamSelectorProps) 
         >
           Are you looking for?
         </motion.h2>
-        <p className="mt-4 text-sm sm:text-base text-gray-600">
-          Pick a course to see matching colleges, then compare fees and details.
-        </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+      <div className="flex flex-wrap justify-center gap-3.5 sm:gap-4">
         {streams.map((stream, index) => (
           <motion.a
             id={`stream-box-${stream.id}`}
@@ -67,9 +68,9 @@ export default function StreamSelector({ onSelectStream }: StreamSelectorProps) 
               event.preventDefault();
               onSelectStream(stream.id);
             }}
-            className="flex items-center justify-center p-6 bg-white border border-gray-100 hover:bg-red-50/30 hover:border-red-200 rounded-2xl transition cursor-pointer text-center group h-28 shadow-xs hover:shadow-md"
+            className={`flex items-center justify-center w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(16.666%-0.85rem)] p-6 bg-white border border-gray-100 rounded-2xl transition cursor-pointer text-center group h-28 shadow-xs hover:shadow-md ${stream.hoverAccent}`}
           >
-            <span className="text-sm font-extrabold tracking-wider uppercase text-gray-800 group-hover:text-red-600 transition duration-200">
+            <span className="text-sm font-extrabold tracking-wider uppercase text-gray-800 transition duration-200">
               {stream.name}
             </span>
           </motion.a>

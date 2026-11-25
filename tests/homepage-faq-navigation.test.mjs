@@ -65,7 +65,7 @@ test('homepage renders all FAQ questions and answers in the initial HTML', () =>
 
 test('homepage directory and course navigation expose real route hrefs', () => {
   const html = renderHome();
-  const routes = ['engineering', 'bba', 'bca', 'mba', 'law', 'medical', 'design'];
+  const routes = ['engineering', 'bba', 'mba', 'bca', 'mca', 'paramedical', 'pharmacy', 'bcom', 'bsc', 'design', 'law'];
 
   assert.match(html, /href="\/explore"/);
   for (const route of routes) {

@@ -805,8 +805,8 @@ export default function Home({
       <section className="py-10 sm:py-12 bg-white border-y border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="border-b border-gray-200 pb-4 mb-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight font-outfit mb-4 text-center">
+          <div className="border-b border-gray-200 pb-6 mb-8 text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight font-outfit mb-8 sm:mb-10 text-center">
               Choose Course & Search Best College in Indore
             </h2>
             

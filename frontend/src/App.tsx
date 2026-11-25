@@ -64,9 +64,29 @@ const CATEGORY_SEO: Record<string, CategorySeo> = {
     title: 'BCA Colleges in Indore | Courses, Fees & Admission',
     description: 'Explore BCA colleges in Indore with course, fee and admission information. Compare BCA options and find colleges matching your goals.'
   },
+  mca: {
+    title: 'MCA Colleges in Indore | Courses, Fees & Admission',
+    description: 'Explore MCA colleges in Indore with courses, fees and admission details. Compare computer application postgraduate institutes matching your goals.'
+  },
   mba: {
     title: 'MBA Colleges in Indore | Courses, Fees & Admission',
     description: 'Explore MBA colleges in Indore with courses, fees and admission information. Compare management institutes and MBA study options.'
+  },
+  paramedical: {
+    title: 'Paramedical Colleges in Indore | Courses, Fees & Admission',
+    description: 'Explore paramedical and allied health colleges in Indore. Compare courses, fees, admission details and campus facilities.'
+  },
+  pharmacy: {
+    title: 'Pharmacy Colleges in Indore | B.Pharm & D.Pharm Admission',
+    description: 'Explore pharmacy colleges in Indore, including B.Pharm, D.Pharm and M.Pharm options. Compare fees, eligibility and admission details.'
+  },
+  bcom: {
+    title: 'B.Com. Colleges in Indore | Courses, Fees & Admission',
+    description: 'Explore B.Com. colleges in Indore and compare commerce courses, fees, admission details and college information.'
+  },
+  bsc: {
+    title: 'B.Sc. Colleges in Indore | Science Courses, Fees & Admission',
+    description: 'Explore B.Sc. colleges in Indore across science specializations. Compare courses, fees, eligibility and admission information.'
   },
   law: {
     title: 'Law Colleges in Indore | LLB & BA LLB Colleges',
@@ -80,6 +100,36 @@ const CATEGORY_SEO: Record<string, CategorySeo> = {
     title: 'Design Colleges in Indore | Courses & Admission',
     description: 'Explore design colleges in Indore and find information about design courses, B.Des options, admissions and institutes.'
   }
+};
+
+const STREAM_DISPLAY_NAMES: Record<string, string> = {
+  engineering: 'Engineering',
+  bba: 'BBA',
+  mba: 'MBA',
+  bca: 'BCA',
+  mca: 'MCA',
+  paramedical: 'Paramedical',
+  pharmacy: 'Pharmacy',
+  bcom: 'B.Com.',
+  bsc: 'B.Sc.',
+  design: 'Design',
+  law: 'Law',
+  medical: 'Medical',
+};
+
+const TOP_10_IDS_BY_STREAM: Record<string, string[]> = {
+  engineering: ['iist-indore', 'acropolis', 'medi-caps-university', 'skitm-indore', 'malwa-group-of-institutes', 'lncts-indore', 'symbiosis-university', 'chameli-devi', 'piemr-indore', 'sri-aurobindo-institute-of-technology'],
+  bba: ['iim-indore', 'symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
+  mba: ['iim-indore', 'symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
+  bca: ['holkar-science', 'acropolis', 'medi-caps-university', 'softvision-college', 'sage-university', 'pioneer-institute', 'christian-eminent', 'gacc-indore', 'apj-kalam-univ', 'svvv-indore'],
+  mca: ['sgsits', 'acropolis', 'medi-caps-university', 'iips-davv', 'davv', 'svim-indore', 'sage-university', 'chameli-devi', 'oriental-university', 'gujarati-professional'],
+  paramedical: ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'sri-aurobindo-institute-of-technology', 'holkar-science', 'sage-university', 'oriental-university', 'malwa-group-of-institutes', 'apj-kalam-univ'],
+  pharmacy: ['sgsits', 'davv', 'nmims-indore', 'medi-caps-university', 'malwa-group-of-institutes', 'skitm-indore', 'sage-university', 'chameli-devi', 'oriental-university', 'apj-kalam-univ'],
+  bcom: ['gacc-indore', 'pimr', 'renaissance-college', 'iips-davv', 'nmims-indore', 'softvision-college', 'pioneer-institute', 'christian-eminent', 'medi-caps-university', 'svvv-indore'],
+  bsc: ['holkar-science', 'symbiosis-university', 'medi-caps-university', 'softvision-college', 'prestige-university', 'sage-university', 'christian-eminent', 'pioneer-institute', 'svvv-indore', 'malwa-group-of-institutes'],
+  design: ['iit-indore', 'symbiosis-university', 'cindrebay-design', 'sgsits', 'svvv-indore', 'iet-davv', 'piemr-indore', 'sri-aurobindo-institute-of-technology', 'gsb-indore', 'madrid-software'],
+  law: ['iil-indore', 'davv', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'iim-indore', 'sage-university', 'acropolis'],
+  medical: ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'medi-caps-university', 'sage-university', 'symbiosis-university', 'acropolis', 'davv', 'malwa-group-of-institutes'],
 };
 
 const HOMEPAGE_SEO = {
@@ -722,8 +772,8 @@ function ExploreRoute({
                         <Sparkles className="h-3 w-3 animate-pulse text-amber-500" />
                         Stream Spotlight
                       </span>
-                      <h2 className="text-xl sm:text-2xl font-black text-gray-900 mt-1 capitalize flex items-center gap-2">
-                        Top 10 {selectedStream === 'bba' || selectedStream === 'mba' || selectedStream === 'bca' ? selectedStream.toUpperCase() : selectedStream} Colleges in Indore
+                      <h2 className="text-xl sm:text-2xl font-black text-gray-900 mt-1 flex items-center gap-2">
+                        Top 10 {STREAM_DISPLAY_NAMES[selectedStream] || selectedStream} Colleges in Indore
                       </h2>
                     </div>
                   </div>
@@ -739,208 +789,75 @@ function ExploreRoute({
 
                 <div className="max-w-4xl mx-auto w-full">
                   {(() => {
-                    if (selectedStream === 'engineering') {
-                      const engineeringColleges = [
-                        { rank: 1, name: 'IIST', id: 'iist-indore', displayName: 'Indore Institute of Science & Technology' },
-                        { rank: 2, name: 'Acropolis', id: 'acropolis', displayName: 'Acropolis Institute of Technology and Research' },
-                        { rank: 3, name: 'Medi-Caps University', id: 'medi-caps-university', displayName: 'Medi-Caps University' },
-                        { rank: 4, name: 'SKITM', id: 'skitm-indore', displayName: 'Shivajirao Kadam Institute of Technology & Management' },
-                        { rank: 5, name: 'MGI', id: 'malwa-group-of-institutes', displayName: 'Malwa Group of Institutes' },
-                        { rank: 6, name: 'LNCTS', id: 'lncts-indore', displayName: 'Lakshmi Narain College of Technology & Science' },
-                        { rank: 7, name: 'SUAS', id: 'symbiosis-university', displayName: 'Symbiosis University of Applied Sciences (SUAS)' },
-                        { rank: 8, name: 'CDGI', id: 'chameli-devi', displayName: 'Chameli Devi Group of Institutions' },
-                        { rank: 9, name: 'PIEMR', id: 'piemr-indore', displayName: 'Prestige Institute of Engineering Management and Research (PIEMR)' },
-                        { rank: 10, name: 'SAIT', id: 'sri-aurobindo-institute-of-technology', displayName: 'Sri Aurobindo Institute of Technology (SAIT)' }
-                      ];
+                    const top10Ids = TOP_10_IDS_BY_STREAM[selectedStream] || [];
+                    const finalTop10 = top10Ids
+                      .map(collegeId => institutes.find((inst: Institute) => inst.id === collegeId))
+                      .filter((inst): inst is Institute => Boolean(inst));
 
-                      return (
-                        <div className="bg-white rounded-3xl border border-gray-200/60 shadow-sm overflow-hidden divide-y divide-gray-150">
-                          {engineeringColleges.map((item, index) => {
-                            const matchingInst = institutes.find((i: any) => i.id === item.id);
-                            return (
-                              <motion.div
-                                key={item.rank}
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.04 }}
-                                className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-red-50/5 transition duration-150 group"
-                              >
-                                <div className="flex items-start sm:items-center space-x-4">
-                                  <div className={`h-11 w-11 rounded-xl flex items-center justify-center font-black text-sm shrink-0 border ${
-                                    item.rank === 1 ? 'bg-amber-500/10 text-amber-600 border-amber-200' :
-                                    item.rank === 2 ? 'bg-slate-400/10 text-slate-600 border-slate-200' :
-                                    item.rank === 3 ? 'bg-amber-700/10 text-amber-800 border-amber-300' :
-                                    'bg-gray-50 text-gray-500 border-gray-150'
-                                  }`}>
-                                    #{item.rank}
+                    return (
+                      <div className="bg-white rounded-3xl border border-gray-200/60 shadow-sm overflow-hidden divide-y divide-gray-150">
+                        {finalTop10.map((inst: Institute, index: number) => {
+                          const rank = index + 1;
+                          return (
+                            <motion.div
+                              key={inst.id}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.04 }}
+                              className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-red-50/5 transition duration-150 group"
+                            >
+                              <div className="flex items-start sm:items-center space-x-4">
+                                <div className={`h-11 w-11 rounded-xl flex items-center justify-center font-black text-sm shrink-0 border ${
+                                  rank === 1 ? 'bg-amber-500/10 text-amber-600 border-amber-200' :
+                                  rank === 2 ? 'bg-slate-400/10 text-slate-600 border-slate-200' :
+                                  rank === 3 ? 'bg-amber-700/10 text-amber-800 border-amber-300' :
+                                  'bg-gray-50 text-gray-500 border-gray-150'
+                                }`}>
+                                  #{rank}
+                                </div>
+
+                                <div className="space-y-1">
+                                  <div>
+                                    <Link
+                                      to={`/college/${inst.id}`}
+                                      className="text-left font-extrabold text-base text-gray-900 hover:text-red-600 hover:underline transition cursor-pointer decoration-2 decoration-red-500/30"
+                                    >
+                                      {inst.name}
+                                    </Link>
                                   </div>
-                                  
-                                  <div className="space-y-1">
-                                    <div>
-                                      <Link
-                                        to={matchingInst ? `/college/${matchingInst.id}` : '#'}
-                                        className="text-left font-extrabold text-base text-gray-900 hover:text-red-600 hover:underline transition cursor-pointer decoration-2 decoration-red-500/30"
-                                      >
-                                        {item.displayName || item.name}
-                                      </Link>
-                                    </div>
-                                    
-                                    {matchingInst && (
-                                      <div className="flex items-center space-x-3 text-xs text-gray-400 font-bold">
-                                        <span>📍 {matchingInst.location}</span>
+                                  <div className="flex items-center space-x-3 text-xs text-gray-400 font-bold">
+                                    <span>📍 {inst.location}</span>
+                                    <span>•</span>
+                                    <span>⭐ {inst.rating} Rating</span>
+                                    {inst.feePerAnnum && (
+                                      <>
                                         <span>•</span>
-                                        <span>⭐ {matchingInst.rating} Rating</span>
-                                        {matchingInst.feePerAnnum && (
-                                          <>
-                                            <span>•</span>
-                                            <span>₹{(matchingInst.feePerAnnum / 1000).toFixed(0)}k/year</span>
-                                          </>
-                                        )}
-                                      </div>
+                                        <span>₹{(inst.feePerAnnum / 1000).toFixed(0)}k/year</span>
+                                      </>
                                     )}
                                   </div>
                                 </div>
-                                
-                                {matchingInst && (
-                                  <div className="flex items-center space-x-2 shrink-0 self-end sm:self-auto">
-                                    <Link
-                                      to={`/college/${matchingInst.id}`}
-                                      className="text-xs font-bold bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 px-3.5 py-2 rounded-xl transition cursor-pointer"
-                                    >
-                                      View Details
-                                    </Link>
-                                    <button
-                                      onClick={() => handleOpenCounseling(matchingInst)}
-                                      className="text-xs font-bold bg-red-600 hover:bg-red-500 text-white px-3.5 py-2 rounded-xl transition cursor-pointer"
-                                    >
-                                      Apply Now
-                                    </button>
-                                  </div>
-                                )}
-                              </motion.div>
-                            );
-                          })}
-                        </div>
-                      );
-                    } else {
-                      const streamFiltered = institutes.filter((inst: any) => {
-                        if (inst.type !== 'college') return false;
-                        const lowerCat = inst.category?.toLowerCase() || '';
-                        const lowerName = inst.name?.toLowerCase() || '';
-                        const coursesStr = JSON.stringify(inst.coursesList || '').toLowerCase();
+                              </div>
 
-                        if (selectedStream === 'bba') {
-                          return lowerCat.includes('management') || coursesStr.includes('bba');
-                        }
-                        if (selectedStream === 'bca') {
-                          return coursesStr.includes('bca') || coursesStr.includes('bsc') || lowerName.includes('malwa');
-                        }
-                        if (selectedStream === 'mba') {
-                          return lowerCat.includes('management') || coursesStr.includes('mba');
-                        }
-                        if (selectedStream === 'law') {
-                          return lowerCat.includes('law') || coursesStr.includes('ll.b') || coursesStr.includes('law');
-                        }
-                        if (selectedStream === 'medical') {
-                          return lowerCat.includes('medical') || coursesStr.includes('physiotherapy') || coursesStr.includes('bpt');
-                        }
-                        if (selectedStream === 'design') {
-                          return lowerCat.includes('design') || coursesStr.includes('design');
-                        }
-                        return false;
-                      });
-
-                      const mistInst = streamFiltered.find((inst: any) => inst.id === 'malwa-group-of-institutes');
-                      const otherColleges = streamFiltered.filter((inst: any) => inst.id !== 'malwa-group-of-institutes');
-                      otherColleges.sort((a: any, b: any) => b.rating - a.rating);
-
-                      const bbaMbaCollegeOrder = [
-                        'iim-indore',
-                        'symbiosis-university',
-                        'nmims-indore',
-                        'pimr',
-                        'malwa-group-of-institutes',
-                        'acropolis',
-                        'sage-university',
-                        'ims-davv',
-                        'jaipuria-indore',
-                        'ips-ibmr'
-                      ];
-                      const combined = [];
-                      if (mistInst && ['bba', 'bca', 'mba'].includes(selectedStream)) {
-                        combined.push(mistInst);
-                      }
-                      const finalTop10 = ['bba', 'mba'].includes(selectedStream)
-                        ? bbaMbaCollegeOrder
-                          .map(collegeId => streamFiltered.find((inst: any) => inst.id === collegeId))
-                          .filter(Boolean)
-                        : [...combined, ...otherColleges].slice(0, 10);
-
-                      return (
-                        <div className="bg-white rounded-3xl border border-gray-200/60 shadow-sm overflow-hidden divide-y divide-gray-150">
-                          {finalTop10.map((inst: any, index: number) => {
-                            const rank = index + 1;
-                            return (
-                              <motion.div
-                                key={inst.id}
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.04 }}
-                                className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-red-50/5 transition duration-150 group"
-                              >
-                                <div className="flex items-start sm:items-center space-x-4">
-                                  <div className={`h-11 w-11 rounded-xl flex items-center justify-center font-black text-sm shrink-0 border ${
-                                    rank === 1 ? 'bg-amber-500/10 text-amber-600 border-amber-200' :
-                                    rank === 2 ? 'bg-slate-400/10 text-slate-600 border-slate-200' :
-                                    rank === 3 ? 'bg-amber-700/10 text-amber-800 border-amber-300' :
-                                    'bg-gray-50 text-gray-500 border-gray-150'
-                                  }`}>
-                                    #{rank}
-                                  </div>
-                                  
-                                  <div className="space-y-1">
-                                    <div>
-                                      <Link
-                                        to={`/college/${inst.id}`}
-                                        className="text-left font-extrabold text-base text-gray-900 hover:text-red-600 hover:underline transition cursor-pointer decoration-2 decoration-red-500/30"
-                                      >
-                                        {inst.name}
-                                      </Link>
-                                    </div>
-                                    <div className="flex items-center space-x-3 text-xs text-gray-400 font-bold">
-                                      <span>📍 {inst.location}</span>
-                                      <span>•</span>
-                                      <span>⭐ {inst.rating} Rating</span>
-                                      {inst.feePerAnnum && (
-                                        <>
-                                          <span>•</span>
-                                          <span>₹{(inst.feePerAnnum / 1000).toFixed(0)}k/year</span>
-                                        </>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                                
-                                <div className="flex items-center space-x-2 shrink-0 self-end sm:self-auto">
-                                  <Link
-                                    to={`/college/${inst.id}`}
-                                    className="text-xs font-bold bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 px-3.5 py-2 rounded-xl transition cursor-pointer"
-                                  >
-                                    View Details
-                                  </Link>
-                                  <button
-                                    onClick={() => handleOpenCounseling(inst)}
-                                    className="text-xs font-bold bg-red-600 hover:bg-red-500 text-white px-3.5 py-2 rounded-xl transition cursor-pointer"
-                                  >
-                                    Apply Now
-                                  </button>
-                                </div>
-                              </motion.div>
-                            );
-                          })}
-                        </div>
-                      );
-                    }
+                              <div className="flex items-center space-x-2 shrink-0 self-end sm:self-auto">
+                                <Link
+                                  to={`/college/${inst.id}`}
+                                  className="text-xs font-bold bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 px-3.5 py-2 rounded-xl transition cursor-pointer"
+                                >
+                                  View Details
+                                </Link>
+                                <button
+                                  onClick={() => handleOpenCounseling(inst)}
+                                  className="text-xs font-bold bg-red-600 hover:bg-red-500 text-white px-3.5 py-2 rounded-xl transition cursor-pointer"
+                                >
+                                  Apply Now
+                                </button>
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    );
                   })()}
                 </div>
               </div>

@@ -242,8 +242,8 @@ export default function CollegeDetailPage({
       {/* ========================================================================= */}
       <section className="bg-white border-b border-slate-200">
         <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-8">
-          <div className="flex flex-col-reverse gap-6 lg:flex-row lg:items-center lg:gap-10 xl:gap-14">
-            <div className="min-w-0 flex-1 lg:max-w-[560px] lg:pl-10 xl:max-w-[620px] xl:pl-14 2xl:pl-16">
+          <div className="flex flex-col-reverse gap-6 lg:flex-row lg:items-center lg:gap-8 xl:gap-12">
+            <div className="min-w-0 flex-1 lg:max-w-[460px] lg:pl-4 xl:max-w-[520px] xl:pl-8 2xl:max-w-[580px] 2xl:pl-12">
               <button
                 onClick={onBack}
                 className="mb-4 sm:mb-5 inline-flex items-center space-x-2 text-xs font-bold text-slate-600 hover:text-slate-950 transition-colors cursor-pointer"
@@ -302,8 +302,8 @@ export default function CollegeDetailPage({
               </div>
             </div>
 
-            <div className="lg:ml-auto">
-              <div className="h-[260px] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm sm:h-[275px] lg:h-[275px] lg:w-[500px] xl:h-[275px] xl:w-[500px] 2xl:h-[275px] 2xl:w-[900px]">
+            <div className="w-full lg:ml-auto lg:flex-1 lg:min-w-0 lg:max-w-[780px] 2xl:max-w-[940px]">
+              <div className="h-[280px] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm sm:h-[340px] lg:h-[380px] xl:h-[420px] 2xl:h-[460px]">
                 {heroImage ? (
                   <img
                     src={heroImage}
