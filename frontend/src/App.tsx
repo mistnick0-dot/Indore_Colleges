@@ -1413,18 +1413,21 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
     }
 
     if (selectedCategory !== 'All') {
-      if (selectedCategory === 'BBA') {
-        const hasBBA = inst.category === 'BBA' || inst.category === 'Management' || 
-          inst.coursesList?.some(c => c.name.toLowerCase().includes('bba'));
-        if (!hasBBA) return false;
-      } else if (selectedCategory === 'BCA') {
-        const hasBCA = inst.category === 'BCA' || 
-          inst.coursesList?.some(c => c.name.toLowerCase().includes('bca') || c.name.toLowerCase().includes('computer application'));
-        if (!hasBCA) return false;
-      } else if (selectedCategory === 'MBA') {
-        const hasMBA = inst.category === 'MBA' || inst.category === 'Management' || 
-          inst.coursesList?.some(c => c.name.toLowerCase().includes('mba') || c.name.toLowerCase().includes('pgdm'));
-        if (!hasMBA) return false;
+      const categoryMatchers: Record<string, (inst: Institute) => boolean> = {
+        BBA: (inst) => inst.category === 'BBA' || inst.category === 'Management' || Boolean(inst.coursesList?.some(c => c.name.toLowerCase().includes('bba'))),
+        BCA: (inst) => inst.category === 'BCA' || Boolean(inst.coursesList?.some(c => c.name.toLowerCase().includes('bca') || c.name.toLowerCase().includes('computer application'))),
+        MBA: (inst) => inst.category === 'MBA' || inst.category === 'Management' || Boolean(inst.coursesList?.some(c => c.name.toLowerCase().includes('mba') || c.name.toLowerCase().includes('pgdm'))),
+        MCA: (inst) => inst.category === 'MCA' || Boolean(inst.coursesList?.some(c => /\bmca\b/i.test(c.name))),
+        Paramedical: (inst) => inst.category === 'Paramedical' || inst.category === 'Medical' || Boolean(inst.coursesList?.some(c => /paramedical|mbbs|bds|bams|nursing|physiotherapy|bpt|bmlt/i.test(c.name))),
+        Pharmacy: (inst) => inst.category === 'Pharmacy' || Boolean(inst.coursesList?.some(c => /pharm/i.test(c.name))),
+        'B.Com.': (inst) => inst.category === 'B.Com.' || Boolean(inst.coursesList?.some(c => /b\.?com/i.test(c.name))),
+        'B.Sc.': (inst) => inst.category === 'B.Sc.' || Boolean(inst.coursesList?.some(c => /b\.?sc\b/i.test(c.name))),
+        Design: (inst) => inst.category === 'Design' || Boolean(inst.coursesList?.some(c => /design|b\.?des|fashion|interior/i.test(c.name))),
+        Law: (inst) => inst.category === 'Law' || inst.category === 'LAW' || Boolean(inst.coursesList?.some(c => /ll\.?b|law/i.test(c.name))),
+      };
+      const matcher = categoryMatchers[selectedCategory];
+      if (matcher) {
+        if (!matcher(inst)) return false;
       } else if (inst.category !== selectedCategory) {
         return false;
       }

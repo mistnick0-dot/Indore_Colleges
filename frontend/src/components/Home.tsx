@@ -33,6 +33,99 @@ import StreamSelector from './StreamSelector';
 import { INDORE_INSTITUTES, INDORE_LOCATIONS, INDORE_LOCALITY_GROUPS, CATEGORIES } from '../data/indoreData';
 import { Institute } from '../types';
 
+const SEARCHED_COURSE_TABS = [
+  {
+    id: 'Engineering',
+    label: 'Engineering',
+    activeBg: 'from-blue-600 via-indigo-600 to-blue-700',
+    activeShadow: 'shadow-blue-600/30',
+    dotClass: 'bg-blue-500',
+    inactiveHover: 'hover:border-blue-300 hover:bg-blue-50/80 hover:text-blue-700',
+  },
+  {
+    id: 'BBA',
+    label: 'BBA',
+    activeBg: 'from-emerald-600 via-teal-600 to-emerald-700',
+    activeShadow: 'shadow-emerald-600/30',
+    dotClass: 'bg-emerald-500',
+    inactiveHover: 'hover:border-emerald-300 hover:bg-emerald-50/80 hover:text-emerald-700',
+  },
+  {
+    id: 'MBA',
+    label: 'MBA',
+    activeBg: 'from-rose-600 via-red-600 to-rose-700',
+    activeShadow: 'shadow-rose-600/30',
+    dotClass: 'bg-rose-500',
+    inactiveHover: 'hover:border-rose-300 hover:bg-rose-50/80 hover:text-rose-700',
+  },
+  {
+    id: 'BCA',
+    label: 'BCA',
+    activeBg: 'from-violet-600 via-purple-600 to-violet-700',
+    activeShadow: 'shadow-violet-600/30',
+    dotClass: 'bg-violet-500',
+    inactiveHover: 'hover:border-violet-300 hover:bg-violet-50/80 hover:text-violet-700',
+  },
+  {
+    id: 'MCA',
+    label: 'MCA',
+    activeBg: 'from-cyan-600 via-sky-600 to-cyan-700',
+    activeShadow: 'shadow-cyan-600/30',
+    dotClass: 'bg-cyan-500',
+    inactiveHover: 'hover:border-cyan-300 hover:bg-cyan-50/80 hover:text-cyan-700',
+  },
+  {
+    id: 'Paramedical',
+    label: 'Paramedical',
+    activeBg: 'from-teal-600 via-emerald-500 to-teal-700',
+    activeShadow: 'shadow-teal-600/30',
+    dotClass: 'bg-teal-500',
+    inactiveHover: 'hover:border-teal-300 hover:bg-teal-50/80 hover:text-teal-700',
+  },
+  {
+    id: 'Pharmacy',
+    label: 'Pharmacy',
+    activeBg: 'from-pink-600 via-rose-500 to-pink-700',
+    activeShadow: 'shadow-pink-600/30',
+    dotClass: 'bg-pink-500',
+    inactiveHover: 'hover:border-pink-300 hover:bg-pink-50/80 hover:text-pink-700',
+  },
+  {
+    id: 'B.Com.',
+    label: 'B.Com.',
+    activeBg: 'from-amber-500 via-orange-500 to-amber-600',
+    activeShadow: 'shadow-amber-500/30',
+    dotClass: 'bg-amber-500',
+    inactiveHover: 'hover:border-amber-300 hover:bg-amber-50/80 hover:text-amber-700',
+  },
+  {
+    id: 'B.Sc.',
+    label: 'B.Sc.',
+    activeBg: 'from-indigo-600 via-blue-500 to-indigo-700',
+    activeShadow: 'shadow-indigo-600/30',
+    dotClass: 'bg-indigo-500',
+    inactiveHover: 'hover:border-indigo-300 hover:bg-indigo-50/80 hover:text-indigo-700',
+  },
+  {
+    id: 'Design',
+    label: 'Design',
+    activeBg: 'from-fuchsia-600 via-pink-500 to-fuchsia-700',
+    activeShadow: 'shadow-fuchsia-600/30',
+    dotClass: 'bg-fuchsia-500',
+    inactiveHover: 'hover:border-fuchsia-300 hover:bg-fuchsia-50/80 hover:text-fuchsia-700',
+  },
+  {
+    id: 'Law',
+    label: 'Law',
+    activeBg: 'from-red-600 via-orange-600 to-red-700',
+    activeShadow: 'shadow-red-600/30',
+    dotClass: 'bg-red-500',
+    inactiveHover: 'hover:border-red-300 hover:bg-red-50/80 hover:text-red-700',
+  },
+] as const;
+
+type SearchedCourseTab = (typeof SEARCHED_COURSE_TABS)[number]['id'];
+
 const HOME_FAQS = [
   {
     question: 'How can I find the best colleges in Indore?',
@@ -96,7 +189,7 @@ export default function Home({
   const [selectedStreamVal, setSelectedStreamVal] = useState('All');
   const [selectedLocationVal, setSelectedLocationVal] = useState('All');
   // CarDekho style Searched Colleges tab state
-  const [activeSearchedTab, setActiveSearchedTab] = useState<'Engineering' | 'BBA' | 'BCA' | 'MBA' | 'LAW' | 'MEDICAL' | 'DESIGN'>('Engineering');
+  const [activeSearchedTab, setActiveSearchedTab] = useState<SearchedCourseTab>('Engineering');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   // Hero Background (Keeping only bg2 for now; video will be added later)
@@ -717,29 +810,45 @@ export default function Home({
               Choose Course & Search Best College in Indore
             </h2>
             
-            {/* Horizontal Tabs: Engineering, BBA, BCA, MBA, LAW, MEDICAL, DESIGN */}
-            <div className="flex justify-start sm:justify-center gap-4 sm:gap-6 overflow-x-auto scrollbar-none pb-1 px-2 sm:px-0">
-              {(['Engineering', 'BBA', 'BCA', 'MBA', 'LAW', 'MEDICAL', 'DESIGN'] as const).map((tab) => {
-                const isActive = activeSearchedTab === tab;
+            {/* Horizontal Color-Animated Course Tabs */}
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5 pb-1 px-1" role="tablist" aria-label="Course categories">
+              {SEARCHED_COURSE_TABS.map((tab) => {
+                const isActive = activeSearchedTab === tab.id;
                 return (
-                  <button
-                    key={tab}
+                  <motion.button
+                    key={tab.id}
                     type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    whileHover={{ y: -2, scale: 1.03 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ type: 'spring', stiffness: 420, damping: 28 }}
                     onClick={() => {
-                      setActiveSearchedTab(tab);
+                      setActiveSearchedTab(tab.id);
                       setMoreCollegesSubmitted(false);
                       setMoreCollegesError('');
                     }}
-                    className={`text-sm sm:text-base font-bold pb-2 transition-all cursor-pointer whitespace-nowrap border-b-2 ${
-                      tab === 'MEDICAL' ? 'hidden sm:block' : ''
-                    } ${
-                      isActive 
-                        ? 'border-red-600 text-gray-900 font-extrabold' 
-                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                    className={`relative inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-bold cursor-pointer whitespace-nowrap transition-colors duration-200 ${
+                      isActive
+                        ? 'text-white font-extrabold'
+                        : `border border-gray-200 bg-white text-gray-600 shadow-2xs ${tab.inactiveHover}`
                     }`}
                   >
-                    {tab}
-                  </button>
+                    {isActive && (
+                      <motion.span
+                        layoutId="activeCourseTabPill"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                        className={`absolute inset-0 rounded-full bg-gradient-to-r ${tab.activeBg} shadow-md ${tab.activeShadow}`}
+                      />
+                    )}
+                    <span
+                      aria-hidden="true"
+                      className={`relative z-10 h-2 w-2 rounded-full transition-colors duration-200 ${
+                        isActive ? 'bg-white animate-pulse' : tab.dotClass
+                      }`}
+                    />
+                    <span className="relative z-10">{tab.label}</span>
+                  </motion.button>
                 );
               })}
             </div>
@@ -748,25 +857,33 @@ export default function Home({
           {/* College Cards Grid / Split into Google Rating & Indore Colleges Rating categories */}
           {(() => {
             // Category 01: Top 10 by Google Ratings & Search Reviews
-            const GOOGLE_LISTS_BY_TAB: Record<string, string[]> = {
+            const GOOGLE_LISTS_BY_TAB: Record<SearchedCourseTab, string[]> = {
               'Engineering': ['sgsits', 'iet-davv', 'acropolis', 'iist-indore', 'medi-caps-university', 'ips-engineering', 'piemr-indore', 'malwa-group-of-institutes', 'skitm-indore', 'chameli-devi'],
               'BBA': ['iim-indore', 'pimr', 'ims-davv', 'jaipuria-indore', 'nmims-indore', 'ips-ibmr', 'svim-indore', 'symbiosis-university', 'gsimr', 'iips-davv'],
-              'BCA': ['softvision-college', 'sgsits', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'renaissance-college', 'gacc-indore', 'alexia-college', 'apj-kalam-univ', 'sage-university'],
               'MBA': ['iim-indore', 'pimr', 'ims-davv', 'jaipuria-indore', 'nmims-indore', 'ips-ibmr', 'svim-indore', 'symbiosis-university', 'gsimr', 'iips-davv'],
-              'LAW': ['iil-indore', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'davv', 'iim-indore', 'sage-university', 'acropolis'],
-              'MEDICAL': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'sage-university', 'malwa-group-of-institutes', 'medi-caps-university', 'symbiosis-university', 'acropolis', 'davv'],
-              'DESIGN': ['cindrebay-design', 'symbiosis-university', 'svvv-indore', 'renaissance-college', 'acropolis', 'sage-university', 'medi-caps-university', 'pimr', 'softvision-college', 'nmims-stme']
+              'BCA': ['softvision-college', 'sgsits', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'renaissance-college', 'gacc-indore', 'alexia-college', 'apj-kalam-univ', 'sage-university'],
+              'MCA': ['sgsits', 'iips-davv', 'acropolis', 'medi-caps-university', 'svim-indore', 'patel-college', 'sage-university', 'chameli-devi', 'gujarati-professional', 'oriental-university'],
+              'Paramedical': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'holkar-science', 'softvision-college', 'sage-university', 'oriental-university', 'malwa-group-of-institutes', 'apj-kalam-univ'],
+              'Pharmacy': ['nmims-indore', 'sgsits', 'medi-caps-university', 'sage-university', 'chameli-devi', 'malwa-group-of-institutes', 'oriental-university', 'davv', 'apj-kalam-univ', 'skitm-indore'],
+              'B.Com.': ['softvision-college', 'alexia-college', 'nmims-indore', 'medi-caps-university', 'pioneer-institute', 'christian-eminent', 'iips-davv', 'gsb-indore', 'gacc-indore', 'renaissance-college'],
+              'B.Sc.': ['softvision-college', 'medi-caps-university', 'prestige-university', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'symbiosis-university', 'renaissance-college', 'svim-indore', 'sage-university'],
+              'Design': ['cindrebay-design', 'iit-indore', 'sgsits', 'symbiosis-university', 'svvv-indore', 'iet-davv', 'piemr-indore', 'gsb-indore', 'sri-aurobindo-institute-of-technology', 'madrid-software'],
+              'Law': ['iil-indore', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'davv', 'iim-indore', 'sage-university', 'acropolis']
             };
 
             // Category 02: Top 10 evaluated by Indore Colleges Academic & Placement Merit
-            const INDORE_LISTS_BY_TAB: Record<string, string[]> = {
+            const INDORE_LISTS_BY_TAB: Record<SearchedCourseTab, string[]> = {
               'Engineering': ['iist-indore', 'acropolis', 'medi-caps-university', 'skitm-indore', 'malwa-group-of-institutes', 'lncts-indore', 'symbiosis-university', 'chameli-devi', 'piemr-indore', 'sri-aurobindo-institute-of-technology'],
               'BBA': ['iim-indore', 'symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
-              'BCA': ['holkar-science', 'acropolis', 'medi-caps-university', 'softvision-college', 'sage-university', 'pioneer-institute', 'christian-eminent', 'gacc-indore', 'apj-kalam-univ', 'svvv-indore'],
               'MBA': ['iim-indore', 'symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
-              'LAW': ['iil-indore', 'davv', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'iim-indore', 'sage-university', 'acropolis'],
-              'MEDICAL': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'medi-caps-university', 'sage-university', 'symbiosis-university', 'acropolis', 'davv', 'malwa-group-of-institutes'],
-              'DESIGN': ['symbiosis-university', 'cindrebay-design', 'svvv-indore', 'sage-university', 'renaissance-college', 'acropolis', 'softvision-college', 'medi-caps-university', 'pimr', 'gacc-indore']
+              'BCA': ['holkar-science', 'acropolis', 'medi-caps-university', 'softvision-college', 'sage-university', 'pioneer-institute', 'christian-eminent', 'gacc-indore', 'apj-kalam-univ', 'svvv-indore'],
+              'MCA': ['sgsits', 'acropolis', 'medi-caps-university', 'iips-davv', 'davv', 'svim-indore', 'sage-university', 'chameli-devi', 'oriental-university', 'gujarati-professional'],
+              'Paramedical': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'sri-aurobindo-institute-of-technology', 'holkar-science', 'sage-university', 'oriental-university', 'malwa-group-of-institutes', 'apj-kalam-univ'],
+              'Pharmacy': ['sgsits', 'davv', 'nmims-indore', 'medi-caps-university', 'malwa-group-of-institutes', 'skitm-indore', 'sage-university', 'chameli-devi', 'oriental-university', 'apj-kalam-univ'],
+              'B.Com.': ['gacc-indore', 'pimr', 'renaissance-college', 'iips-davv', 'nmims-indore', 'softvision-college', 'pioneer-institute', 'christian-eminent', 'medi-caps-university', 'svvv-indore'],
+              'B.Sc.': ['holkar-science', 'symbiosis-university', 'medi-caps-university', 'softvision-college', 'prestige-university', 'sage-university', 'christian-eminent', 'pioneer-institute', 'svvv-indore', 'malwa-group-of-institutes'],
+              'Design': ['iit-indore', 'symbiosis-university', 'cindrebay-design', 'sgsits', 'svvv-indore', 'iet-davv', 'piemr-indore', 'sri-aurobindo-institute-of-technology', 'gsb-indore', 'madrid-software'],
+              'Law': ['iil-indore', 'davv', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'iim-indore', 'sage-university', 'acropolis']
             };
 
             const COLLEGE_NAME_FALLBACKS: Record<string, string> = {
@@ -777,7 +894,7 @@ export default function Home({
             };
 
             // Specific Indore Colleges Rating scores per tab
-            const INDORE_RATINGS_BY_TAB: Record<string, Record<string, number>> = {
+            const INDORE_RATINGS_BY_TAB: Record<SearchedCourseTab, Record<string, number>> = {
               'Engineering': {
                 'iet-davv': 4.9,
                 'medi-caps-university': 4.8,
@@ -794,14 +911,6 @@ export default function Home({
                 'sage-university': 4.5,
                 'renaissance-college': 4.4
               },
-              'BCA': {
-                'holkar-science': 4.9,
-                'acropolis': 4.8,
-                'medi-caps-university': 4.7,
-                'softvision-college': 4.6,
-                'sage-university': 4.5,
-                'pioneer-institute': 4.4
-              },
               'MBA': {
                 'iim-indore': 5.0,
                 'ims-davv': 4.8,
@@ -810,29 +919,69 @@ export default function Home({
                 'pimr': 4.5,
                 'ips-ibmr': 4.4
               },
-              'LAW': {
+              'BCA': {
+                'holkar-science': 4.9,
+                'acropolis': 4.8,
+                'medi-caps-university': 4.7,
+                'softvision-college': 4.6,
+                'sage-university': 4.5,
+                'pioneer-institute': 4.4
+              },
+              'MCA': {
+                'sgsits': 4.9,
+                'acropolis': 4.8,
+                'medi-caps-university': 4.7,
+                'iips-davv': 4.6,
+                'davv': 4.5,
+                'svim-indore': 4.4
+              },
+              'Paramedical': {
+                'mgm-medical': 4.9,
+                'saims': 4.8,
+                'index-medical': 4.6,
+                'shubhdeep-ayurved': 4.5,
+                'sri-aurobindo-institute-of-technology': 4.4,
+                'holkar-science': 4.3
+              },
+              'Pharmacy': {
+                'sgsits': 4.9,
+                'davv': 4.8,
+                'nmims-indore': 4.7,
+                'medi-caps-university': 4.6,
+                'malwa-group-of-institutes': 4.5,
+                'skitm-indore': 4.4
+              },
+              'B.Com.': {
+                'gacc-indore': 4.9,
+                'pimr': 4.8,
+                'renaissance-college': 4.7,
+                'iips-davv': 4.6,
+                'nmims-indore': 4.5,
+                'softvision-college': 4.4
+              },
+              'B.Sc.': {
+                'holkar-science': 4.9,
+                'symbiosis-university': 4.8,
+                'medi-caps-university': 4.7,
+                'softvision-college': 4.6,
+                'prestige-university': 4.5,
+                'sage-university': 4.4
+              },
+              'Design': {
+                'iit-indore': 4.9,
+                'symbiosis-university': 4.8,
+                'cindrebay-design': 4.7,
+                'sgsits': 4.6,
+                'svvv-indore': 4.5,
+                'iet-davv': 4.4
+              },
+              'Law': {
                 'iil-indore': 4.9,
                 'davv': 4.8,
                 'nmims-law': 4.7,
                 'symbiosis-university': 4.6,
                 'pimr': 4.4,
                 'renaissance-college': 4.3
-              },
-              'MEDICAL': {
-                'mgm-medical': 4.9,
-                'saims': 4.8,
-                'index-medical': 4.6,
-                'shubhdeep-ayurved': 4.5,
-                'medi-caps-university': 4.4,
-                'sage-university': 4.3
-              },
-              'DESIGN': {
-                'symbiosis-university': 4.9,
-                'cindrebay-design': 4.8,
-                'svvv-indore': 4.6,
-                'sage-university': 4.5,
-                'renaissance-college': 4.4,
-                'acropolis': 4.2
               }
             };
 
@@ -1016,13 +1165,17 @@ export default function Home({
 
             const renderCollegeListItem = (college: { id: string; name: string; institute?: Institute }, ratingType: 'google' | 'indore', rank: number) => {
               const collegeCategory = (college.institute?.category || activeSearchedTab).toLowerCase();
-              const reviewCategory = collegeCategory === 'engineering'
-                ? 'technical-college'
-                : collegeCategory === 'law'
-                  ? 'law-college'
-                  : collegeCategory === 'medical'
+              const reviewCategory = activeSearchedTab === 'Pharmacy'
+                ? 'pharmacy-college'
+                : (activeSearchedTab === 'MBA' || activeSearchedTab === 'MCA')
+                  ? 'pg-college'
+                  : (activeSearchedTab === 'B.Sc.' || activeSearchedTab === 'Paramedical' || collegeCategory === 'medical')
                     ? 'science-college'
-                    : 'professional-college';
+                    : (activeSearchedTab === 'Law' || collegeCategory === 'law')
+                      ? 'law-college'
+                      : (activeSearchedTab === 'Engineering' || collegeCategory === 'engineering')
+                        ? 'technical-college'
+                        : 'professional-college';
 
               return (
                 <div
@@ -1070,7 +1223,13 @@ export default function Home({
 
             return (
               <div>
-                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                <motion.div
+                  key={activeSearchedTab}
+                  initial={false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start"
+                >
                   {/* Prominent Middle Vertical Divider Line for Large Screens */}
                   <div className="hidden lg:flex absolute left-1/2 top-2 bottom-2 -translate-x-1/2 items-center justify-center pointer-events-none z-20">
                     <div className="h-full w-[2px] bg-gradient-to-b from-gray-300 via-gray-400 to-gray-300 shadow-xs" />
@@ -1145,7 +1304,7 @@ export default function Home({
                       {indoreColleges.map((college, index) => renderCollegeListItem(college, 'indore', index + 1))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Inline College Inquiry Form */}
                 <section
@@ -1154,13 +1313,10 @@ export default function Home({
                 >
                   <h2
                     id="more-colleges-form-title"
-                    className="px-2 text-center text-2xl font-extrabold leading-tight text-[#0F244C] sm:text-3xl lg:text-4xl font-outfit"
+                    className="mb-8 px-2 text-center text-2xl font-extrabold leading-tight text-[#0F244C] sm:text-3xl lg:text-4xl font-outfit"
                   >
-                    Want to know more about these colleges?
+                    Fill this form to get a call back from Expert
                   </h2>
-                  <p className="mb-8 mt-3 text-center text-base font-semibold text-slate-700 sm:text-lg">
-                    Please fill the form, our counselor will call you back shortly.
-                  </p>
 
                   {moreCollegesSubmitted ? (
                     <div className="mx-auto max-w-2xl space-y-5 text-center">
