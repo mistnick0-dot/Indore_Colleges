@@ -766,14 +766,23 @@ export default function Home({
               <ArrowUpRight className="h-4 w-4" />
             </Link>
 
-            <button
+            <motion.button
               type="button"
               onClick={onOpenCounseling}
-              className="inline-flex bg-red-600 hover:bg-red-500 active:scale-95 text-white font-extrabold px-6 py-3 rounded-xl transition-all duration-200 text-xs sm:text-sm tracking-wider uppercase items-center gap-2 cursor-pointer backdrop-blur-sm shadow-xl shadow-red-600/30"
+              initial={false}
+              animate={{ scale: [1, 1.08, 1] }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative inline-flex bg-red-600 hover:bg-red-500 text-white font-extrabold px-6 py-3 rounded-xl transition-colors duration-200 text-xs sm:text-sm tracking-wider uppercase items-center gap-2 cursor-pointer backdrop-blur-sm shadow-xl shadow-red-600/35 ring-2 ring-red-400/40"
             >
-              <PhoneCall className="h-4 w-4" />
-              Get Free Counselling
-            </button>
+              <PhoneCall className="h-4 w-4 animate-bounce" />
+              <span>Get Free Counselling</span>
+            </motion.button>
           </motion.div>
 
           {/* Quick Platform Stats */}
@@ -859,7 +868,7 @@ export default function Home({
             // Category 01: Top 10 by Google Ratings & Search Reviews
             const GOOGLE_LISTS_BY_TAB: Record<SearchedCourseTab, string[]> = {
               'Engineering': ['sgsits', 'iet-davv', 'acropolis', 'iist-indore', 'medi-caps-university', 'ips-engineering', 'piemr-indore', 'malwa-group-of-institutes', 'skitm-indore', 'chameli-devi'],
-              'BBA': ['iim-indore', 'pimr', 'ims-davv', 'jaipuria-indore', 'nmims-indore', 'ips-ibmr', 'svim-indore', 'symbiosis-university', 'gsimr', 'iips-davv'],
+              'BBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
               'MBA': ['iim-indore', 'pimr', 'ims-davv', 'jaipuria-indore', 'nmims-indore', 'ips-ibmr', 'svim-indore', 'symbiosis-university', 'gsimr', 'iips-davv'],
               'BCA': ['softvision-college', 'sgsits', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'renaissance-college', 'gacc-indore', 'alexia-college', 'apj-kalam-univ', 'sage-university'],
               'MCA': ['sgsits', 'iips-davv', 'acropolis', 'medi-caps-university', 'svim-indore', 'patel-college', 'sage-university', 'chameli-devi', 'gujarati-professional', 'oriental-university'],
