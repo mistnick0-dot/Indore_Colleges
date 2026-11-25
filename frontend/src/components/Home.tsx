@@ -10,6 +10,8 @@ import {
   BookOpen, 
   Users, 
   PhoneCall, 
+  Mail,
+  X,
   Compass, 
   HelpCircle, 
   Award, 
@@ -287,6 +289,14 @@ export default function Home({
   const [formQuery, setFormQuery] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isMoreCollegesFormOpen, setIsMoreCollegesFormOpen] = useState(false);
+  const [moreCollegesName, setMoreCollegesName] = useState('');
+  const [moreCollegesPhone, setMoreCollegesPhone] = useState('');
+  const [moreCollegesAlternatePhone, setMoreCollegesAlternatePhone] = useState('');
+  const [moreCollegesEmail, setMoreCollegesEmail] = useState('');
+  const [moreCollegesSubmitting, setMoreCollegesSubmitting] = useState(false);
+  const [moreCollegesSubmitted, setMoreCollegesSubmitted] = useState(false);
+  const [moreCollegesError, setMoreCollegesError] = useState('');
 
   // Review filter state
   const [reviewFilter, setReviewFilter] = useState<'all' | 'students' | 'parents'>('all');
@@ -370,6 +380,65 @@ export default function Home({
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  useEffect(() => {
+    if (!isMoreCollegesFormOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMoreCollegesFormOpen(false);
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMoreCollegesFormOpen]);
+
+  const handleMoreCollegesSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMoreCollegesSubmitting(true);
+    setMoreCollegesError('');
+
+    try {
+      const response = await fetch('/api/callback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: moreCollegesName.trim(),
+          phone: moreCollegesPhone.trim(),
+          alternatePhone: moreCollegesAlternatePhone.trim(),
+          email: moreCollegesEmail.trim(),
+          query: `More information requested about ${activeSearchedTab} colleges.`
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Unable to submit the information request.');
+      }
+
+      setMoreCollegesSubmitted(true);
+      setMoreCollegesName('');
+      setMoreCollegesPhone('');
+      setMoreCollegesAlternatePhone('');
+      setMoreCollegesEmail('');
+    } catch (error) {
+      console.error('Error submitting college information request:', error);
+      setMoreCollegesError('Unable to submit your request. Please try again.');
+    } finally {
+      setMoreCollegesSubmitting(false);
+    }
+  };
+
+  const handleExploreMoreColleges = () => {
+    setIsMoreCollegesFormOpen(false);
+    setInstituteTypeFilter('college');
+    setSelectedCategory(activeSearchedTab);
+    setActiveTab('explore');
   };
 
   // Reviews Data
@@ -1098,11 +1167,11 @@ export default function Home({
                 <div className="mt-8 text-center">
                   <Link
                     to={`/explore/${activeSearchedTab.toLowerCase()}`}
-                    onClick={() => {
-                      setInstituteTypeFilter('college');
-                      if (activeSearchedTab) {
-                        setSelectedCategory(activeSearchedTab);
-                      }
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setMoreCollegesSubmitted(false);
+                      setMoreCollegesError('');
+                      setIsMoreCollegesFormOpen(true);
                     }}
                     className="inline-flex items-center justify-center gap-2 bg-[#0F244C] hover:bg-red-600 text-white text-sm sm:text-base font-extrabold py-3.5 px-8 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 cursor-pointer font-outfit group"
                   >
@@ -1110,6 +1179,142 @@ export default function Home({
                     <ArrowUpRight className="h-5 w-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </Link>
                 </div>
+
+                <AnimatePresence>
+                  {isMoreCollegesFormOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-slate-950/60 p-3 backdrop-blur-sm sm:p-6"
+                      onMouseDown={(event) => {
+                        if (event.target === event.currentTarget) setIsMoreCollegesFormOpen(false);
+                      }}
+                    >
+                      <motion.section
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="more-colleges-form-title"
+                        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 12, scale: 0.98 }}
+                        className="relative my-auto w-full max-w-5xl rounded-3xl bg-white px-5 py-9 shadow-2xl sm:px-10 sm:py-10 lg:px-14"
+                      >
+                        <button
+                          type="button"
+                          aria-label="Close form"
+                          onClick={() => setIsMoreCollegesFormOpen(false)}
+                          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                        >
+                          <X className="h-5 w-5" />
+                        </button>
+
+                        <h2
+                          id="more-colleges-form-title"
+                          className="px-5 text-center text-2xl font-extrabold leading-tight text-[#0F244C] sm:text-3xl lg:text-4xl"
+                        >
+                          Want to know more about these colleges?
+                        </h2>
+                        <p className="mb-8 mt-3 text-center text-base font-semibold text-slate-700 sm:text-lg">
+                          Please fill the form, our counselor will call you back shortly.
+                        </p>
+
+                        {moreCollegesSubmitted ? (
+                          <div className="mx-auto max-w-2xl space-y-5 text-center">
+                            <p role="status" className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-5 font-semibold text-emerald-800">
+                              Thank you. Our counselor will contact you shortly.
+                            </p>
+                            <button
+                              type="button"
+                              onClick={handleExploreMoreColleges}
+                              className="rounded-xl bg-[#0F244C] px-8 py-3 font-bold text-white transition hover:bg-red-600"
+                            >
+                              View {activeSearchedTab} Colleges
+                            </button>
+                          </div>
+                        ) : (
+                          <form onSubmit={handleMoreCollegesSubmit} className="mx-auto grid max-w-4xl gap-x-6 gap-y-5 sm:grid-cols-2">
+                            <div>
+                              <label htmlFor="more-colleges-name" className="mb-3 block text-sm font-bold uppercase tracking-wide text-slate-600">
+                                Name *
+                              </label>
+                              <input
+                                id="more-colleges-name"
+                                type="text"
+                                required
+                                value={moreCollegesName}
+                                onChange={(event) => setMoreCollegesName(event.target.value)}
+                                placeholder="Enter your name"
+                                className="w-full rounded-2xl border border-slate-200 px-5 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="more-colleges-phone" className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-600">
+                                <PhoneCall className="h-5 w-5 text-slate-400" />
+                                WhatsApp Number *
+                              </label>
+                              <input
+                                id="more-colleges-phone"
+                                type="tel"
+                                required
+                                value={moreCollegesPhone}
+                                onChange={(event) => setMoreCollegesPhone(event.target.value)}
+                                placeholder="Enter your WhatsApp number"
+                                className="w-full rounded-2xl border border-slate-200 px-5 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="more-colleges-alternate-phone" className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-600">
+                                <PhoneCall className="h-5 w-5 text-slate-400" />
+                                Alternate No
+                              </label>
+                              <input
+                                id="more-colleges-alternate-phone"
+                                type="tel"
+                                value={moreCollegesAlternatePhone}
+                                onChange={(event) => setMoreCollegesAlternatePhone(event.target.value)}
+                                placeholder="Enter alternate number"
+                                className="w-full rounded-2xl border border-slate-200 px-5 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+                              />
+                            </div>
+
+                            <div>
+                              <label htmlFor="more-colleges-email" className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-600">
+                                <Mail className="h-5 w-5 text-slate-400" />
+                                Email Id *
+                              </label>
+                              <input
+                                id="more-colleges-email"
+                                type="email"
+                                required
+                                value={moreCollegesEmail}
+                                onChange={(event) => setMoreCollegesEmail(event.target.value)}
+                                placeholder="Enter your email address"
+                                className="w-full rounded-2xl border border-slate-200 px-5 py-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+                              />
+                            </div>
+
+                            {moreCollegesError && (
+                              <p role="alert" className="text-sm font-semibold text-red-600 sm:col-span-2">
+                                {moreCollegesError}
+                              </p>
+                            )}
+
+                            <button
+                              type="submit"
+                              disabled={moreCollegesSubmitting}
+                              className="mx-auto mt-1 rounded-2xl bg-orange-500 px-12 py-4 text-base font-bold text-white shadow-sm transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
+                            >
+                              {moreCollegesSubmitting ? 'Submitting...' : 'Connect With Us'}
+                            </button>
+                          </form>
+                        )}
+                      </motion.section>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })()}
