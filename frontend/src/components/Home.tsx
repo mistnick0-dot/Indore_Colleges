@@ -869,7 +869,7 @@ export default function Home({
             const GOOGLE_LISTS_BY_TAB: Record<SearchedCourseTab, string[]> = {
               'Engineering': ['sgsits', 'iet-davv', 'acropolis', 'iist-indore', 'medi-caps-university', 'ips-engineering', 'piemr-indore', 'malwa-group-of-institutes', 'skitm-indore', 'chameli-devi'],
               'BBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
-              'MBA': ['iim-indore', 'pimr', 'ims-davv', 'jaipuria-indore', 'nmims-indore', 'ips-ibmr', 'svim-indore', 'symbiosis-university', 'gsimr', 'iips-davv'],
+              'MBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
               'BCA': ['softvision-college', 'sgsits', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'renaissance-college', 'gacc-indore', 'alexia-college', 'apj-kalam-univ', 'sage-university'],
               'MCA': ['sgsits', 'iips-davv', 'acropolis', 'medi-caps-university', 'svim-indore', 'patel-college', 'sage-university', 'chameli-devi', 'gujarati-professional', 'oriental-university'],
               'Paramedical': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'holkar-science', 'softvision-college', 'sage-university', 'oriental-university', 'malwa-group-of-institutes', 'apj-kalam-univ'],
