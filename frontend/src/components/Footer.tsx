@@ -7,7 +7,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { 
-  MapPin, 
   Phone, 
   Mail,
   Instagram, 
@@ -81,12 +80,8 @@ export default function Footer({
               Indore Colleges is Central India's leading comprehensive college, university, and professional higher education search directory for Indore.
             </p>
 
-            {/* Address & Contact Items with customized color layout */}
+            {/* Contact Items */}
             <div className="space-y-3 pt-2 text-[12px] text-gray-300">
-              <div className="flex items-start space-x-2.5">
-                <MapPin className="h-4.5 w-4.5 text-red-500 shrink-0 mt-0.5" />
-                <span>Plot 124, Sector B, Scheme 54, Vijay Nagar, Indore - 452010</span>
-              </div>
               <div className="flex items-center space-x-2.5">
                 <Mail className="h-4.5 w-4.5 text-red-500 shrink-0" />
                 <a href="mailto:Indorecollegeshub@gmail.com" className="hover:text-red-400 hover:underline transition select-all break-all">
@@ -136,6 +131,18 @@ export default function Footer({
               <li>
                 <a href="https://epravesh.mponline.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
                   <span>MP E-Pravesh Portal</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.ugc.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>UGC Official Portal</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.aicte.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>AICTE Official Portal</span>
                   <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
                 </a>
               </li>
@@ -241,11 +248,11 @@ export default function Footer({
 
         </div>
 
-        {/* BOTTOM MIDDLE SECTION: Social Media and Corporate Office Address */}
+        {/* BOTTOM MIDDLE SECTION: Social Media and Quick Links */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 py-10 text-[12px] text-gray-300">
           
           {/* Social Media Links */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-8 space-y-4">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
               <span>Official Social Channels</span>
               <span className="text-[10px] bg-red-600/30 text-red-400 px-2 py-0.5 rounded font-black">CONNECT</span>
@@ -296,18 +303,8 @@ export default function Footer({
             </div>
           </div>
 
-          {/* Corporate Office Address */}
-          <div className="lg:col-span-5 space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-              Our Office
-            </h4>
-            <p className="leading-relaxed text-gray-300">
-              Indore Colleges Private Limited, Plot 124, Sector B, Scheme 54, Vijay Nagar, Indore (M.P.) - 452010
-            </p>
-          </div>
-
           {/* About us / Quick info */}
-          <div className="lg:col-span-3 space-y-3">
+          <div className="lg:col-span-4 space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">
               Quick Links
             </h4>
