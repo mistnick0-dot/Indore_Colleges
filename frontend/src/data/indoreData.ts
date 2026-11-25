@@ -1415,7 +1415,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 950000,
     rating: 4.5,
     totalReviews: 114,
-    image: '/nmims-indore.jpg',
+    image: "/college-images/SVKM's NMIMS/SVKM's NMIMS.webp",
+    campusPhoto: "/college-images/SVKM's NMIMS/SVKM's NMIMS.webp",
     description: 'SVKM\'s NMIMS Indore (Deemed to be University), established in 2017, is a multidisciplinary campus approved by AICTE and recognized by UGC with NAAC accreditation. Located off the Super Corridor at Bada Bangarda, the campus operates schools across Management (SBM), Technology Management & Engineering (STME), Commerce (SOC), Law (SOL), and Pharmacy & Technology Management (SPTM).',
     facilities: [
       'Bloomberg Terminals',
@@ -1428,6 +1429,17 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Canteen / Cafeteria',
       'Round-the-clock Security'
     ],
+    facilityImages: {
+      'Bloomberg Terminals': "/college-images/SVKM's NMIMS/SVKM's NMIMS Bloomberg Terminals.jpg",
+      'Smart Boardrooms': "/college-images/SVKM's NMIMS/SVKM's NMIMS Smart Boardrooms.jpg",
+      'Central Library (e-journals and print books)': "/college-images/SVKM's NMIMS/SVKM's NMIMS Central Library.webp",
+      'A/C Classrooms & Hostels': "/college-images/SVKM's NMIMS/SVKM's NMIMS Classrooms & Hostels.webp",
+      'Sports Courts (Cricket, Basketball, Badminton)': "/college-images/SVKM's NMIMS/SVKM's NMIMS Sports Courts.webp",
+      'Central Air-conditioned Auditorium': "/college-images/SVKM's NMIMS/SVKM's NMIMSCentral Air-conditioned Auditorium.jpg",
+      'Research & Innovation Labs': "/college-images/SVKM's NMIMS/SVKM's NMIMS-Research & Innovation Labs'.jpeg",
+      'Canteen / Cafeteria': "/college-images/SVKM's NMIMS/SVKM's NMIMS Canteen Cafeteria.jpg",
+      'Round-the-clock Security': "/college-images/SVKM's NMIMS/SVKM's NMIMS Round-the-clock Security.webp"
+    },
     establishedYear: 2017,
     coordinates: { lat: 22.771, lng: 75.815 },
     address: 'Off Super Corridor, Bada Bangarda, Tehsil: Hatod, Indore - 453112, Madhya Pradesh, India',
@@ -2486,7 +2498,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 225000,
     rating: 4.4,
     totalReviews: 53,
-    image: '/nmims-stme.jpg',
+    image: "/college-images/SVKM's NMIMS/SVKM's NMIMS.webp",
+    campusPhoto: "/college-images/SVKM's NMIMS/SVKM's NMIMS.webp",
     description: 'The School of Technology Management & Engineering (STME) at SVKM\'s NMIMS Indore (Deemed to be University) is located off the Super Corridor at Bada Bangarda, Indore. It offers B.Tech in Computer Engineering and Artificial Intelligence & Data Science as well as the 5-year MBA Tech program in Computer Engineering.',
     facilities: [
       'Advanced Robotics Lab',
@@ -2497,6 +2510,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Sports Fields',
       'Canteen'
     ],
+    facilityImages: {
+      'Advanced Robotics Lab': "/college-images/SVKM's NMIMS/SVKM's NMIMS-Research & Innovation Labs'.jpeg",
+      'Server and Tech Control Center': "/college-images/SVKM's NMIMS/SVKM's NMIMS Smart Boardrooms.jpg",
+      'Fully Air-conditioned Study Halls': "/college-images/SVKM's NMIMS/SVKM's NMIMS Classrooms & Hostels.webp",
+      'Bloomberg Terminal Lab': "/college-images/SVKM's NMIMS/SVKM's NMIMS Bloomberg Terminals.jpg",
+      'Hostels': "/college-images/SVKM's NMIMS/SVKM's NMIMS Classrooms & Hostels.webp",
+      'Sports Fields': "/college-images/SVKM's NMIMS/SVKM's NMIMS Sports Courts.webp",
+      'Canteen': "/college-images/SVKM's NMIMS/SVKM's NMIMS Canteen Cafeteria.jpg"
+    },
     establishedYear: 2017,
     coordinates: { lat: 22.7712, lng: 75.8152 },
     address: 'Off Super Corridor, Bada Bangarda, Tehsil: Hatod, Indore - 453112, Madhya Pradesh, India',
@@ -2657,7 +2679,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     googleRating: 3.9,
     indoreRating: 4,
     totalReviews: 84,
-    image: '/chameli-devi.jpg',
+    image: '/college-images/CDGI/CDGI.webp',
+    campusPhoto: '/college-images/CDGI/CDGI.webp',
     description: 'Chameli Devi Group of Institutions (CDGI Indore), established in 2006 along Khandwa Road (Village Umrikheda, Indore), is a private higher education group accredited with NAAC A+ Grade (CGPA 3.39). It operates across engineering, pharmacy, management, computer applications, commerce, and law institutes with affiliations and approvals as applicable.',
     facilities: [
       'A/C Auditoriums',
@@ -2669,6 +2692,16 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Fleet of Buses',
       'Boys & Girls Hostels'
     ],
+    facilityImages: {
+      'A/C Auditoriums': '/college-images/CDGI/CDGI-Auditoriums.jpeg',
+      'Modern Science & Tech Labs': '/college-images/CDGI/CDGI- Science & Tech Labs.avif',
+      'Canteen Hub': '/college-images/CDGI/CDGI-Canteen Hub.avif',
+      'Cricket Ground (State level)': '/college-images/CDGI/CDGI-Cricket Ground.avif',
+      'High Speed Wi-Fi Campus': '/college-images/CDGI/CDGI-Speed Wi-Fi Campus.avif',
+      'Central Library': '/college-images/CDGI/CDGI-Central Library.avif',
+      'Fleet of Buses': '/college-images/CDGI/CDGI-Fleet of Buses.avif',
+      'Boys & Girls Hostels': '/college-images/CDGI/CDGI-Boys & Girls Hostels.avif'
+    },
     establishedYear: 2006,
     coordinates: { lat: 22.634, lng: 75.878 },
     address: 'Village Umrikheda, Khandwa Road, Indore - 452020, Madhya Pradesh, India',
@@ -4214,7 +4247,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 200000,
     rating: 4.8,
     totalReviews: 39,
-    image: '/nmims-law.jpg',
+    image: "/college-images/SVKM's NMIMS/SVKM's NMIMS.webp",
+    campusPhoto: "/college-images/SVKM's NMIMS/SVKM's NMIMS.webp",
     description: 'SVKM\'s NMIMS School of Law (SOL), Indore is a constituent school of SVKM\'s NMIMS (Deemed to be University) located off the Super Corridor at Bada Bangarda, Indore. Approved by the Bar Council of India (BCI), it offers 5-year integrated B.A., LL.B. (Hons.) and B.B.A., LL.B. (Hons.) programs.',
     facilities: [
       'Pristine Moot-Court Room',
@@ -4226,6 +4260,16 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Sports Complex',
       'Canteen'
     ],
+    facilityImages: {
+      'Pristine Moot-Court Room': "/college-images/SVKM's NMIMS/SVKM's NMIMS Smart Boardrooms.jpg",
+      'Law Library (e-journals)': "/college-images/SVKM's NMIMS/SVKM's NMIMS Central Library.webp",
+      'Legal Aid Clinics': "/college-images/SVKM's NMIMS/SVKM's NMIMS-Research & Innovation Labs'.jpeg",
+      'A/C Lecture Theatres': "/college-images/SVKM's NMIMS/SVKM's NMIMSCentral Air-conditioned Auditorium.jpg",
+      'Hostels': "/college-images/SVKM's NMIMS/SVKM's NMIMS Classrooms & Hostels.webp",
+      'High-speed Wi-Fi': "/college-images/SVKM's NMIMS/SVKM's NMIMS Round-the-clock Security.webp",
+      'Sports Complex': "/college-images/SVKM's NMIMS/SVKM's NMIMS Sports Courts.webp",
+      'Canteen': "/college-images/SVKM's NMIMS/SVKM's NMIMS Canteen Cafeteria.jpg"
+    },
     establishedYear: 2017,
     coordinates: { lat: 22.7714, lng: 75.8154 },
     address: 'Off Super Corridor, Bada Bangarda, Tehsil: Hatod, Indore - 453112, Madhya Pradesh, India',
@@ -6845,7 +6889,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 75000,
     rating: 3.9,
     totalReviews: 85,
-    image: '/sri-aurobindo-institute-of-technology.jpg',
+    image: '/college-images/SAIT/SAIT.jpg',
+    campusPhoto: '/college-images/SAIT/SAIT.jpg',
     description: 'Sri Aurobindo Institute of Technology (SAIT Indore), established in 2009 along the Indore–Ujjain Highway near MR-10 Crossing (SAIMS Campus, Bhawrasla / Sanwer Road) in Indore, is part of the Sri Aurobindo Group of Institutes. It offers undergraduate, postgraduate, and design/management programs across engineering, technology, design, and management.',
     facilities: [
       'Engineering & Computing Labs',
@@ -6855,6 +6900,14 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Wi-Fi Campus',
       'Cafeteria & Bus Network'
     ],
+    facilityImages: {
+      'Engineering & Computing Labs': '/college-images/SAIT/SAIT-Engineering & Computing Labs.webp',
+      'Central Library': '/college-images/SAIT/SAIT-Central Library.webp',
+      'Seminar & Lecture Halls': '/college-images/SAIT/SAIT-Seminar & Lecture Halls.webp',
+      'Sports Facilities': '/college-images/SAIT/SAIT-Sports Facilities.webp',
+      'Wi-Fi Campus': '/college-images/SAIT/SAIT-Wi-Fi Campus.webp',
+      'Cafeteria & Bus Network': '/college-images/SAIT/SAIT-Cafeteria & Bus Network.webp'
+    },
     establishedYear: 2009,
     coordinates: { lat: 22.775, lng: 75.845 },
     address: 'SAIMS Campus, Indore–Ujjain Highway, Near MR-10 Crossing, Bhawrasla, Indore - 453555, Madhya Pradesh, India',
