@@ -870,14 +870,14 @@ export default function Home({
               'Engineering': ['sgsits', 'iet-davv', 'acropolis', 'iist-indore', 'medi-caps-university', 'ips-engineering', 'piemr-indore', 'malwa-group-of-institutes', 'skitm-indore', 'chameli-devi'],
               'BBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
               'MBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
-              'BCA': ['softvision-college', 'sgsits', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'renaissance-college', 'gacc-indore', 'alexia-college', 'apj-kalam-univ', 'sage-university'],
-              'MCA': ['sgsits', 'iips-davv', 'acropolis', 'medi-caps-university', 'svim-indore', 'patel-college', 'sage-university', 'chameli-devi', 'gujarati-professional', 'oriental-university'],
-              'Paramedical': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'holkar-science', 'softvision-college', 'sage-university', 'oriental-university', 'malwa-group-of-institutes', 'apj-kalam-univ'],
-              'Pharmacy': ['nmims-indore', 'sgsits', 'medi-caps-university', 'sage-university', 'chameli-devi', 'malwa-group-of-institutes', 'oriental-university', 'davv', 'apj-kalam-univ', 'skitm-indore'],
-              'B.Com.': ['softvision-college', 'alexia-college', 'nmims-indore', 'medi-caps-university', 'pioneer-institute', 'christian-eminent', 'iips-davv', 'gsb-indore', 'gacc-indore', 'renaissance-college'],
-              'B.Sc.': ['softvision-college', 'medi-caps-university', 'prestige-university', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'symbiosis-university', 'renaissance-college', 'svim-indore', 'sage-university'],
-              'Design': ['cindrebay-design', 'iit-indore', 'sgsits', 'symbiosis-university', 'svvv-indore', 'iet-davv', 'piemr-indore', 'gsb-indore', 'sri-aurobindo-institute-of-technology', 'madrid-software'],
-              'Law': ['iil-indore', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'davv', 'iim-indore', 'sage-university', 'acropolis']
+              'BCA': ['pimr', 'medi-caps-university', 'ims-davv', 'sage-university', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'acropolis', 'svvv-indore', 'softvision-college'],
+              'MCA': ['pimr', 'medi-caps-university', 'ims-davv', 'sage-university', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'acropolis', 'svvv-indore', 'softvision-college'],
+              'Paramedical': ['saims', 'sage-university', 'davv', 'iist-indore', 'mgm-medical', 'svvv-indore', 'oriental-university', 'malwa-group-of-institutes', 'index-medical', 'shubhdeep-ayurved'],
+              'Pharmacy': ['sgsits', 'davv', 'skitm-indore', 'medi-caps-university', 'saims', 'sage-university', 'ips-engineering', 'acropolis', 'malwa-group-of-institutes', 'swami-vivekanand-college-engineering'],
+              'B.Com.': ['acropolis', 'medi-caps-university', 'svim-indore', 'davv', 'malwa-group-of-institutes', 'iist-indore', 'pioneer-institute', 'lncts-indore', 'pimr', 'christian-eminent'],
+              'B.Sc.': ['ips-engineering', 'sage-university', 'davv', 'medi-caps-university', 'chameli-devi', 'svim-indore', 'gacc-indore', 'symbiosis-university', 'malwa-group-of-institutes', 'oriental-university'],
+              'Design': ['iit-indore', 'sage-university', 'davv', 'renaissance-college', 'oriental-university', 'symbiosis-university', 'sri-aurobindo-institute-of-technology', 'ips-engineering', 'iet-davv', 'svvv-indore'],
+              'Law': ['iil-indore', 'pimr', 'sage-university', 'ips-engineering', 'davv', 'medi-caps-university', 'skitm-indore', 'jain-diwakar-college', 'nmims-law', 'oriental-university']
             };
 
             // Category 02: Top 10 evaluated by Indore Colleges Academic & Placement Merit
@@ -1155,10 +1155,7 @@ export default function Home({
                 const name = institute?.name || COLLEGE_NAME_FALLBACKS[id];
                 return name ? [{ id, name, institute }] : [];
               });
-            const googleColleges = (activeSearchedTab === 'Engineering' || activeSearchedTab === 'BBA' || activeSearchedTab === 'MBA'
-              ? googleCollegeMatches
-              : googleCollegeMatches.sort((a, b) => (b.institute ? getGoogleRating(b.institute) : 0) - (a.institute ? getGoogleRating(a.institute) : 0))
-            ).slice(0, 10);
+            const googleColleges = googleCollegeMatches.slice(0, 10);
 
             const indoreIds = INDORE_LISTS_BY_TAB[activeSearchedTab] || [];
             const indoreCollegeMatches = indoreIds
