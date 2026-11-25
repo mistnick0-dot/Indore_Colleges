@@ -2,17 +2,72 @@ import { motion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 
 const streams = [
-  { id: 'engineering', name: 'Engineering', hoverAccent: 'hover:bg-blue-50/40 hover:border-blue-200 group-hover:text-blue-600' },
-  { id: 'bba', name: 'BBA', hoverAccent: 'hover:bg-emerald-50/40 hover:border-emerald-200 group-hover:text-emerald-600' },
-  { id: 'mba', name: 'MBA', hoverAccent: 'hover:bg-rose-50/40 hover:border-rose-200 group-hover:text-rose-600' },
-  { id: 'bca', name: 'BCA', hoverAccent: 'hover:bg-violet-50/40 hover:border-violet-200 group-hover:text-violet-600' },
-  { id: 'mca', name: 'MCA', hoverAccent: 'hover:bg-cyan-50/40 hover:border-cyan-200 group-hover:text-cyan-600' },
-  { id: 'paramedical', name: 'Paramedical', hoverAccent: 'hover:bg-teal-50/40 hover:border-teal-200 group-hover:text-teal-600' },
-  { id: 'pharmacy', name: 'Pharmacy', hoverAccent: 'hover:bg-pink-50/40 hover:border-pink-200 group-hover:text-pink-600' },
-  { id: 'bcom', name: 'B.Com.', hoverAccent: 'hover:bg-amber-50/40 hover:border-amber-200 group-hover:text-amber-600' },
-  { id: 'bsc', name: 'B.Sc.', hoverAccent: 'hover:bg-indigo-50/40 hover:border-indigo-200 group-hover:text-indigo-600' },
-  { id: 'design', name: 'Design', hoverAccent: 'hover:bg-fuchsia-50/40 hover:border-fuchsia-200 group-hover:text-fuchsia-600' },
-  { id: 'law', name: 'Law', hoverAccent: 'hover:bg-red-50/40 hover:border-red-200 group-hover:text-red-600' },
+  {
+    id: 'engineering',
+    name: 'Engineering',
+    cardClasses: 'from-blue-50 via-indigo-50/90 to-blue-100/80 border-blue-200/90 text-blue-900 shadow-blue-500/10 hover:from-blue-600 hover:via-indigo-600 hover:to-blue-700 hover:border-blue-600 hover:text-white hover:shadow-blue-500/35',
+    dotClasses: 'bg-blue-600 group-hover:bg-white',
+  },
+  {
+    id: 'bba',
+    name: 'BBA',
+    cardClasses: 'from-emerald-50 via-teal-50/90 to-emerald-100/80 border-emerald-200/90 text-emerald-900 shadow-emerald-500/10 hover:from-emerald-600 hover:via-teal-600 hover:to-emerald-700 hover:border-emerald-600 hover:text-white hover:shadow-emerald-500/35',
+    dotClasses: 'bg-emerald-600 group-hover:bg-white',
+  },
+  {
+    id: 'mba',
+    name: 'MBA',
+    cardClasses: 'from-rose-50 via-red-50/90 to-rose-100/80 border-rose-200/90 text-rose-900 shadow-rose-500/10 hover:from-rose-600 hover:via-red-600 hover:to-rose-700 hover:border-rose-600 hover:text-white hover:shadow-rose-500/35',
+    dotClasses: 'bg-rose-600 group-hover:bg-white',
+  },
+  {
+    id: 'bca',
+    name: 'BCA',
+    cardClasses: 'from-violet-50 via-purple-50/90 to-violet-100/80 border-violet-200/90 text-violet-900 shadow-violet-500/10 hover:from-violet-600 hover:via-purple-600 hover:to-violet-700 hover:border-violet-600 hover:text-white hover:shadow-violet-500/35',
+    dotClasses: 'bg-violet-600 group-hover:bg-white',
+  },
+  {
+    id: 'mca',
+    name: 'MCA',
+    cardClasses: 'from-cyan-50 via-sky-50/90 to-cyan-100/80 border-cyan-200/90 text-cyan-900 shadow-cyan-500/10 hover:from-cyan-600 hover:via-sky-600 hover:to-cyan-700 hover:border-cyan-600 hover:text-white hover:shadow-cyan-500/35',
+    dotClasses: 'bg-cyan-600 group-hover:bg-white',
+  },
+  {
+    id: 'paramedical',
+    name: 'Paramedical',
+    cardClasses: 'from-teal-50 via-emerald-50/90 to-teal-100/80 border-teal-200/90 text-teal-900 shadow-teal-500/10 hover:from-teal-600 hover:via-emerald-600 hover:to-teal-700 hover:border-teal-600 hover:text-white hover:shadow-teal-500/35',
+    dotClasses: 'bg-teal-600 group-hover:bg-white',
+  },
+  {
+    id: 'pharmacy',
+    name: 'Pharmacy',
+    cardClasses: 'from-pink-50 via-rose-50/90 to-pink-100/80 border-pink-200/90 text-pink-900 shadow-pink-500/10 hover:from-pink-600 hover:via-rose-600 hover:to-pink-700 hover:border-pink-600 hover:text-white hover:shadow-pink-500/35',
+    dotClasses: 'bg-pink-600 group-hover:bg-white',
+  },
+  {
+    id: 'bcom',
+    name: 'B.Com.',
+    cardClasses: 'from-amber-50 via-orange-50/90 to-amber-100/80 border-amber-200/90 text-amber-900 shadow-amber-500/10 hover:from-amber-500 hover:via-orange-500 hover:to-amber-600 hover:border-amber-500 hover:text-white hover:shadow-amber-500/35',
+    dotClasses: 'bg-amber-600 group-hover:bg-white',
+  },
+  {
+    id: 'bsc',
+    name: 'B.Sc.',
+    cardClasses: 'from-indigo-50 via-blue-50/90 to-indigo-100/80 border-indigo-200/90 text-indigo-900 shadow-indigo-500/10 hover:from-indigo-600 hover:via-blue-600 hover:to-indigo-700 hover:border-indigo-600 hover:text-white hover:shadow-indigo-500/35',
+    dotClasses: 'bg-indigo-600 group-hover:bg-white',
+  },
+  {
+    id: 'design',
+    name: 'Design',
+    cardClasses: 'from-fuchsia-50 via-pink-50/90 to-fuchsia-100/80 border-fuchsia-200/90 text-fuchsia-900 shadow-fuchsia-500/10 hover:from-fuchsia-600 hover:via-pink-600 hover:to-fuchsia-700 hover:border-fuchsia-600 hover:text-white hover:shadow-fuchsia-500/35',
+    dotClasses: 'bg-fuchsia-600 group-hover:bg-white',
+  },
+  {
+    id: 'law',
+    name: 'Law',
+    cardClasses: 'from-red-50 via-orange-50/90 to-red-100/80 border-red-200/90 text-red-900 shadow-red-500/10 hover:from-red-600 hover:via-orange-600 hover:to-red-700 hover:border-red-600 hover:text-white hover:shadow-red-500/35',
+    dotClasses: 'bg-red-600 group-hover:bg-white',
+  },
 ];
 
 interface StreamSelectorProps {
@@ -52,25 +107,38 @@ export default function StreamSelector({ onSelectStream }: StreamSelectorProps) 
         </motion.h2>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3.5 sm:gap-4">
+      <div className="relative flex flex-wrap justify-center gap-3 sm:gap-3.5 max-w-5xl mx-auto">
         {streams.map((stream, index) => (
           <motion.a
             id={`stream-box-${stream.id}`}
             key={stream.id}
             href={`/explore/${stream.id}`}
-            whileHover={{ scale: 1.05, y: -4 }}
+            initial={false}
+            animate={{ y: [0, -3, 0] }}
+            transition={{
+              duration: 3 + (index % 4) * 0.45,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: index * 0.14,
+            }}
+            whileHover={{ scale: 1.07, y: -5 }}
             whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.04 }}
             onClick={event => {
               if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
               event.preventDefault();
               onSelectStream(stream.id);
             }}
-            className={`flex items-center justify-center w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(16.666%-0.85rem)] p-6 bg-white border border-gray-100 rounded-2xl transition cursor-pointer text-center group h-28 shadow-xs hover:shadow-md ${stream.hoverAccent}`}
+            className={`relative overflow-hidden inline-flex items-center justify-center gap-2.5 px-5 sm:px-6 h-14 sm:h-15 min-w-[132px] sm:min-w-[148px] bg-gradient-to-br border rounded-2xl transition-all duration-300 cursor-pointer text-center group shadow-sm hover:shadow-lg ${stream.cardClasses}`}
           >
-            <span className="text-sm font-extrabold tracking-wider uppercase text-gray-800 transition duration-200">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/35 to-transparent"
+            />
+            <span
+              aria-hidden="true"
+              className={`relative z-10 h-2.5 w-2.5 rounded-full shrink-0 animate-pulse transition-colors duration-300 ${stream.dotClasses}`}
+            />
+            <span className="relative z-10 text-base sm:text-lg font-black tracking-wide uppercase transition-colors duration-200">
               {stream.name}
             </span>
           </motion.a>
