@@ -302,15 +302,24 @@ export default function CollegeDetailPage({
               </div>
             </div>
 
-            <div className="w-full lg:ml-auto lg:flex-1 lg:min-w-0 lg:max-w-[780px] 2xl:max-w-[940px]">
-              <div className="h-[280px] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm sm:h-[340px] lg:h-[380px] xl:h-[420px] 2xl:h-[460px]">
+            <div className="w-full lg:ml-auto lg:flex-1 lg:min-w-0 lg:max-w-[640px] xl:max-w-[680px] 2xl:max-w-[740px]">
+              <div className="relative flex h-[240px] w-full items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm sm:h-[300px] lg:h-[340px] xl:h-[360px] 2xl:h-[390px]">
                 {heroImage ? (
-                  <img
-                    src={heroImage}
-                    alt={institute.name}
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-cover object-center"
-                  />
+                  <>
+                    <img
+                      src={heroImage}
+                      alt=""
+                      aria-hidden="true"
+                      referrerPolicy="no-referrer"
+                      className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-2xl"
+                    />
+                    <img
+                      src={heroImage}
+                      alt={institute.name}
+                      referrerPolicy="no-referrer"
+                      className="relative z-10 max-h-full max-w-full object-contain object-center"
+                    />
+                  </>
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-red-700 to-rose-500 text-white">
                     <span className="text-5xl font-black tracking-widest">{shortName}</span>
