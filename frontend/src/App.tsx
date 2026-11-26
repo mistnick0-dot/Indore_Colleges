@@ -745,7 +745,7 @@ function ExploreRoute({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       key={selectedStream || 'explore'}
@@ -772,9 +772,9 @@ function ExploreRoute({
                         <Sparkles className="h-3 w-3 animate-pulse text-amber-500" />
                         Stream Spotlight
                       </span>
-                      <h2 className="text-xl sm:text-2xl font-black text-gray-900 mt-1 flex items-center gap-2">
+                      <h1 className="text-xl sm:text-2xl font-black text-gray-900 mt-1 flex items-center gap-2">
                         Top 10 {STREAM_DISPLAY_NAMES[selectedStream] || selectedStream} Colleges in Indore
-                      </h2>
+                      </h1>
                     </div>
                   </div>
                   <button
@@ -801,7 +801,7 @@ function ExploreRoute({
                           return (
                             <motion.div
                               key={inst.id}
-                              initial={{ opacity: 0, y: 12 }}
+                              initial={false}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: index * 0.04 }}
                               className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-red-50/5 transition duration-150 group"
