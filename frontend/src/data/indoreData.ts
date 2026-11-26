@@ -1277,11 +1277,11 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 125000,
     rating: 3.9,
     totalReviews: 203,
-    image: '/sage-university.jpg',
+    image: '/college-images/SAGE/SAGE.jpg',
+    campusPhoto: '/college-images/SAGE/SAGE.jpg',
     description: 'SAGE University Indore, established in 2017 by The SAGE Group, is a private university accredited with an A+ grade by NAAC and approved by UGC, AICTE, BCI, and PCI. Operating on a green campus along the Indore–Rau Bypass Road at Kailod Kartal, it offers multidisciplinary programs across Engineering & Technology, Management, Commerce, Law, Pharmacy, Design, Agriculture, Sciences, and Humanities.',
     facilities: [
       'Apple Computer Lab',
-      'Android and AI/ML Labs',
       'Central Library (60,000+ books)',
       'Smart Classrooms',
       'Auditorium',
@@ -1292,6 +1292,18 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Modern Cafeteria',
       'On-campus Medical Center'
     ],
+    facilityImages: {
+      'Apple Computer Lab': '/college-images/SAGE/SAGE-Apple Computer Lab.webp',
+      'Central Library (60,000+ books)': '/college-images/SAGE/SAGE-Central Library.webp',
+      'Smart Classrooms': '/college-images/SAGE/SAGE-Smart Classrooms.webp',
+      'Auditorium': '/college-images/SAGE/SAGE-Auditorium.jpg',
+      'Prangan & Aangan Hostels (Boys & Girls)': '/college-images/SAGE/SAGE-Prangan & Aangan Hostels.webp',
+      'Swimming Pool': '/college-images/SAGE/SAGE-Swimming Pool.webp',
+      'Cricket & Football Grounds': '/college-images/SAGE/SAGE-Cricket & Football Grounds.jpg',
+      'Gymnasium': '/college-images/SAGE/SAGE-Gymnasium.webp',
+      'Modern Cafeteria': '/college-images/SAGE/SAGE-Cafeteria.webp',
+      'On-campus Medical Center': '/college-images/SAGE/SAGE-Medical CenteR.webp'
+    },
     establishedYear: 2017,
     coordinates: { lat: 22.775, lng: 75.922 },
     address: 'Kailod Kartal, Indore–Rau Bypass Road, Indore - 452020, Madhya Pradesh, India',
@@ -1582,7 +1594,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 25000,
     rating: 3.6,
     totalReviews: 39,
-    image: '/apj-kalam-univ.jpg',
+    image: '/college-images/AKU/AKU.webp',
+    campusPhoto: '/college-images/AKU/AKU.webp',
     description: 'Dr. A.P.J. Abdul Kalam University (AKU) Indore is a private university located along the Indore–Dewas Bypass Road (Village Arandia, Indore). It offers undergraduate, postgraduate, diploma, and doctoral programs across Engineering, Pharmacy, Management, Computer Applications, Commerce, Science, Arts, Education, Library Science, Design, and Law.',
     facilities: [
       'Smart Classrooms',
@@ -1591,10 +1604,17 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Lecture Halls',
       'Auditorium & Seminar Halls',
       'Research & Innovation Labs',
-      'Hostels (Separate Boys & Girls)',
       'Central Cafeteria',
-      'Sports Grounds'
     ],
+    facilityImages: {
+      'Smart Classrooms': '/college-images/AKU/AKU-Smart Classrooms.webp',
+      'Advanced Laboratories': '/college-images/AKU/AKU-Advanced Laboratorie.webp',
+      'Digital Library': '/college-images/AKU/AKU-Digital Library.webp',
+      'Lecture Halls': '/college-images/AKU/AKU-Lecture Halls.webp',
+      'Auditorium & Seminar Halls': '/college-images/AKU/AKU-Auditorium & Seminar Halls.webp',
+      'Research & Innovation Labs': '/college-images/AKU/AKU-Research & Innovation Labs.webp',
+      'Central Cafeteria': '/college-images/AKU/AKU-Central Cafeteria.webp'
+    },
     establishedYear: 2011,
     coordinates: { lat: 22.782, lng: 75.918 },
     address: 'Indore–Dewas Bypass Road, Village Arandia, Indore, Madhya Pradesh, India',
@@ -1748,7 +1768,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 100000,
     rating: 3.8,
     totalReviews: 101,
-    image: '/oriental-university.jpg',
+    image: '/college-images/Oriental University/Oriental University.webp',
+    campusPhoto: '/college-images/Oriental University/Oriental University.webp',
     description: 'Oriental University Indore, established in 2011 under Section 2(f) of the UGC Act, is a private university located along the Sanwer Road opposite Reoti Range (Gate No. 1, Jakhya). It offers undergraduate, postgraduate, diploma, and doctoral programs across engineering, pharmacy, management, computer applications, sciences, arts, education, and law.',
     facilities: [
       'Fully Residential Campus (77 Acres)',
@@ -1759,10 +1780,17 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Sports Complex & Gymnasium',
       'Auditorium & Seminar Halls',
       'Hygienic Cafeteria',
-      'Fleet of Transport Buses',
-      '24x7 Security & CCTV',
-      'Active Training & Placement Cell'
     ],
+    facilityImages: {
+      'Fully Residential Campus (77 Acres)': '/college-images/Oriental University/Fully Residential Campus.webp',
+      'Central Library (42,000+ books)': '/college-images/Oriental University/Central Library.webp',
+      'Hostels (Separate Boys & Girls)': '/college-images/Oriental University/Hostels.webp',
+      'Attached Washroom Hostels with Wi-Fi': '/college-images/Oriental University/Attached Washroom Hostels with Wi-Fi.webp',
+      'Spacious Laboratories & Equipment': '/college-images/Oriental University/Spacious Laboratories & Equipment.webp',
+      'Sports Complex & Gymnasium': '/college-images/Oriental University/Sports Complex & Gymnasium.webp',
+      'Auditorium & Seminar Halls': '/college-images/Oriental University/Auditorium & Seminar Halls.webp',
+      'Hygienic Cafeteria': '/college-images/Oriental University/Hygienic Cafeteria.webp'
+    },
     establishedYear: 2011,
     coordinates: { lat: 22.795, lng: 75.842 },
     address: 'Opp. Reoti Range, Gate No. 1, Jakhya, Sanwer Road, Indore, Madhya Pradesh, India',
@@ -2174,7 +2202,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 550000,
     rating: 4.4,
     totalReviews: 38,
-    image: '/prestige-university.jpg',
+    image: '/college-images/Prestige University/Prestige University.webp',
+    campusPhoto: '/college-images/Prestige University/Prestige University.webp',
     description: 'Prestige University Indore is a private university located along the Ujjain–Indore Road at Ringnodiya (Survey No. 203, Indore). It offers undergraduate, integrated master\'s, postgraduate, and executive programs across management, computing, quantitative economics, data science, and engineering.',
     facilities: [
       'Incubation Centers',
@@ -2185,6 +2214,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Hi-tech Computer Hubs',
       'Sports Grounds'
     ],
+    facilityImages: {
+      'Incubation Centers': '/college-images/Prestige University/Incubation Centers.jpg',
+      'A/C Lecture Theatres': '/college-images/Prestige University/AC Lecture Theatres.webp',
+      'Executive Dining Lounge': '/college-images/Prestige University/Executive Dining Lounge.webp',
+      'Creative Design Studios': "/college-images/Prestige University/'Creative Design Studios.webp",
+      'Bloomberg Labs': '/college-images/Prestige University/Bloomberg Labs.webp',
+      'Hi-tech Computer Hubs': '/college-images/Prestige University/Hi-tech Computer Hubs.webp',
+      'Sports Grounds': '/college-images/Prestige University/SPORTS.webp'
+    },
     establishedYear: 2022,
     coordinates: { lat: 22.776, lng: 75.819 },
     address: 'Survey No. 203, Ringnodiya, Ujjain–Indore Road, Indore - 453551, Madhya Pradesh, India',
