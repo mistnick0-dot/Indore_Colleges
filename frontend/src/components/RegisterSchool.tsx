@@ -101,6 +101,11 @@ const COURSE_OPTIONS: CourseOption[] = [
     match: (name, cat) => /\b(b\.?\s*des|design|fashion|interior)\b/i.test(name) || cat.toLowerCase() === 'design',
   },
   {
+    id: 'diploma',
+    label: 'Diploma',
+    match: (name) => /diploma/i.test(name) && !/pharm/i.test(name),
+  },
+  {
     id: 'arts-edu',
     label: 'B.A. / BJMC / B.Ed',
     match: (name) => /\b(b\.?\s*a\.?|m\.?\s*a\.?|bjmc|bajmc|b\.?\s*ed|m\.?\s*ed|mass communication)\b/i.test(name) && !/ll\.?b/i.test(name),
