@@ -16,6 +16,9 @@ export function preserveRepositoryInstituteImages(institutes: Institute[]): Inst
       image: repositoryInstitute.image,
       campusPhoto: repositoryInstitute.campusPhoto,
       facilityImages: repositoryInstitute.facilityImages,
+      videoUrl: institute.videoUrl || repositoryInstitute.videoUrl,
+      backgroundVideoUrl: institute.backgroundVideoUrl || repositoryInstitute.backgroundVideoUrl,
+      expertReviewVideoUrl: institute.expertReviewVideoUrl || repositoryInstitute.expertReviewVideoUrl,
     };
   });
 }

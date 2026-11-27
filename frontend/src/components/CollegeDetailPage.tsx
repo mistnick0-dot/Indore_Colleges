@@ -202,7 +202,9 @@ export default function CollegeDetailPage({
   const heroImage = encodeURI(liveHeroImageOverrides[institute.id] || institute.image);
   const getFacilityImage = (facility: string) =>
     encodeURI(liveFacilityImageOverrides[institute.id]?.[facility] || institute.facilityImages?.[facility] || defaultFacilityImage);
-  const collegeVideoUrl = institute.videoUrl || institute.backgroundVideoUrl;
+  const repositoryInstitute = INDORE_INSTITUTES.find(item => item.id === institute.id);
+  const collegeVideoUrl = institute.videoUrl || institute.backgroundVideoUrl || repositoryInstitute?.videoUrl || repositoryInstitute?.backgroundVideoUrl;
+  const expertReviewVideoUrl = institute.expertReviewVideoUrl || repositoryInstitute?.expertReviewVideoUrl;
   const categoryInstitutes = INDORE_INSTITUTES.filter(item => item.category === institute.category);
   const googleRank = [...categoryInstitutes]
     .sort((a, b) => (b.googleRating ?? b.rating) - (a.googleRating ?? a.rating))
@@ -581,7 +583,7 @@ export default function CollegeDetailPage({
                   {
                     title: 'Reviews by Indore College Experts',
                     thumbnail: '/Review-by-indore-college.webp',
-                    videoUrl: institute.expertReviewVideoUrl
+                    videoUrl: expertReviewVideoUrl
                   },
                   {
                     title: 'Review by Actual Students',
