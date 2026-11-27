@@ -144,76 +144,42 @@ function mapCollegeToLocations(col: Institute): string[] {
 
   if (
     col.id === 'malwa-group-of-institutes' ||
-    loc.includes('sanwer') ||
-    loc.includes('ujjain') ||
-    loc.includes('super corridor') ||
-    loc.includes('bhawrasla') ||
-    loc.includes('gram alwasa') ||
-    loc.includes('baroli') ||
-    loc.includes('palia') ||
-    loc.includes('hatod') ||
-    loc.includes('limbodagari') ||
-    loc.includes('aurobindo')
+    col.id === 'prestige-university' ||
+    col.id === 'indore-mahavidyalaya' ||
+    /\b(sanwer|ujjain|super corridor|airport|jambudi hapsi|pitra parvat|ringn?odiya|bhawrasla|bhavrasla|gram alwasa|baroli|palia|hatod|limbodagari|aurobindo)\b/i.test(loc)
   ) {
     zones.add('Ujjain Road / Sanwer Road');
   }
 
   if (
-    loc.includes('bypass') ||
-    loc.includes('manglia') ||
-    loc.includes('mangliya') ||
-    loc.includes('dewas') ||
-    loc.includes('dakachya') ||
-    loc.includes('ralamandal') ||
-    loc.includes('jhalaria')
+    col.id === 'index-medical' ||
+    col.id === 'lnct-bhopal-indore' ||
+    /\b(bypass|manglia|mangliya|dewas|dakachya|ralamandal|jhalaria|kailod kartal|nemawar)\b/i.test(loc)
   ) {
     zones.add('Bypass Road / Dewas Bypass');
   }
 
   if (
     col.id !== 'malwa-group-of-institutes' && (
-      loc.includes('khandwa') ||
-      loc.includes('limbodi') ||
-      loc.includes('simrol') ||
-      loc.includes('takshashila') ||
-      loc.includes('bhawarkua') ||
-      loc.includes('iet-davv')
+      col.id === 'davv' ||
+      /\b(khandwa|simrol|takshashila|iet-davv|umrikheda|datoda|chokhi dhani|gokanya|hemkunt)\b/i.test(loc) ||
+      (/\blimbodi\b/i.test(loc) && !/\blimbodagari\b/i.test(loc))
     )
   ) {
     zones.add('Khandwa Road');
   }
 
   if (
-    loc.includes('rau') ||
-    loc.includes('pithampur') ||
-    loc.includes('pitampur') ||
-    loc.includes('pigdamber') ||
-    loc.includes('rajendra nagar')
+    /\b(pithampur|pitampur|pigdamber|rajendra nagar)\b/i.test(loc) ||
+    (/\brau\b/i.test(loc) && !/\bbypass\b/i.test(loc)) ||
+    (/\bmhow\b/i.test(loc) && !/\bkhandwa\b/i.test(loc))
   ) {
     zones.add('Rau / Pithampur / Mhow Road');
   }
 
   if (
-    loc.includes('city') ||
-    loc.includes('vijay nagar') ||
-    loc.includes('palasia') ||
-    loc.includes('bhawarkua') ||
-    loc.includes('vallabh') ||
-    loc.includes('residency') ||
-    loc.includes('bicholi') ||
-    loc.includes('annapurna') ||
-    loc.includes('scheme') ||
-    loc.includes('gumasta') ||
-    loc.includes('subhash marg') ||
-    loc.includes('mog lines') ||
-    loc.includes('a.b. road') ||
-    loc.includes('lalaram') ||
-    loc.includes('ganesh ganj') ||
-    loc.includes('nipania') ||
-    loc.includes('bombay hospital') ||
-    loc.includes('hig') ||
-    loc.includes('world cup') ||
-    zones.size === 1
+    zones.size === 1 ||
+    /\b(indore city|vijay nagar|palasia|bhawarkua|vallabh|residency|bicholi|annapurna|scheme|gumasta|subhash marg|mog lines|m\.o\.g\. lines|lalaram|ganesh ganj|bombay hospital|hig main|world cup|anurag nagar|press complex|nipania main)\b/i.test(loc)
   ) {
     zones.add('Indore City');
   }
