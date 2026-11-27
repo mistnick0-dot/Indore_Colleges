@@ -20,7 +20,7 @@ import {
   Video,
   Compass,
   Download,
-  MessageSquare,
+  Play,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
@@ -348,7 +348,7 @@ export default function CollegeDetailPage({
                   }}
                   className="flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-bold text-slate-900 transition hover:border-slate-400 hover:bg-slate-50 cursor-pointer"
                 >
-                  <MessageSquare className="h-4 w-4" />
+                  <Play className="h-4 w-4" />
                   Reviews
                 </button>
               </div>
@@ -573,7 +573,7 @@ export default function CollegeDetailPage({
                     videoUrl: collegeVideoUrl
                   },
                   {
-                    title: 'Review By Indore Colleges',
+                    title: 'Reviews by Indore College Experts',
                     thumbnail: '/Review-by-indore-college.webp'
                   },
                   {
