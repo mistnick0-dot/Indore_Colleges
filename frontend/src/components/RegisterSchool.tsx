@@ -143,12 +143,17 @@ function mapCollegeToLocations(col: Institute): string[] {
   const loc = `${col.location || ''} ${col.address || ''}`.toLowerCase();
 
   if (
+    col.id === 'malwa-group-of-institutes' ||
     loc.includes('sanwer') ||
     loc.includes('ujjain') ||
     loc.includes('super corridor') ||
     loc.includes('bhawrasla') ||
     loc.includes('gram alwasa') ||
-    loc.includes('baroli')
+    loc.includes('baroli') ||
+    loc.includes('palia') ||
+    loc.includes('hatod') ||
+    loc.includes('limbodagari') ||
+    loc.includes('aurobindo')
   ) {
     zones.add('Ujjain Road / Sanwer Road');
   }
@@ -166,12 +171,14 @@ function mapCollegeToLocations(col: Institute): string[] {
   }
 
   if (
-    loc.includes('khandwa') ||
-    loc.includes('limbodi') ||
-    loc.includes('simrol') ||
-    loc.includes('takshashila') ||
-    loc.includes('bhawarkua') ||
-    loc.includes('iet-davv')
+    col.id !== 'malwa-group-of-institutes' && (
+      loc.includes('khandwa') ||
+      loc.includes('limbodi') ||
+      loc.includes('simrol') ||
+      loc.includes('takshashila') ||
+      loc.includes('bhawarkua') ||
+      loc.includes('iet-davv')
+    )
   ) {
     zones.add('Khandwa Road');
   }
@@ -355,22 +362,6 @@ export default function RegisterSchool() {
     () => COURSE_OPTIONS.find(opt => opt.id === selectedCourseId),
     [selectedCourseId]
   );
-
-  // 1 & 2. Courses matched colleges -> available branches in that course
-  const availableBranches = useMemo(() => {
-    if (!selectedCourseOpt) return [];
-    const branchSet = new Set<string>();
-    for (const col of colleges) {
-      const matchingCourses = (col.coursesList || []).filter(c => selectedCourseOpt.match(c.name, col.category));
-      if (matchingCourses.length === 0 && !selectedCourseOpt.match('', col.category)) continue;
-      for (const c of matchingCourses) {
-        for (const b of getCourseBranches(c.name, c.specializations)) {
-          branchSet.add(b);
-        }
-      }
-    }
-    return ['All Branches', ...Array.from(branchSet).sort((a, b) => a.localeCompare(b))];
-  }, [colleges, selectedCourseOpt]);
 
   // 5. Filtered target colleges matching Course + Typed Branch + Location + Budget
   const filteredColleges = useMemo(() => {
@@ -591,7 +582,7 @@ export default function RegisterSchool() {
                 </select>
               </div>
 
-              {/* 2. Branch (Typeable + Quick Suggestions) */}
+              {/* 2. Branch (Typeable Input Only) */}
               <div>
                 <label htmlFor="reg-branch" className="block font-bold text-gray-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                   <Layers className="h-3.5 w-3.5 text-red-500 shrink-0" />
@@ -600,37 +591,13 @@ export default function RegisterSchool() {
                 <input
                   id="reg-branch"
                   type="text"
-                  list="reg-branch-suggestions"
                   required
                   disabled={!selectedCourseOpt}
                   value={typedBranch}
                   onChange={(e) => setTypedBranch(e.target.value)}
-                  placeholder={selectedCourseOpt ? 'Type branch (e.g. CSE, Finance, All Branches)' : 'First choose Course'}
+                  placeholder={selectedCourseOpt ? 'Type branch (e.g. CSE, Finance, All)' : 'First choose Course'}
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-red-600 font-medium disabled:bg-gray-50 disabled:text-gray-400"
                 />
-                <datalist id="reg-branch-suggestions">
-                  {availableBranches.map((branch) => (
-                    <option key={branch} value={branch} />
-                  ))}
-                </datalist>
-                {selectedCourseOpt && availableBranches.length > 0 && (
-                  <div className="mt-1.5 flex flex-wrap gap-1">
-                    {availableBranches.slice(0, 5).map((branch) => (
-                      <button
-                        key={branch}
-                        type="button"
-                        onClick={() => setTypedBranch(branch)}
-                        className={`rounded-md px-2 py-0.5 text-[10px] font-semibold border transition cursor-pointer ${
-                          typedBranch.toLowerCase() === branch.toLowerCase()
-                            ? 'bg-red-600 text-white border-red-600'
-                            : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-red-300 hover:text-red-600'
-                        }`}
-                      >
-                        {branch}
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* 3. Location */}
@@ -717,7 +684,7 @@ export default function RegisterSchool() {
                   </div>
                 ) : filteredColleges.length === 0 ? (
                   <div className="rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-4 text-xs text-amber-800 text-center">
-                    No colleges matched this combination. Try a broader branch (or click <strong>All Branches</strong>), widen Budget, or choose <strong>All Locations in Indore</strong>.
+                    No colleges matched this combination. Try typing <strong>All</strong> or a broader branch, widen Budget, or choose <strong>All Locations in Indore</strong>.
                   </div>
                 ) : (
                   <div className="max-h-60 overflow-y-auto rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
