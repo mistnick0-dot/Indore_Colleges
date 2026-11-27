@@ -7044,6 +7044,405 @@ export const INDORE_INSTITUTES: Institute[] = [
       { name: 'Master of Business Administration in Hospital Administration (MBA-HA)', duration: '2 years', fees: 'Contact institute for current fees' }
     ],
     isDirectoryVerified: false
+  },
+  {
+    id: 'indore-institute-of-pharmacy',
+    name: 'Indore Institute of Pharmacy (IIP)',
+    type: 'college',
+    category: 'Pharmacy',
+    boardOrAffiliation: 'RGPV',
+    location: 'Rau',
+    address: 'IIST Campus, Opposite IIM, Rau-Pithampur Road, Rau, Indore - 453331, Madhya Pradesh',
+    feePerAnnum: 70000,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: 'Indore Institute of Pharmacy (IIP), established in 2004 on Rau-Pithampur Road opposite IIM Indore, is affiliated with RGPV Bhopal, approved by AICTE and PCI, and accredited with NAAC Grade A. It offers D.Pharm, B.Pharm, M.Pharm, and Pharm.D programs.',
+    facilities: [
+      'Advanced Laboratories',
+      'Central Library & E-Library',
+      'Computer Lab',
+      'Hostels',
+      'Transport',
+      'Cafeteria & Sports',
+      'Training & Placement Cell'
+    ],
+    establishedYear: 2004,
+    coordinates: { lat: 22.618, lng: 75.795 },
+    approval: 'AICTE & PCI Approved; Affiliated to RGPV, Bhopal; NAAC Grade A',
+    selectionCriteria: 'Merit and MP DTE / state counseling norms as applicable',
+    coursesList: [
+      { name: 'Diploma in Pharmacy (D.Pharm)', duration: '2 Years', fees: 'Approx. ₹55,000/year' },
+      { name: 'Bachelor of Pharmacy (B.Pharm)', duration: '4 Years', fees: 'Approx. ₹70,000 - ₹85,000/year' },
+      {
+        name: 'Master of Pharmacy (M.Pharm)',
+        duration: '2 Years',
+        fees: 'Contact institute for current fees',
+        specializations: ['Pharmaceutics', 'Pharmaceutical Quality Assurance']
+      },
+      { name: 'Doctor of Pharmacy (Pharm.D)', duration: '6 Years', fees: 'Contact institute for current fees' }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'smriti-college-of-pharmacy',
+    name: 'Smriti College of Pharmaceutical Education (SCPE)',
+    type: 'college',
+    category: 'Pharmacy',
+    boardOrAffiliation: 'RGPV',
+    approval: 'PCI & AICTE Approved; Affiliated to RGPV, Bhopal; NBA-accredited UG programs',
+    location: 'Dewas Naka',
+    address: '4/1, Pipliya Kumar, MR-11, Dewas Naka, Indore - 452010, Madhya Pradesh',
+    feePerAnnum: 79000,
+    rating: 4.6,
+    googleRating: 4.6,
+    totalReviews: 269,
+    image: '',
+    description: 'Smriti College of Pharmaceutical Education (SCPE), established in 1999 under B. R. Nahata Smriti Sansthan at MR-11, Dewas Naka, Indore, is affiliated with RGPV Bhopal and approved by PCI and AICTE, with NBA-accredited undergraduate pharmacy programs.',
+    facilities: [
+      'Sophisticated Laboratories',
+      'Library',
+      'Computer & IT Center',
+      'Auditorium & Seminar Halls',
+      'Training & Placement Cell',
+      'Medical Facilities',
+      'Sports & Recreation',
+      'Cafeteria'
+    ],
+    establishedYear: 1999,
+    coordinates: { lat: 22.7196, lng: 75.8577 },
+    selectionCriteria: 'DTE Madhya Pradesh counseling and qualifying exam merit',
+    coursesList: [
+      { name: 'Bachelor of Pharmacy (B.Pharm)', duration: '4 Years', fees: 'Approx. ₹79,000 - ₹80,000/year (~₹3.16 Lakhs Total)' },
+      {
+        name: 'Master of Pharmacy (M.Pharm)',
+        duration: '2 Years',
+        fees: 'Approx. ₹71,500 - ₹75,000/year',
+        specializations: ['Pharmaceutics', 'Pharmacognosy']
+      }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'sri-aurobindo-institute-of-pharmacy',
+    name: 'Sri Aurobindo Institute of Pharmacy (SAIP)',
+    type: 'college',
+    category: 'Pharmacy',
+    boardOrAffiliation: 'RGPV',
+    approval: 'AICTE & PCI Approved; Affiliated to RGPV, Bhopal; NAAC Accredited',
+    location: 'Sanwer Road',
+    address: 'SAIMS Campus, Indore-Ujjain Highway, Near MR-10 Crossing, Indore - 453111, Madhya Pradesh',
+    feePerAnnum: 0,
+    rating: 4.2,
+    googleRating: 4.2,
+    totalReviews: 285,
+    image: '',
+    description: 'Sri Aurobindo Institute of Pharmacy (SAIP), established in 2009 at the SAIMS Campus along Indore-Ujjain Highway near MR-10 Crossing, is affiliated with RGPV Bhopal, approved by AICTE and PCI, and accredited by NAAC.',
+    facilities: [
+      'Attached Super-Specialty Hospital',
+      'Pharmaceutical Laboratories',
+      'Library',
+      'Innovation Centre for Drug Discovery',
+      'Hostels',
+      'Transport',
+      'Cafeteria & Wi-Fi Campus',
+      'Training & Placement Cell'
+    ],
+    establishedYear: 2009,
+    coordinates: { lat: 22.775, lng: 75.845 },
+    selectionCriteria: 'DTE Madhya Pradesh counseling / qualifying exam merit',
+    coursesList: [
+      { name: 'Diploma in Pharmacy (D.Pharm)', duration: '2 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Pharmacy (B.Pharm)', duration: '4 Years', fees: 'Contact institute for current fees' },
+      { name: 'Master of Pharmacy (M.Pharm)', duration: '2 Years', fees: 'Contact institute for current fees' },
+      { name: 'Doctor of Pharmacy (Pharm.D)', duration: '6 Years', fees: 'Contact institute for current fees' }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'acropolis-institute-of-pharmacy',
+    name: 'Acropolis Institute of Pharmaceutical Education and Research',
+    type: 'college',
+    category: 'Pharmacy',
+    boardOrAffiliation: 'RGPV',
+    approval: 'PCI & AICTE Approved; Affiliated to RGPV, Bhopal',
+    location: 'Bypass Road',
+    address: 'Acropolis Institute, Indore-Dewas Bypass Road, Manglia Square, Indore - 453771, Madhya Pradesh',
+    feePerAnnum: 115000,
+    rating: 4.5,
+    googleRating: 4.5,
+    totalReviews: 368,
+    image: '',
+    description: 'Acropolis Institute of Pharmaceutical Education and Research (AIPER), established in 2008 under the Acropolis Group on Indore-Dewas Bypass Road at Manglia Square, is affiliated with RGPV Bhopal and approved by PCI and AICTE.',
+    facilities: [
+      'Departmental Laboratories',
+      'Central Library',
+      'Smart Classrooms',
+      'Computer Lab & Internet',
+      'Industry-Institute Partnership Cell',
+      'Hostels & Transport',
+      'Sports & Gym'
+    ],
+    establishedYear: 2008,
+    coordinates: { lat: 22.7915, lng: 75.908 },
+    selectionCriteria: 'DTE / AFRC MP counseling norms and qualifying exam merit',
+    coursesList: [
+      { name: 'Diploma in Pharmacy (D.Pharm)', duration: '2 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Pharmacy (B.Pharm)', duration: '4 Years', fees: 'Approx. ₹1.15 - ₹1.16 Lakhs/year' },
+      {
+        name: 'Master of Pharmacy (M.Pharm)',
+        duration: '2 Years',
+        fees: 'Contact institute for current fees',
+        specializations: ['Pharmaceutics']
+      }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'modern-institute-of-pharmaceutical-sciences',
+    name: 'Modern Institute of Pharmaceutical Sciences (MIPS)',
+    type: 'college',
+    category: 'Pharmacy',
+    boardOrAffiliation: 'RGPV',
+    approval: 'PCI & AICTE Approved; Affiliated to RGPV, Bhopal',
+    location: 'Sanwer Road',
+    address: 'Modern Campus, Gram Alwasa, Behind BSF Rewati Ranges, Sanwer Road, Indore, Madhya Pradesh',
+    feePerAnnum: 0,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: 'Modern Institute of Pharmaceutical Sciences (MIPS), established in 2007 at Gram Alwasa on Sanwer Road, Indore, operates under the Modern Group of Institutions, affiliated with RGPV Bhopal and approved by PCI and AICTE.',
+    facilities: [
+      'Pharmaceutical Laboratories',
+      'Central Library',
+      'Pharma Incubation Center',
+      'Auditorium & Seminar Halls',
+      'Computer Labs',
+      'Cafeteria',
+      'Medical & Transport Facilities',
+      'Training & Placement Cell'
+    ],
+    establishedYear: 2007,
+    coordinates: { lat: 22.775, lng: 75.845 },
+    selectionCriteria: 'DTE / AFRC Madhya Pradesh counseling and merit norms',
+    coursesList: [
+      { name: 'Diploma in Pharmacy (D.Pharm)', duration: '2 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Pharmacy (B.Pharm)', duration: '4 Years', fees: 'Contact institute for current fees' },
+      {
+        name: 'Master of Pharmacy (M.Pharm)',
+        duration: '2 Years',
+        fees: 'Contact institute for current fees',
+        specializations: ['Pharmaceutics', 'Quality Assurance']
+      },
+      {
+        name: 'Master of Business Administration (MBA)',
+        duration: '2 Years',
+        fees: 'Contact institute for current fees',
+        specializations: ['Pharmaceutical Management']
+      }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'scmkvm-indore',
+    name: 'Shri Cloth Market Kanya Vanijya Mahavidyalaya (SCMKVM)',
+    type: 'college',
+    category: 'Arts & Science',
+    boardOrAffiliation: 'DAVV',
+    approval: 'UGC Recognized (2(f) & 12(B)), Affiliated to DAVV Indore, NAAC Grade A Accredited',
+    location: 'Indore City',
+    address: '70, Ganesh Ganj, Near Bada Ganpati Area, Indore - 452002, Madhya Pradesh',
+    feePerAnnum: 0,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: "Shri Cloth Market Kanya Vanijya Mahavidyalaya (SCMKVM), established in 1983 near Bada Ganpati in Indore, is a women's institution affiliated with Devi Ahilya Vishwavidyalaya (DAVV), recognized by UGC, and accredited with NAAC Grade A.",
+    facilities: [
+      'Classrooms & Academic Halls',
+      'Computer & IT Laboratories',
+      'Library',
+      'Sports Infrastructure',
+      'Cultural Event Spaces',
+      'Career & Placement Support Cell'
+    ],
+    establishedYear: 1983,
+    coordinates: { lat: 22.7196, lng: 75.8577 },
+    selectionCriteria: 'Merit-based / Madhya Pradesh Higher Education counseling norms',
+    coursesList: [
+      { name: 'Master of Commerce (M.Com)', duration: '2 Years', fees: 'Around ₹60,000 (Reported Total Fees)' },
+      { name: 'Bachelor of Commerce (B.Com)', duration: '3 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Arts (B.A.)', duration: '3 Years', fees: 'Contact institute for current fees' },
+      { name: 'Master of Arts (M.A.)', duration: '2 Years', fees: 'Contact institute for current fees' },
+      { name: 'PGDCA', duration: '1 Year', fees: 'Contact institute for current fees' }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'st-paul-institute-indore',
+    name: 'St. Paul Institute of Professional Studies',
+    type: 'college',
+    category: 'Arts & Science',
+    boardOrAffiliation: 'DAVV',
+    approval: 'Autonomous, AICTE Approved, Affiliated to DAVV Indore, NAAC Grade A Accredited',
+    location: 'Indore City',
+    address: '7/1, Boundary Road, Lalaram Nagar, Indore - 452001, Madhya Pradesh',
+    feePerAnnum: 41000,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: 'St. Paul Institute of Professional Studies (SPIPS), established in 2010 at Lalaram Nagar, Indore, is an autonomous Christian minority institution affiliated with Devi Ahilya Vishwavidyalaya (DAVV) and accredited with NAAC Grade A.',
+    facilities: [
+      'Air-Conditioned Computer & Science Labs',
+      'Library',
+      'Auditorium & Seminar Halls',
+      'Sports Playgrounds',
+      'Wi-Fi Campus',
+      'Cafeteria'
+    ],
+    establishedYear: 2010,
+    coordinates: { lat: 22.7196, lng: 75.8577 },
+    selectionCriteria: 'Merit-based / Madhya Pradesh Higher Education counseling norms',
+    coursesList: [
+      { name: 'Master of Commerce (M.Com)', duration: '2 Years', fees: 'Approx. ₹27,000 - ₹31,800/year' },
+      {
+        name: 'Bachelor of Commerce (B.Com)',
+        duration: '3 Years',
+        fees: 'Approx. ₹41,000 - ₹46,000/year',
+        specializations: ['Plain', 'Hons.', 'Foreign Trade', 'Tax Procedures']
+      },
+      { name: 'Bachelor of Business Administration (BBA)', duration: '3 Years', fees: 'Approx. ₹53,000 - ₹55,000/year' },
+      { name: 'Bachelor of Computer Applications (BCA)', duration: '3 Years', fees: 'Approx. ₹41,000 - ₹46,000/year' },
+      {
+        name: 'Bachelor of Science (B.Sc.)',
+        duration: '3 Years',
+        fees: 'Approx. ₹41,000 - ₹46,000/year',
+        specializations: ['Computer Science', 'Biotechnology']
+      },
+      {
+        name: 'Bachelor of Arts (B.A.)',
+        duration: '3 Years',
+        fees: 'Approx. ₹41,000 - ₹46,000/year',
+        specializations: ['English', 'Economics', 'Psychology']
+      },
+      { name: 'PGDCA', duration: '1 Year', fees: 'Contact institute for current fees' }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'mrsc-indore',
+    name: 'Maharaja Ranjit Singh College of Professional Sciences (MRSC Indore)',
+    type: 'college',
+    category: 'Computer Applications',
+    boardOrAffiliation: 'DAVV & RGPV',
+    approval: 'AICTE Approved, UGC 2(f) & 12(B), NAAC B++ Accredited, Affiliated to DAVV Indore & RGPV Bhopal',
+    location: 'Khandwa Road',
+    address: 'Hemkunt Campus, Khandwa Road (Near IET-DAVV), Indore - 452001, Madhya Pradesh',
+    feePerAnnum: 45600,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: 'Maharaja Ranjit Singh College of Professional Sciences (MRSC), established in 1994 on Khandwa Road near IET-DAVV, Indore, is accredited with NAAC Grade B++, approved by AICTE, recognized under UGC 2(f) & 12(B), and affiliated with DAVV Indore and RGPV Bhopal.',
+    facilities: [
+      'Library (30,000+ books)',
+      'Computer Labs',
+      'Science & Biotechnology Labs',
+      'On-Campus Hostel',
+      'Auditorium & Seminar Halls',
+      'Sports & Recreation'
+    ],
+    establishedYear: 1994,
+    coordinates: { lat: 22.681, lng: 75.879 },
+    selectionCriteria: 'MP DTE counseling (MBA/MCA) and qualifying exam merit',
+    coursesList: [
+      { name: 'Master of Computer Applications (MCA)', duration: '2 Years', fees: 'Around ₹91,200 – ₹1,00,000 (Reported Fees)' },
+      { name: 'Master of Business Administration (MBA)', duration: '2 Years', fees: 'Approx. ₹25,000 - ₹50,000/year' },
+      { name: 'Bachelor of Computer Applications (BCA)', duration: '3 Years', fees: 'Approx. ₹25,000 - ₹40,000/year' },
+      { name: 'Bachelor of Business Administration (BBA)', duration: '3 Years', fees: 'Approx. ₹25,000 - ₹40,000/year' },
+      { name: 'Bachelor of Commerce (B.Com)', duration: '3 Years', fees: 'Approx. ₹6,000 - ₹25,000/year' },
+      { name: 'Bachelor of Science (B.Sc.)', duration: '3 Years', fees: 'Approx. ₹6,000 - ₹25,000/year' },
+      {
+        name: 'Master of Science (M.Sc.)',
+        duration: '2 Years',
+        fees: 'Approx. ₹13,000 - ₹46,000/year',
+        specializations: ['Biotechnology', 'Chemistry', 'Microbiology', 'Pharma Chemistry']
+      },
+      { name: 'Master of Commerce (M.Com)', duration: '2 Years', fees: 'Approx. ₹13,000 - ₹46,000/year' }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'indore-mahavidyalaya',
+    name: 'Indore Mahavidyalaya',
+    type: 'college',
+    category: 'Computer Applications',
+    boardOrAffiliation: 'RGPV & DAVV',
+    approval: 'PCI Approved (Pharmacy), Affiliated to RGPV Bhopal & DAVV Indore',
+    location: 'Indore',
+    address: 'Jambudi Hapsi, Opposite Pitra Parvat, Near Indore Airport, Indore - 453112, Madhya Pradesh',
+    feePerAnnum: 40000,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: 'Indore Mahavidyalaya, established in 1996 at Jambudi Hapsi opposite Pitra Parvat near Indore Airport, offers undergraduate, postgraduate, and diploma programs across computer applications, management, commerce, pharmacy, and law.',
+    facilities: [
+      'Smart Classrooms',
+      'Library',
+      'Pharmaceutical Labs',
+      'Computer & IT Labs',
+      'Wi-Fi Campus',
+      'Moot Court Hall',
+      'Placement & Internship Cell',
+      'Cafeteria & Transport'
+    ],
+    establishedYear: 1996,
+    coordinates: { lat: 22.721, lng: 75.801 },
+    selectionCriteria: 'MP Counselling and qualifying exam merit',
+    coursesList: [
+      { name: 'Master of Computer Applications (MCA)', duration: '2 Years', fees: 'Around ₹80,000 (Reported Fees)' },
+      { name: 'Bachelor of Computer Applications (BCA)', duration: '3 Years', fees: 'Contact institute for current fees' },
+      { name: 'Master of Business Administration (MBA)', duration: '2 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Business Administration (BBA)', duration: '3 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Commerce (B.Com)', duration: '3 Years', fees: 'Contact institute for current fees' },
+      { name: 'Bachelor of Pharmacy (B.Pharm)', duration: '4 Years', fees: 'Approx. ₹60,000/year' },
+      { name: 'Diploma in Pharmacy (D.Pharm)', duration: '2 Years', fees: 'Approx. ₹60,000/year' },
+      { name: 'LL.B. (Hons.) / B.A. LL.B. (Hons.) / LL.M.', fees: 'Contact institute for current fees' }
+    ],
+    isDirectoryVerified: false
+  },
+  {
+    id: 'arihant-college',
+    name: 'Arihant College',
+    type: 'college',
+    category: 'Computer Applications',
+    boardOrAffiliation: 'DAVV',
+    approval: 'AICTE & NCTE Approved, Affiliated to DAVV Indore, NAAC Grade B Accredited',
+    location: 'Khandwa Road',
+    address: '453, Khandwa Road (Opposite Radha Swami Satsang), Indore, Madhya Pradesh',
+    feePerAnnum: 35000,
+    rating: 0,
+    totalReviews: 0,
+    image: '',
+    description: 'Arihant College, established in 2006 on Khandwa Road, Indore, is affiliated with Devi Ahilya Vishwavidyalaya (DAVV), accredited with NAAC Grade B, and approved by AICTE and NCTE.',
+    facilities: [
+      'Computer Labs',
+      'Library',
+      'Sports & Indoor Games',
+      'Incubation & Placement Cell',
+      'Smart Classrooms & Seminar Halls'
+    ],
+    establishedYear: 2006,
+    coordinates: { lat: 22.68, lng: 75.88 },
+    selectionCriteria: 'Merit-based / MP Higher Education and DTE counseling norms',
+    coursesList: [
+      { name: 'Bachelor of Computer Applications (BCA)', duration: '3 Years', fees: 'Around ₹92,000 (Reported Total Fees)' },
+      { name: 'Bachelor of Business Administration (BBA)', duration: '3 Years', fees: 'Approx. ₹35,000 - ₹70,000/year' },
+      { name: 'Bachelor of Commerce (B.Com)', duration: '3 Years', fees: 'Approx. ₹35,000 - ₹70,000/year' },
+      { name: 'Master of Business Administration (MBA)', duration: '2 Years', fees: 'Approx. ₹39,000 - ₹90,000 Total' },
+      { name: 'Master of Commerce (M.Com)', duration: '2 Years', fees: 'Approx. ₹39,000 - ₹90,000 Total' },
+      { name: 'Bachelor of Arts (B.A.)', duration: '3 Years', fees: 'Approx. ₹35,000 - ₹70,000/year' },
+      { name: 'Bachelor of Education (B.Ed)', duration: '2 Years', fees: 'Approx. ₹64,000 Total' }
+    ],
+    isDirectoryVerified: false
   }
 ];
 

@@ -99,6 +99,14 @@ const SEARCHED_COURSE_TABS = [
     inactiveHover: 'hover:border-amber-300 hover:bg-amber-50/80 hover:text-amber-700',
   },
   {
+    id: 'M.Com.',
+    label: 'M.Com.',
+    activeBg: 'from-orange-600 via-amber-600 to-orange-700',
+    activeShadow: 'shadow-orange-600/30',
+    dotClass: 'bg-orange-500',
+    inactiveHover: 'hover:border-orange-300 hover:bg-orange-50/80 hover:text-orange-700',
+  },
+  {
     id: 'B.Sc.',
     label: 'B.Sc.',
     activeBg: 'from-indigo-600 via-blue-500 to-indigo-700',
@@ -867,39 +875,157 @@ export default function Home({
           {(() => {
             // Category 01: Top 10 by Google Ratings & Search Reviews
             const GOOGLE_LISTS_BY_TAB: Record<SearchedCourseTab, string[]> = {
-              'Engineering': ['sgsits', 'iet-davv', 'acropolis', 'iist-indore', 'medi-caps-university', 'ips-engineering', 'piemr-indore', 'malwa-group-of-institutes', 'skitm-indore', 'chameli-devi'],
-              'BBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
-              'MBA': ['pimr', 'nmims-indore', 'symbiosis-university', 'ips-ibmr', 'medi-caps-university', 'sage-university', 'svvv-indore', 'oriental-university', 'gsimr', 'ims-davv'],
-              'BCA': ['pimr', 'medi-caps-university', 'ims-davv', 'sage-university', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'acropolis', 'svvv-indore', 'softvision-college'],
-              'MCA': ['pimr', 'medi-caps-university', 'ims-davv', 'sage-university', 'pioneer-institute', 'christian-eminent', 'holkar-science', 'acropolis', 'svvv-indore', 'softvision-college'],
-              'Paramedical': ['saims', 'sage-university', 'davv', 'iist-indore', 'mgm-medical', 'svvv-indore', 'oriental-university', 'malwa-group-of-institutes', 'index-medical', 'shubhdeep-ayurved'],
-              'Pharmacy': ['sgsits', 'davv', 'skitm-indore', 'medi-caps-university', 'saims', 'sage-university', 'ips-engineering', 'acropolis', 'malwa-group-of-institutes', 'swami-vivekanand-college-engineering'],
-              'B.Com.': ['acropolis', 'medi-caps-university', 'svim-indore', 'davv', 'malwa-group-of-institutes', 'iist-indore', 'pioneer-institute', 'lncts-indore', 'pimr', 'christian-eminent'],
+              'Engineering': [
+                'sgsits',
+                'iet-davv',
+                'acropolis',
+                'medi-caps-university',
+                'iist-indore',
+                'ips-engineering',
+                'skitm-indore',
+                'sage-university',
+                'nmims-stme',
+                'malwa-group-of-institutes'
+              ],
+              'BBA': [
+                'pimr',
+                'nmims-indore',
+                'symbiosis-university',
+                'ims-davv',
+                'ips-ibmr',
+                'sage-university',
+                'svvv-indore',
+                'medi-caps-university',
+                'malwa-group-of-institutes',
+                'jaipuria-indore'
+              ],
+              'MBA': [
+                'malwa-group-of-institutes',
+                'ims-davv',
+                'iips-davv',
+                'jaipuria-indore',
+                'pimr',
+                'nmims-indore',
+                'ips-ibmr',
+                'medi-caps-university',
+                'sage-university',
+                'acropolis'
+              ],
+              'BCA': [
+                'pimr',
+                'sage-university',
+                'davv',
+                'holkar-science',
+                'medi-caps-university',
+                'acropolis',
+                'chameli-devi',
+                'oriental-university',
+                'arihant-college',
+                'christian-eminent'
+              ],
+              'MCA': [
+                'davv',
+                'sgsits',
+                'ips-engineering',
+                'medi-caps-university',
+                'sage-university',
+                'acropolis',
+                'svim-indore',
+                'mrsc-indore',
+                'astral-institute',
+                'indore-mahavidyalaya'
+              ],
+              'Paramedical': [
+                'saims',
+                'mgm-allied-health-sciences',
+                'lnct-vidyapeeth-university',
+                'svvv-indore',
+                'malwanchal-university',
+                'renaissance-university',
+                'vikrant-group-of-institutions',
+                'medi-caps-university',
+                'malwa-institute-of-medicine',
+                'pratyansh-college-of-nursing-paramedical'
+              ],
+              'Pharmacy': [
+                'davv',
+                'sgsits',
+                'indore-institute-of-pharmacy',
+                'smriti-college-of-pharmacy',
+                'sage-university',
+                'medi-caps-university',
+                'sri-aurobindo-institute-of-pharmacy',
+                'acropolis-institute-of-pharmacy',
+                'modern-institute-of-pharmaceutical-sciences',
+                'oriental-university'
+              ],
+              'B.Com.': [
+                'pimr',
+                'ips-ibmr',
+                'sage-university',
+                'davv',
+                'nmims-indore',
+                'medi-caps-university',
+                'chameli-devi',
+                'renaissance-college',
+                'christian-eminent',
+                'pioneer-institute'
+              ],
+              'M.Com.': [
+                'davv',
+                'ips-ibmr',
+                'christian-eminent',
+                'scmkvm-indore',
+                'acropolis',
+                'svvv-indore',
+                'radiant-institute',
+                'gacc-indore',
+                'softvision-college',
+                'st-paul-institute-indore'
+              ],
               'B.Sc.': ['ips-engineering', 'sage-university', 'davv', 'medi-caps-university', 'chameli-devi', 'svim-indore', 'gacc-indore', 'symbiosis-university', 'malwa-group-of-institutes', 'oriental-university'],
-              'Design': ['iit-indore', 'sage-university', 'davv', 'renaissance-college', 'oriental-university', 'symbiosis-university', 'sri-aurobindo-institute-of-technology', 'ips-engineering', 'iet-davv', 'svvv-indore'],
-              'Law': ['iil-indore', 'pimr', 'sage-university', 'ips-engineering', 'davv', 'medi-caps-university', 'skitm-indore', 'jain-diwakar-college', 'nmims-law', 'oriental-university']
+              'Design': ['sage-university', 'davv', 'renaissance-college', 'oriental-university', 'symbiosis-university', 'sri-aurobindo-institute-of-technology', 'ips-engineering', 'iet-davv', 'svvv-indore'],
+              'Law': [
+                'iil-indore',
+                'davv',
+                'pimr',
+                'nmims-law',
+                'medi-caps-university',
+                'sage-university',
+                'renaissance-university',
+                'oriental-university',
+                'skitm-indore'
+              ]
             };
 
             // Category 02: Top 10 evaluated by Indore Colleges Academic & Placement Merit
             const INDORE_LISTS_BY_TAB: Record<SearchedCourseTab, string[]> = {
               'Engineering': ['iist-indore', 'acropolis', 'medi-caps-university', 'skitm-indore', 'malwa-group-of-institutes', 'lncts-indore', 'symbiosis-university', 'chameli-devi', 'piemr-indore', 'sri-aurobindo-institute-of-technology'],
-              'BBA': ['iim-indore', 'symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
-              'MBA': ['iim-indore', 'symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
+              'BBA': ['symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
+              'MBA': ['symbiosis-university', 'nmims-indore', 'pimr', 'malwa-group-of-institutes', 'acropolis', 'sage-university', 'ims-davv', 'jaipuria-indore', 'ips-ibmr'],
               'BCA': ['holkar-science', 'acropolis', 'medi-caps-university', 'softvision-college', 'sage-university', 'pioneer-institute', 'christian-eminent', 'gacc-indore', 'apj-kalam-univ', 'svvv-indore'],
               'MCA': ['sgsits', 'acropolis', 'medi-caps-university', 'iips-davv', 'davv', 'svim-indore', 'sage-university', 'chameli-devi', 'oriental-university', 'gujarati-professional'],
               'Paramedical': ['mgm-medical', 'saims', 'index-medical', 'shubhdeep-ayurved', 'sri-aurobindo-institute-of-technology', 'holkar-science', 'sage-university', 'oriental-university', 'malwa-group-of-institutes', 'apj-kalam-univ'],
               'Pharmacy': ['sgsits', 'davv', 'nmims-indore', 'medi-caps-university', 'malwa-group-of-institutes', 'skitm-indore', 'sage-university', 'chameli-devi', 'oriental-university', 'apj-kalam-univ'],
               'B.Com.': ['gacc-indore', 'pimr', 'renaissance-college', 'iips-davv', 'nmims-indore', 'softvision-college', 'pioneer-institute', 'christian-eminent', 'medi-caps-university', 'svvv-indore'],
+              'M.Com.': ['davv', 'gacc-indore', 'ips-ibmr', 'christian-eminent', 'acropolis', 'svvv-indore', 'softvision-college', 'radiant-institute', 'scmkvm-indore', 'st-paul-institute-indore'],
               'B.Sc.': ['holkar-science', 'symbiosis-university', 'medi-caps-university', 'softvision-college', 'prestige-university', 'sage-university', 'christian-eminent', 'pioneer-institute', 'svvv-indore', 'malwa-group-of-institutes'],
-              'Design': ['iit-indore', 'symbiosis-university', 'cindrebay-design', 'sgsits', 'svvv-indore', 'iet-davv', 'piemr-indore', 'sri-aurobindo-institute-of-technology', 'gsb-indore', 'madrid-software'],
-              'Law': ['iil-indore', 'davv', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'iim-indore', 'sage-university', 'acropolis']
+              'Design': ['symbiosis-university', 'cindrebay-design', 'sgsits', 'svvv-indore', 'iet-davv', 'piemr-indore', 'sri-aurobindo-institute-of-technology', 'gsb-indore', 'madrid-software'],
+              'Law': ['davv', 'nmims-law', 'symbiosis-university', 'pimr', 'renaissance-college', 'oriental-university', 'sage-university', 'acropolis']
             };
 
             const COLLEGE_NAME_FALLBACKS: Record<string, string> = {
               'svim-indore': 'Shri Vaishnav Institute of Management (SVIM)',
               'gsimr': 'Govindram Seksaria Institute of Management and Research (GSIMR)',
               'iips-davv': 'International Institute of Professional Studies (IIPS - DAVV)',
-              'sri-aurobindo-institute-of-technology': 'Sri Aurobindo Institute of Technology (SAIT)'
+              'sri-aurobindo-institute-of-technology': 'Sri Aurobindo Institute of Technology (SAIT)',
+              'mgm-allied-health-sciences': 'MGM Allied Health Sciences Institute (MAHSI)',
+              'lnct-vidyapeeth-university': 'LNCT Vidyapeeth University (LN Paramedical College)',
+              'malwanchal-university': 'Malwanchal University',
+              'renaissance-university': 'Renaissance University',
+              'vikrant-group-of-institutions': 'Vikrant Group of Institutions (VGI)',
+              'malwa-institute-of-medicine': 'Malwa Institute of Medicine',
+              'pratyansh-college-of-nursing-paramedical': 'Pratyansh College of Nursing & Paramedical'
             };
 
             // Specific Indore Colleges Rating scores per tab
@@ -966,6 +1092,14 @@ export default function Home({
                 'renaissance-college': 4.7,
                 'iips-davv': 4.6,
                 'nmims-indore': 4.5,
+                'softvision-college': 4.4
+              },
+              'M.Com.': {
+                'davv': 4.9,
+                'gacc-indore': 4.8,
+                'ips-ibmr': 4.7,
+                'christian-eminent': 4.6,
+                'acropolis': 4.5,
                 'softvision-college': 4.4
               },
               'B.Sc.': {
@@ -1173,7 +1307,7 @@ export default function Home({
               const collegeCategory = (college.institute?.category || activeSearchedTab).toLowerCase();
               const reviewCategory = activeSearchedTab === 'Pharmacy'
                 ? 'pharmacy-college'
-                : (activeSearchedTab === 'MBA' || activeSearchedTab === 'MCA')
+                : (activeSearchedTab === 'MBA' || activeSearchedTab === 'MCA' || activeSearchedTab === 'M.Com.')
                   ? 'pg-college'
                   : (activeSearchedTab === 'B.Sc.' || activeSearchedTab === 'Paramedical' || collegeCategory === 'medical')
                     ? 'science-college'
@@ -1207,13 +1341,19 @@ export default function Home({
                   )}
                   <span aria-hidden="true" className="hidden text-gray-400 sm:block">|</span>
                   {ratingType === 'google' ? (
-                    <Link
-                      to={`/college/${college.id}`}
-                      aria-label={`View details for ${college.name}`}
-                      className="col-start-2 row-start-2 inline-flex max-w-full items-center justify-center justify-self-start whitespace-normal break-words rounded-lg border border-orange-500 px-2 py-2 text-center text-[10px] font-extrabold uppercase leading-tight tracking-wide text-orange-600 transition-colors hover:bg-orange-500 hover:text-white active:scale-95 sm:col-start-5 sm:row-start-1 sm:justify-self-end sm:px-3 sm:text-[10px]"
-                    >
-                      View Details →
-                    </Link>
+                    college.institute ? (
+                      <Link
+                        to={`/college/${college.institute.id}`}
+                        aria-label={`View details for ${college.name}`}
+                        className="col-start-2 row-start-2 inline-flex max-w-full items-center justify-center justify-self-start whitespace-normal break-words rounded-lg border border-orange-500 px-2 py-2 text-center text-[10px] font-extrabold uppercase leading-tight tracking-wide text-orange-600 transition-colors hover:bg-orange-500 hover:text-white active:scale-95 sm:col-start-5 sm:row-start-1 sm:justify-self-end sm:px-3 sm:text-[10px]"
+                      >
+                        View Details →
+                      </Link>
+                    ) : (
+                      <span className="col-start-2 row-start-2 inline-flex max-w-full items-center justify-center justify-self-start whitespace-normal break-words rounded-lg border border-gray-200 px-2 py-2 text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-gray-400 sm:col-start-5 sm:row-start-1 sm:justify-self-end sm:px-3 sm:text-[10px]">
+                        Profile Coming Soon
+                      </span>
+                    )
                   ) : (
                     <Link
                       to={`/reviews/${reviewCategory}/review-by-indore-colleges?college=${encodeURIComponent(college.id)}`}

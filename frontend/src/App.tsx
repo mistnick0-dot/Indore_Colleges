@@ -1338,6 +1338,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
         Paramedical: (inst) => inst.category === 'Paramedical' || inst.category === 'Medical' || Boolean(inst.coursesList?.some(c => /paramedical|mbbs|bds|bams|nursing|physiotherapy|bpt|bmlt/i.test(c.name))),
         Pharmacy: (inst) => inst.category === 'Pharmacy' || Boolean(inst.coursesList?.some(c => /pharm/i.test(c.name))),
         'B.Com.': (inst) => inst.category === 'B.Com.' || Boolean(inst.coursesList?.some(c => /b\.?com/i.test(c.name))),
+        'M.Com.': (inst) => inst.category === 'M.Com.' || Boolean(inst.coursesList?.some(c => /m\.?com/i.test(c.name))),
         'B.Sc.': (inst) => inst.category === 'B.Sc.' || Boolean(inst.coursesList?.some(c => /b\.?sc\b/i.test(c.name))),
         Design: (inst) => inst.category === 'Design' || Boolean(inst.coursesList?.some(c => /design|b\.?des|fashion|interior/i.test(c.name))),
         Law: (inst) => inst.category === 'Law' || inst.category === 'LAW' || Boolean(inst.coursesList?.some(c => /ll\.?b|law/i.test(c.name))),
