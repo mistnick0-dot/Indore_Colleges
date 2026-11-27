@@ -2340,7 +2340,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     googleRating: 4.0,
     indoreRating: 4.5,
     totalReviews: 615,
-    image: '/renaissance-college.jpg',
+    image: '/college-images/RCCM/RCCM.jpg',
+    campusPhoto: '/college-images/RCCM/RCCM.jpg',
     description: 'Renaissance College of Commerce & Management (RCCM Indore), established in 2006, is a private higher education institution located at 45, Anurag Nagar (Behind Press Complex), Indore. It offers undergraduate programs across commerce, business administration, mass communication, computer applications, and sciences.',
     facilities: [
       'Radio Booths',
@@ -2351,6 +2352,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Visual Media Labs',
       'Sports Fields'
     ],
+    facilityImages: {
+      'Radio Booths': '/college-images/RCCM/Radio Booths.jpg',
+      'Corporate Placement Cell': '/college-images/RCCM/Corporate Placement Cell.webp',
+      'Modern Auditoriums': '/college-images/RCCM/Auditoriums.webp',
+      'Exhibition Corridors': '/college-images/RCCM/Exhibition Corridors.jpeg',
+      'Rich Library': "/college-images/RCCM/Rich Library'.webp",
+      'Visual Media Labs': '/college-images/RCCM/Visual Media Labs.webp',
+      'Sports Fields': '/college-images/RCCM/Sports Fields.webp'
+    },
     establishedYear: 2006,
     coordinates: { lat: 22.755, lng: 75.891 },
     address: '45, Anurag Nagar, Behind Press Complex, Indore - 452001, Madhya Pradesh, India',
@@ -2452,7 +2462,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     googleRating: 4.0,
     indoreRating: 4.6,
     totalReviews: 531,
-    image: '/pimr.jpg',
+    image: '/college-images/PIMR/PIMR.jpg',
+    campusPhoto: '/college-images/PIMR/PIMR.jpg',
     description: 'Prestige Institute of Management & Research (PIMR) Indore (Deemed to be University), established in 1994, operates across its Post Graduate Campus at Scheme No. 54 and its Under Graduate Campus & Department of Law at Scheme No. 74C, Vijay Nagar, Indore. It offers postgraduate, undergraduate, and law programs across management, commerce, computer applications, media/mass communication, and legal studies.',
     facilities: [
       'Dedicated Placement Cell',
@@ -2464,6 +2475,16 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Canteen',
       'Indoor/Outdoor Sports Facilities'
     ],
+    facilityImages: {
+      'Dedicated Placement Cell': '/college-images/PIMR/PIMR Dedicated Placement Cell.webp',
+      'Advanced Computer Center': '/college-images/PIMR/PIMR Advanced Computer Center.webp',
+      'Digital Libraries': '/college-images/PIMR/Digital Libraries.webp',
+      'Mock Parliament Room': '/college-images/PIMR/Mock Parliament Room.webp',
+      'Moot Court Hall': '/college-images/PIMR/Moot Court Hall.webp',
+      'Seminar Halls': '/college-images/PIMR/Seminar Halls.webp',
+      'Canteen': '/college-images/PIMR/Canteen.webp',
+      'Indoor/Outdoor Sports Facilities': '/college-images/PIMR/Outdoor Sports Facilities.webp'
+    },
     establishedYear: 1994,
     coordinates: { lat: 22.7538, lng: 75.886 },
     address: '2, Education & Health Sector, Scheme No. 54, Indore - 452010, Madhya Pradesh, India',
@@ -2650,7 +2671,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 45600,
     rating: 3.7,
     totalReviews: 28,
-    image: '/bm-college.jpg',
+    image: '/college-images/BMCT/BMCT.webp',
+    campusPhoto: '/college-images/BMCT/BMCT.webp',
     description: 'BM College of Technology (BMCT Indore), established in 2007 under the BM Group of Institutions, is located at Gram Gokanya near Chokhi Dhani on Khandwa Road, Indore (with a city office at Orbit Mall on A.B. Road). It offers undergraduate, postgraduate, and diploma programs in engineering and management.',
     facilities: [
       'CNC Machine Lab',
@@ -2661,6 +2683,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Library',
       'Sports Grounds'
     ],
+    facilityImages: {
+      'CNC Machine Lab': '/college-images/BMCT/CNC Machine Lab.webp',
+      'Canteen': '/college-images/BMCT/Canteen.webp',
+      'Hostel Accommodations': '/college-images/BMCT/Hostel Accommodations.webp',
+      'Bus Fleet': '/college-images/BMCT/Bus Fleet.webp',
+      'Central Workshop': '/college-images/BMCT/Central Workshop.webp',
+      'Library': '/college-images/BMCT/Library.webp',
+      'Sports Grounds': '/college-images/BMCT/Sports Grounds.webp'
+    },
     establishedYear: 2007,
     coordinates: { lat: 22.6345, lng: 75.8795 },
     address: 'Gram Gokanya, Near Chokhi Dhani, Khandwa Road, Indore - 452020, Madhya Pradesh, India',
@@ -3347,7 +3378,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     feePerAnnum: 80000,
     rating: 3.9,
     totalReviews: 38,
-    image: '/lnct-bhopal-indore.jpg',
+    image: '/college-images/LNCT(Bhopal) Indore Campus/LNCT (Bhopal).webp',
+    campusPhoto: '/college-images/LNCT(Bhopal) Indore Campus/LNCT (Bhopal).webp',
     description: 'LNCT (Bhopal) Indore Campus is part of the LNCT Group in Indore. Contact the campus directly for current program offerings, affiliations, fee schedules, and admission details.',
     facilities: [
       'High-speed Programming Labs',
@@ -3358,6 +3390,15 @@ export const INDORE_INSTITUTES: Institute[] = [
       'Canteen',
       'Bus Transport Network'
     ],
+    facilityImages: {
+      'High-speed Programming Labs': '/college-images/LNCT(Bhopal) Indore Campus/High-speed Programming Labs.webp',
+      'Mechanical & Electrical Labs': '/college-images/LNCT(Bhopal) Indore Campus/Mechanical & Electrical Labs.jpg',
+      'Central Library (35,000+ books)': '/college-images/LNCT(Bhopal) Indore Campus/Central Library.webp',
+      'Hostels (Boys & Girls)': '/college-images/LNCT(Bhopal) Indore Campus/Hostels.webp',
+      'Seminar & Auditorium Halls': '/college-images/LNCT(Bhopal) Indore Campus/Seminar & Auditorium Halls.webp',
+      'Canteen': '/college-images/LNCT(Bhopal) Indore Campus/Canteen.webp',
+      'Bus Transport Network': '/college-images/LNCT(Bhopal) Indore Campus/Bus Transport Network.webp'
+    },
     establishedYear: 2004,
     coordinates: { lat: 22.783, lng: 75.928 },
     address: 'Indore, Madhya Pradesh, India',
