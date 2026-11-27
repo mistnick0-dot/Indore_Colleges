@@ -38,6 +38,12 @@ interface CollegeDetailPageProps {
   onToggleCart: () => void;
 }
 
+function getYouTubeEmbedUrl(url?: string): string | null {
+  if (!url) return null;
+  const match = url.trim().match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+  return match?.[1] ? `https://www.youtube-nocookie.com/embed/${match[1]}?rel=0` : null;
+}
+
 export default function CollegeDetailPage({
   institute,
   onBack,
@@ -574,19 +580,30 @@ export default function CollegeDetailPage({
                   },
                   {
                     title: 'Reviews by Indore College Experts',
-                    thumbnail: '/Review-by-indore-college.webp'
+                    thumbnail: '/Review-by-indore-college.webp',
+                    videoUrl: institute.expertReviewVideoUrl
                   },
                   {
                     title: 'Review by Actual Students',
                     thumbnail: '/Review-by-actual-student.webp'
                   }
-                ].map((reviewCard) => (
+                ].map((reviewCard) => {
+                  const youtubeEmbedUrl = getYouTubeEmbedUrl(reviewCard.videoUrl);
+                  return (
                   <article
                     key={reviewCard.title}
                     className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm"
                   >
                     <div className="relative aspect-video overflow-hidden bg-slate-900">
-                      {reviewCard.videoUrl ? (
+                      {youtubeEmbedUrl ? (
+                        <iframe
+                          src={youtubeEmbedUrl}
+                          title={`${institute.name} — ${reviewCard.title}`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="h-full w-full border-0"
+                        />
+                      ) : reviewCard.videoUrl ? (
                         <video
                           controls
                           muted
@@ -616,7 +633,8 @@ export default function CollegeDetailPage({
                       {reviewCard.title}
                     </h3>
                   </article>
-                ))}
+                  );
+                })}
               </div>
             </motion.section>
 

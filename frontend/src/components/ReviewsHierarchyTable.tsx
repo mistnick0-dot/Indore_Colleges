@@ -197,7 +197,7 @@ function getVideosForPerspective(category: CategoryType, perspective: ReviewPers
   const colleges = INDORE_INSTITUTES
     .filter(institute => institute.type === 'college' && CATEGORY_INSTITUTE_TYPES[category].includes(institute.category))
     .sort((a, b) => b.rating - a.rating);
-  const indoreCollegeReviewOrder = ['sgsits', 'iet-davv', 'malwa-group-of-institutes', 'acropolis', 'ips-engineering', 'piemr-indore'];
+  const indoreCollegeReviewOrder = ['sgsits', 'iet-davv', 'malwa-group-of-institutes', 'acropolis', 'ips-engineering', 'piemr-indore', 'lncts-indore'];
   const collegesForPerspective = perspective === 'Review by Indore Colleges'
     ? indoreCollegeReviewOrder
       .map(collegeId => colleges.find(college => college.id === collegeId))
@@ -212,10 +212,11 @@ function getVideosForPerspective(category: CategoryType, perspective: ReviewPers
     let tags: string[] = [];
 
     const activeCollegeVideoUrl = col.videoUrl || col.backgroundVideoUrl;
-    let videoUrl = (
-      perspective === 'Review by Indore Colleges'
-      || perspective === 'Review by College Authority'
-    ) ? activeCollegeVideoUrl : undefined;
+    let videoUrl = perspective === 'Review by Indore Colleges'
+      ? (col.expertReviewVideoUrl || activeCollegeVideoUrl)
+      : perspective === 'Review by College Authority'
+        ? activeCollegeVideoUrl
+        : undefined;
     let isLiveAuthorityVideo = false;
     let authoritySpeaker = '';
 

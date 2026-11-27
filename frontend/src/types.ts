@@ -16,6 +16,7 @@ export interface Institute {
   image: string;
   videoUrl?: string;
   backgroundVideoUrl?: string;
+  expertReviewVideoUrl?: string;
   description: string;
   facilities: string[];
   establishedYear: number;
@@ -260,6 +261,7 @@ export interface PartnerCollege {
   campusPhoto?: string;
   videoUrl?: string;
   backgroundVideoUrl?: string;
+  expertReviewVideoUrl?: string;
   status: 'pending' | 'approved' | 'rejected';
   pendingUpdate?: CollegeUpdateRequest | null;
   createdAt: string;

@@ -3281,6 +3281,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     totalReviews: 43,
     image: '/college-images/LNCTS/LNCTS.jpeg',
     campusPhoto: '/college-images/LNCTS/LNCTS.jpeg',
+    expertReviewVideoUrl: 'https://www.youtube.com/watch?v=LAjEm5PnnG8',
     description: 'Lakshmi Narain College of Technology & Science (LNCT / LNCTS Indore), established in 2004 along Sanwer Road at Bhawrasala (Reoti Range), is part of the LNCT Group in Indore. It offers undergraduate, postgraduate, and diploma programs across engineering, technology, and management.',
     facilities: [
       'Advanced Computer Labs',
