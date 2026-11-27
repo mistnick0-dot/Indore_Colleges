@@ -30,12 +30,12 @@ interface CourseOption {
 const COURSE_OPTIONS: CourseOption[] = [
   {
     id: 'btech',
-    label: 'B.Tech / B.E.',
+    label: 'B.Tech',
     match: (name) => /\b(b\.?\s*tech|b\.?\s*e\b|bachelor of technology|bachelor of engineering)\b/i.test(name),
   },
   {
     id: 'mtech',
-    label: 'M.Tech / M.E.',
+    label: 'M.Tech',
     match: (name) => /\b(m\.?\s*tech|m\.?\s*e\b|master of technology|master of engineering)\b/i.test(name),
   },
   {
@@ -99,11 +99,6 @@ const COURSE_OPTIONS: CourseOption[] = [
     id: 'design',
     label: 'Design (B.Des / Interior / Fashion)',
     match: (name, cat) => /\b(b\.?\s*des|design|fashion|interior)\b/i.test(name) || cat.toLowerCase() === 'design',
-  },
-  {
-    id: 'diploma',
-    label: 'Diploma / Polytechnic',
-    match: (name) => /diploma|polytechnic/i.test(name) && !/pharm/i.test(name),
   },
   {
     id: 'arts-edu',
