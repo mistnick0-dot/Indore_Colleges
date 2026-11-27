@@ -1305,20 +1305,50 @@ async function startServer() {
     }
   });
 
-  // API Route: School/College Registration (Register your school)
+  // API Route: School/College Registration & Direct Apply Submissions
   app.post('/api/register-school', async (req, res) => {
-    const { name, type, category, boardOrAffiliation, location, feePerAnnum, establishedYear, contactName, contactEmail, contactPhone, description, facilities } = req.body;
+    const {
+      name,
+      targetColleges,
+      course,
+      branch,
+      budget,
+      type,
+      category,
+      boardOrAffiliation,
+      location,
+      feePerAnnum,
+      establishedYear,
+      contactName,
+      contactEmail,
+      contactPhone,
+      description,
+      facilities
+    } = req.body;
 
-    if (!name || !type || !category || !boardOrAffiliation || !location || !contactEmail || !contactPhone) {
+    const normalizedTargets: string[] = Array.isArray(targetColleges)
+      ? targetColleges.map((c: unknown) => String(c).trim()).filter(Boolean)
+      : (typeof name === 'string' && name.trim() ? [name.trim()] : []);
+    const displayName = typeof name === 'string' && name.trim()
+      ? name.trim()
+      : normalizedTargets.join(', ');
+    const resolvedCategory = category || (course ? (branch ? `${course} - ${branch}` : course) : '');
+    const resolvedBoard = boardOrAffiliation || 'Affiliated / Recognized';
+
+    if (!displayName || !type || !resolvedCategory || !location || !contactEmail || !contactPhone) {
       return res.status(400).json({ error: 'Key institution fields and contact information are required.' });
     }
 
     const newReg: SchoolRegistrationRequest = {
       id: `reg-${Date.now()}`,
-      name,
+      name: displayName,
+      targetColleges: normalizedTargets,
+      course: course || category || '',
+      branch: branch || '',
+      budget: budget || '',
       type,
-      category,
-      boardOrAffiliation,
+      category: resolvedCategory,
+      boardOrAffiliation: resolvedBoard,
       location,
       feePerAnnum: Number(feePerAnnum) || 0,
       establishedYear: Number(establishedYear) || new Date().getFullYear(),
@@ -1335,18 +1365,18 @@ async function startServer() {
       const db = await getMongoDb();
       await db.collection('school_registrations').insertOne(newReg);
 
-      // Trigger institution confirmation and admin notification emails asynchronously
+      // Trigger confirmation and admin notification emails asynchronously
       sendFormNotifications(
         newReg.contactEmail,
         newReg.contactName,
-        'Institution Registration Request',
+        'Direct College Admission Application',
         {
-          institutionName: newReg.name,
+          institutionName: newReg.targetColleges?.length ? newReg.targetColleges.join(', ') : newReg.name,
           institutionType: newReg.type,
           categoryStream: newReg.category,
           boardOrAffiliation: newReg.boardOrAffiliation,
           locationSector: newReg.location,
-          annualFees: `INR ${newReg.feePerAnnum.toLocaleString('en-IN')}`,
+          annualFees: newReg.budget || `INR ${newReg.feePerAnnum.toLocaleString('en-IN')}`,
           establishedYear: String(newReg.establishedYear),
           contactPerson: newReg.contactName,
           contactEmail: newReg.contactEmail,
@@ -1354,12 +1384,12 @@ async function startServer() {
           facilities: newReg.facilities.join(', ') || 'None Listed',
           description: newReg.description
         }
-      ).catch(() => console.error('School registration email notifications failed.'));
+      ).catch(() => console.error('Direct application email notifications failed.'));
 
       res.status(201).json({ success: true });
     } catch {
-      console.error('MongoDB school registration submission failed.');
-      res.status(500).json({ error: 'Unable to submit the school registration.' });
+      console.error('MongoDB direct application submission failed.');
+      res.status(500).json({ error: 'Unable to submit the application.' });
     }
   });
 
@@ -2383,6 +2413,32 @@ async function startServer() {
     } catch (err: any) {
       console.error('Admin delete callback request failed.');
       res.status(500).json({ error: 'Unable to delete the callback request.' });
+    }
+  });
+
+  // 5b. Admin Get All Direct Apply Student Applications
+  app.get('/api/admin/direct-applications', async (req, res) => {
+    try {
+      const db = await getMongoDb();
+      const list = await db.collection('school_registrations').find().sort({ createdAt: -1 }).toArray();
+      res.json(stripCredentials(list));
+    } catch {
+      console.error('Admin fetch direct applications failed.');
+      res.status(500).json({ error: 'Unable to load direct applications.' });
+    }
+  });
+
+  app.delete('/api/admin/direct-applications/:id', async (req, res) => {
+    try {
+      const db = await getMongoDb();
+      const result = await db.collection('school_registrations').deleteOne({ id: req.params.id });
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ error: 'Direct application not found.' });
+      }
+      res.json({ success: true });
+    } catch {
+      console.error('Admin delete direct application failed.');
+      res.status(500).json({ error: 'Unable to delete the direct application.' });
     }
   });
 

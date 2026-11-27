@@ -146,6 +146,10 @@ export interface Review {
 export interface SchoolRegistrationRequest {
   id: string;
   name: string;
+  targetColleges?: string[];
+  course?: string;
+  branch?: string;
+  budget?: string;
   type: 'school' | 'college';
   category: string;
   boardOrAffiliation: string;

@@ -241,16 +241,46 @@ function normalizeToken(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
-function doesBranchMatch(college: Institute, courseOpt: CourseOption, selectedBranch: string): boolean {
-  if (!selectedBranch || selectedBranch === 'All Branches') return true;
-  const targetNorm = normalizeToken(selectedBranch);
+const BRANCH_SYNONYMS: Record<string, string[]> = {
+  cs: ['computer science', 'cse', 'computing'],
+  cse: ['computer science', 'cs', 'computer engineering'],
+  it: ['information technology'],
+  ai: ['artificial intelligence', 'ai & ml', 'aiml', 'ai & data science'],
+  aiml: ['ai & ml', 'artificial intelligence', 'machine learning'],
+  ml: ['machine learning', 'ai & ml'],
+  ds: ['data science'],
+  ec: ['electronics', 'ece', 'e&tc'],
+  ece: ['electronics', 'communication', 'telecommunication'],
+  ee: ['electrical'],
+  eee: ['electrical', 'electronics'],
+  me: ['mechanical'],
+  ce: ['civil'],
+  hr: ['human resource', 'hrm'],
+  hrm: ['human resource'],
+  fin: ['finance', 'financial'],
+  mkt: ['marketing'],
+  ib: ['international business'],
+  pharm: ['pharmaceutics', 'pharmacology', 'pharmacognosy', 'pharmaceutical'],
+};
 
+function doesBranchMatch(college: Institute, courseOpt: CourseOption, typedBranch: string): boolean {
+  const cleaned = typedBranch.trim();
+  if (!cleaned || /^all(\s+branches?)?$/i.test(cleaned)) return true;
+  const targetNorm = normalizeToken(cleaned);
+  if (!targetNorm || targetNorm === 'all' || targetNorm === 'all branches') return true;
+
+  const queryTerms = [targetNorm, ...(BRANCH_SYNONYMS[targetNorm] || [])];
   const matchingCourses = (college.coursesList || []).filter(c => courseOpt.match(c.name, college.category));
+
   for (const c of matchingCourses) {
     const branches = getCourseBranches(c.name, c.specializations);
+    const courseTitleNorm = normalizeToken(c.name);
+    if (queryTerms.some(q => courseTitleNorm.includes(q))) {
+      return true;
+    }
     for (const branch of branches) {
       const branchNorm = normalizeToken(branch);
-      if (branchNorm === targetNorm || branchNorm.includes(targetNorm) || targetNorm.includes(branchNorm)) {
+      if (queryTerms.some(q => branchNorm === q || branchNorm.includes(q) || q.includes(branchNorm))) {
         return true;
       }
     }
@@ -308,10 +338,10 @@ export default function RegisterSchool() {
   }, []);
 
   const [selectedCourseId, setSelectedCourseId] = useState('');
-  const [selectedBranch, setSelectedBranch] = useState('');
+  const [typedBranch, setTypedBranch] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedBudgetId, setSelectedBudgetId] = useState('');
-  const [selectedCollegeName, setSelectedCollegeName] = useState('');
+  const [selectedCollegeNames, setSelectedCollegeNames] = useState<string[]>([]);
 
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
@@ -342,9 +372,9 @@ export default function RegisterSchool() {
     return ['All Branches', ...Array.from(branchSet).sort((a, b) => a.localeCompare(b))];
   }, [colleges, selectedCourseOpt]);
 
-  // 5. Filtered target colleges matching Course + Branch + Location + Budget
+  // 5. Filtered target colleges matching Course + Typed Branch + Location + Budget
   const filteredColleges = useMemo(() => {
-    if (!selectedCourseOpt || !selectedBranch || !selectedLocation || !selectedBudgetId) {
+    if (!selectedCourseOpt || !typedBranch.trim() || !selectedLocation || !selectedBudgetId) {
       return [];
     }
     const budgetOpt = BUDGET_OPTIONS.find(b => b.id === selectedBudgetId);
@@ -357,7 +387,7 @@ export default function RegisterSchool() {
       if (!hasCourse) return false;
 
       // Branch check
-      if (!doesBranchMatch(col, selectedCourseOpt, selectedBranch)) return false;
+      if (!doesBranchMatch(col, selectedCourseOpt, typedBranch)) return false;
 
       // Location check
       const colZones = mapCollegeToLocations(col);
@@ -373,7 +403,7 @@ export default function RegisterSchool() {
 
       return true;
     });
-  }, [colleges, selectedCourseOpt, selectedBranch, selectedLocation, selectedBudgetId]);
+  }, [colleges, selectedCourseOpt, typedBranch, selectedLocation, selectedBudgetId]);
 
   // Pre-fill cleanly if ?college= query param is provided
   useEffect(() => {
@@ -391,31 +421,49 @@ export default function RegisterSchool() {
     if (matchedCourse) {
       setSelectedCourseId(matchedCourse.id);
     }
-    setSelectedBranch('All Branches');
+    setTypedBranch('All Branches');
     const zones = mapCollegeToLocations(match);
     setSelectedLocation(zones.find(z => z !== 'All Locations in Indore') || 'All Locations in Indore');
     setSelectedBudgetId('any');
-    setSelectedCollegeName(match.name);
+    setSelectedCollegeNames([match.name]);
   }, [colleges]);
 
-  // Reset selected college if filter change removes it from filteredColleges
+  // Keep only currently matched colleges selected when filters change
   useEffect(() => {
-    if (selectedCollegeName && !filteredColleges.some(c => c.name === selectedCollegeName)) {
-      setSelectedCollegeName('');
-    }
-  }, [filteredColleges, selectedCollegeName]);
+    const validNames = new Set(filteredColleges.map(c => c.name));
+    setSelectedCollegeNames(prev => {
+      const next = prev.filter(name => validNames.has(name));
+      return next.length === prev.length ? prev : next;
+    });
+  }, [filteredColleges]);
 
   const handleCourseChange = (courseId: string) => {
     setSelectedCourseId(courseId);
-    setSelectedBranch('');
-    setSelectedCollegeName('');
+    setTypedBranch('');
+    setSelectedCollegeNames([]);
+  };
+
+  const toggleCollegeSelection = (collegeName: string) => {
+    setSelectedCollegeNames(prev =>
+      prev.includes(collegeName)
+        ? prev.filter(item => item !== collegeName)
+        : [...prev, collegeName]
+    );
+  };
+
+  const handleSelectAllColleges = () => {
+    setSelectedCollegeNames(filteredColleges.map(c => c.name));
+  };
+
+  const handleClearColleges = () => {
+    setSelectedCollegeNames([]);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError('');
-    if (!selectedCourseOpt || !selectedBranch || !selectedLocation || !selectedBudgetId || !selectedCollegeName) {
-      setSubmitError('Please select course, branch, location, budget, and a target college.');
+    if (!selectedCourseOpt || !typedBranch.trim() || !selectedLocation || !selectedBudgetId || selectedCollegeNames.length === 0) {
+      setSubmitError('Please fill Course, Branch, Location, Budget, and choose at least one Targeted College.');
       return;
     }
     if (!contactName.trim() || !contactEmail.trim() || !contactPhone.trim()) {
@@ -423,9 +471,10 @@ export default function RegisterSchool() {
       return;
     }
 
-    const chosenCollege = filteredColleges.find(c => c.name === selectedCollegeName) || colleges.find(c => c.name === selectedCollegeName);
+    const firstChosen = filteredColleges.find(c => selectedCollegeNames.includes(c.name));
     const budgetOpt = BUDGET_OPTIONS.find(b => b.id === selectedBudgetId);
-    const effectiveFee = chosenCollege ? getEffectiveAnnualFee(chosenCollege, selectedCourseOpt) : (budgetOpt?.maxAnnualFee || 0);
+    const effectiveFee = firstChosen ? getEffectiveAnnualFee(firstChosen, selectedCourseOpt) : (budgetOpt?.maxAnnualFee || 0);
+    const cleanBranch = typedBranch.trim();
 
     setSubmitting(true);
     try {
@@ -433,17 +482,23 @@ export default function RegisterSchool() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: selectedCollegeName,
+          name: selectedCollegeNames.join(', '),
+          targetColleges: selectedCollegeNames,
+          course: selectedCourseOpt.label,
+          branch: cleanBranch,
+          budget: budgetOpt?.label || 'Any Budget',
           type: 'college',
-          category: selectedBranch !== 'All Branches' ? `${selectedCourseOpt.label} - ${selectedBranch}` : selectedCourseOpt.label,
-          boardOrAffiliation: chosenCollege?.boardOrAffiliation || 'Affiliated / Recognized',
+          category: !/^all(\s+branches?)?$/i.test(cleanBranch)
+            ? `${selectedCourseOpt.label} - ${cleanBranch}`
+            : selectedCourseOpt.label,
+          boardOrAffiliation: firstChosen?.boardOrAffiliation || 'Affiliated / Recognized',
           location: selectedLocation,
           feePerAnnum: effectiveFee,
           establishedYear: 2026,
           contactName: contactName.trim(),
           contactEmail: contactEmail.trim(),
           contactPhone: contactPhone.trim(),
-          description: `Course: ${selectedCourseOpt.label} | Branch: ${selectedBranch} | Budget: ${budgetOpt?.label || 'Any'}`,
+          description: `Course: ${selectedCourseOpt.label} | Branch: ${cleanBranch} | Budget: ${budgetOpt?.label || 'Any'} | Targeted Colleges (${selectedCollegeNames.length}): ${selectedCollegeNames.join(', ')}`,
           facilities: []
         })
       });
@@ -463,10 +518,10 @@ export default function RegisterSchool() {
 
   const handleResetForm = () => {
     setSelectedCourseId('');
-    setSelectedBranch('');
+    setTypedBranch('');
     setSelectedLocation('');
     setSelectedBudgetId('');
-    setSelectedCollegeName('');
+    setSelectedCollegeNames([]);
     setContactName('');
     setContactEmail('');
     setContactPhone('');
@@ -474,7 +529,7 @@ export default function RegisterSchool() {
     setSuccess(false);
   };
 
-  const allFiltersSelected = Boolean(selectedCourseOpt && selectedBranch && selectedLocation && selectedBudgetId);
+  const allFiltersSelected = Boolean(selectedCourseOpt && typedBranch.trim() && selectedLocation && selectedBudgetId);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-4 sm:p-8 shadow-sm max-w-3xl mx-auto w-full">
@@ -491,7 +546,8 @@ export default function RegisterSchool() {
             </div>
             <h2 className="text-lg font-bold text-gray-900">Application Submitted Successfully!</h2>
             <p className="text-xs text-gray-500 max-w-md mx-auto mt-2 leading-relaxed">
-              Your direct admission and counseling application for <strong className="text-gray-800">{selectedCollegeName}</strong> ({selectedCourseOpt?.label} — {selectedBranch}) has been received! Our academic counselor team will contact you shortly via email and WhatsApp.
+              Your direct admission and counseling application for{' '}
+              <strong className="text-gray-800">{selectedCollegeNames.join(', ')}</strong> ({selectedCourseOpt?.label} — {typedBranch.trim()}) has been received! Our academic counselor team will contact you shortly via email and WhatsApp.
             </p>
             <button
               onClick={handleResetForm}
@@ -513,11 +569,11 @@ export default function RegisterSchool() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              {/* 1. Select Course */}
+              {/* 1. Course */}
               <div>
                 <label htmlFor="reg-course" className="block font-bold text-gray-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                   <BookOpen className="h-3.5 w-3.5 text-red-500 shrink-0" />
-                  <span>1. Select Course *</span>
+                  <span>1. Course *</span>
                 </label>
                 <select
                   id="reg-course"
@@ -526,7 +582,7 @@ export default function RegisterSchool() {
                   onChange={(e) => handleCourseChange(e.target.value)}
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-red-600 font-medium"
                 >
-                  <option value="">-- Select Course --</option>
+                  <option value="">-- Course --</option>
                   {COURSE_OPTIONS.map((opt) => (
                     <option key={opt.id} value={opt.id}>
                       {opt.label}
@@ -535,36 +591,53 @@ export default function RegisterSchool() {
                 </select>
               </div>
 
-              {/* 2. Select Branch */}
+              {/* 2. Branch (Typeable + Quick Suggestions) */}
               <div>
                 <label htmlFor="reg-branch" className="block font-bold text-gray-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                   <Layers className="h-3.5 w-3.5 text-red-500 shrink-0" />
-                  <span>2. Select Branch *</span>
+                  <span>2. Branch *</span>
                 </label>
-                <select
+                <input
                   id="reg-branch"
+                  type="text"
+                  list="reg-branch-suggestions"
                   required
                   disabled={!selectedCourseOpt}
-                  value={selectedBranch}
-                  onChange={(e) => setSelectedBranch(e.target.value)}
+                  value={typedBranch}
+                  onChange={(e) => setTypedBranch(e.target.value)}
+                  placeholder={selectedCourseOpt ? 'Type branch (e.g. CSE, Finance, All Branches)' : 'First choose Course'}
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-red-600 font-medium disabled:bg-gray-50 disabled:text-gray-400"
-                >
-                  <option value="">
-                    {selectedCourseOpt ? '-- Select Branch --' : '-- First Select Course --'}
-                  </option>
+                />
+                <datalist id="reg-branch-suggestions">
                   {availableBranches.map((branch) => (
-                    <option key={branch} value={branch}>
-                      {branch}
-                    </option>
+                    <option key={branch} value={branch} />
                   ))}
-                </select>
+                </datalist>
+                {selectedCourseOpt && availableBranches.length > 0 && (
+                  <div className="mt-1.5 flex flex-wrap gap-1">
+                    {availableBranches.slice(0, 5).map((branch) => (
+                      <button
+                        key={branch}
+                        type="button"
+                        onClick={() => setTypedBranch(branch)}
+                        className={`rounded-md px-2 py-0.5 text-[10px] font-semibold border transition cursor-pointer ${
+                          typedBranch.toLowerCase() === branch.toLowerCase()
+                            ? 'bg-red-600 text-white border-red-600'
+                            : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-red-300 hover:text-red-600'
+                        }`}
+                      >
+                        {branch}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* 3. Select Location */}
+              {/* 3. Location */}
               <div>
                 <label htmlFor="reg-location" className="block font-bold text-gray-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                   <MapPin className="h-3.5 w-3.5 text-red-500 shrink-0" />
-                  <span>3. Select Location *</span>
+                  <span>3. Location *</span>
                 </label>
                 <select
                   id="reg-location"
@@ -573,7 +646,7 @@ export default function RegisterSchool() {
                   onChange={(e) => setSelectedLocation(e.target.value)}
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-red-600 font-medium"
                 >
-                  <option value="">-- Select Campus Location --</option>
+                  <option value="">-- Location --</option>
                   {LOCATION_OPTIONS.map((loc) => (
                     <option key={loc} value={loc}>
                       {loc}
@@ -582,11 +655,11 @@ export default function RegisterSchool() {
                 </select>
               </div>
 
-              {/* 4. Select Budget */}
+              {/* 4. Budget */}
               <div>
                 <label htmlFor="reg-budget" className="block font-bold text-gray-600 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                   <IndianRupee className="h-3.5 w-3.5 text-red-500 shrink-0" />
-                  <span>4. Select Annual Budget *</span>
+                  <span>4. Budget *</span>
                 </label>
                 <select
                   id="reg-budget"
@@ -595,7 +668,7 @@ export default function RegisterSchool() {
                   onChange={(e) => setSelectedBudgetId(e.target.value)}
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-red-600 font-medium"
                 >
-                  <option value="">-- Select Annual Budget --</option>
+                  <option value="">-- Budget --</option>
                   {BUDGET_OPTIONS.map((b) => (
                     <option key={b.id} value={b.id}>
                       {b.label}
@@ -604,44 +677,81 @@ export default function RegisterSchool() {
                 </select>
               </div>
 
-              {/* 5. Select Targeted College (filtered by 1 + 2 + 3 + 4) */}
+              {/* 5. Targeted Colleges (Multi-Select Checkboxes filtered by 1 + 2 + 3 + 4) */}
               <div className="sm:col-span-2">
-                <div className="flex items-center justify-between mb-1.5">
-                  <label htmlFor="reg-college" className="font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                  <span className="font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1">
                     <Building2 className="h-3.5 w-3.5 text-red-500 shrink-0" />
-                    <span>5. Select Targeted College *</span>
-                  </label>
+                    <span>5. Targeted Colleges (Multi-Select) *</span>
+                  </span>
                   {allFiltersSelected && (
-                    <span className={`text-[11px] font-bold ${filteredColleges.length > 0 ? 'text-emerald-700' : 'text-amber-600'}`}>
-                      {filteredColleges.length} matching {filteredColleges.length === 1 ? 'college' : 'colleges'}
-                    </span>
+                    <div className="flex items-center gap-2 text-[11px]">
+                      <span className={`font-bold ${filteredColleges.length > 0 ? 'text-emerald-700' : 'text-amber-600'}`}>
+                        {selectedCollegeNames.length} selected / {filteredColleges.length} matching
+                      </span>
+                      {filteredColleges.length > 0 && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={handleSelectAllColleges}
+                            className="font-bold text-red-600 hover:underline cursor-pointer"
+                          >
+                            All
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleClearColleges}
+                            className="font-semibold text-gray-500 hover:underline cursor-pointer"
+                          >
+                            Clear
+                          </button>
+                        </>
+                      )}
+                    </div>
                   )}
                 </div>
-                <select
-                  id="reg-college"
-                  required
-                  disabled={!allFiltersSelected || filteredColleges.length === 0}
-                  value={selectedCollegeName}
-                  onChange={(e) => setSelectedCollegeName(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-red-600 font-medium disabled:bg-gray-50 disabled:text-gray-400"
-                >
-                  <option value="">
-                    {!allFiltersSelected
-                      ? '-- Complete Course, Branch, Location & Budget First --'
-                      : filteredColleges.length === 0
-                        ? '-- No colleges found for these filters (try All Branches / Any Budget / All Locations) --'
-                        : '-- Select Matching Targeted College --'}
-                  </option>
-                  {filteredColleges.map((col) => {
-                    const effectiveFee = getEffectiveAnnualFee(col, selectedCourseOpt);
-                    const feeTag = effectiveFee > 0 ? `₹${effectiveFee.toLocaleString('en-IN')}/yr` : 'Contact college';
-                    return (
-                      <option key={col.id} value={col.name}>
-                        {col.name} ({col.location} • {feeTag})
-                      </option>
-                    );
-                  })}
-                </select>
+
+                {!allFiltersSelected ? (
+                  <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-xs text-gray-400 text-center">
+                    Complete Course, Branch, Location &amp; Budget above to view matching colleges.
+                  </div>
+                ) : filteredColleges.length === 0 ? (
+                  <div className="rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-4 text-xs text-amber-800 text-center">
+                    No colleges matched this combination. Try a broader branch (or click <strong>All Branches</strong>), widen Budget, or choose <strong>All Locations in Indore</strong>.
+                  </div>
+                ) : (
+                  <div className="max-h-60 overflow-y-auto rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+                    {filteredColleges.map((col) => {
+                      const effectiveFee = getEffectiveAnnualFee(col, selectedCourseOpt);
+                      const feeTag = effectiveFee > 0 ? `₹${effectiveFee.toLocaleString('en-IN')}/yr` : 'Contact college';
+                      const isChecked = selectedCollegeNames.includes(col.name);
+                      return (
+                        <label
+                          key={col.id}
+                          className={`flex items-center justify-between gap-3 px-3.5 py-2.5 cursor-pointer transition ${
+                            isChecked ? 'bg-red-50/60' : 'hover:bg-gray-50'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => toggleCollegeSelection(col.name)}
+                              className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500 shrink-0 cursor-pointer"
+                            />
+                            <div className="min-w-0">
+                              <span className="block font-bold text-gray-900 truncate">{col.name}</span>
+                              <span className="block text-[11px] text-gray-500">{col.location}</span>
+                            </div>
+                          </div>
+                          <span className="shrink-0 rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-700">
+                            {feeTag}
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* 6. Applicant / Student Details */}

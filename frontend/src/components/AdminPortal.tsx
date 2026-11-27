@@ -30,7 +30,7 @@ import {
   Globe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CollegeUpdateRequest } from '../types';
+import { CollegeUpdateRequest, SchoolRegistrationRequest } from '../types';
 
 interface PartnerRequest {
   id: string;
@@ -60,11 +60,12 @@ export default function AdminPortal() {
   const [successMsg, setSuccessMsg] = useState('');
 
   // Dashboard Sub-tabs
-  const [activeSubTab, setActiveSubTab] = useState<'requests' | 'updates' | 'counseling' | 'callbacks' | 'users'>('updates');
+  const [activeSubTab, setActiveSubTab] = useState<'requests' | 'updates' | 'direct-apply' | 'counseling' | 'callbacks' | 'users'>('updates');
 
   // Dashboard Lists
   const [partners, setPartners] = useState<PartnerRequest[]>([]);
   const [updateRequests, setUpdateRequests] = useState<CollegeUpdateRequest[]>([]);
+  const [directApplications, setDirectApplications] = useState<SchoolRegistrationRequest[]>([]);
   const [counselingLeads, setCounselingLeads] = useState<any[]>([]);
   const [callbackLeads, setCallbackLeads] = useState<any[]>([]);
   const [userProfiles, setUserProfiles] = useState<any[]>([]);
@@ -111,15 +112,16 @@ export default function AdminPortal() {
   const fetchAdminData = async () => {
     setLoading(true);
     try {
-      const [resPartners, resUpdates, resCounseling, resCallbacks, resUsers] = await Promise.all([
+      const [resPartners, resUpdates, resDirectApply, resCounseling, resCallbacks, resUsers] = await Promise.all([
         adminApiFetch('/api/admin/all-registrations'),
         adminApiFetch('/api/admin/update-requests'),
+        adminApiFetch('/api/admin/direct-applications'),
         adminApiFetch('/api/admin/counseling-leads'),
         adminApiFetch('/api/admin/callback-leads'),
         adminApiFetch('/api/admin/user-profiles')
       ]);
 
-      const responses = [resPartners, resUpdates, resCounseling, resCallbacks, resUsers];
+      const responses = [resPartners, resUpdates, resDirectApply, resCounseling, resCallbacks, resUsers];
       const data = await Promise.all(responses.map(async (response) => {
         if (!response.ok) throw new Error(`Admin data request failed (${response.status}).`);
         const records: unknown = await response.json();
@@ -129,9 +131,10 @@ export default function AdminPortal() {
 
       setPartners(data[0]);
       setUpdateRequests(data[1]);
-      setCounselingLeads(data[2]);
-      setCallbackLeads(data[3]);
-      setUserProfiles(data[4]);
+      setDirectApplications(data[2]);
+      setCounselingLeads(data[3]);
+      setCallbackLeads(data[4]);
+      setUserProfiles(data[5]);
 
     } catch (err) {
       console.error("Failed to fetch admin dashboard records:", err);
@@ -180,7 +183,7 @@ export default function AdminPortal() {
   };
 
   const handleDeleteRecord = async (
-    resource: 'registrations' | 'counseling-leads' | 'callback-leads' | 'user-profiles',
+    resource: 'registrations' | 'direct-applications' | 'counseling-leads' | 'callback-leads' | 'user-profiles',
     id: string,
     label: string
   ) => {
@@ -206,6 +209,7 @@ export default function AdminPortal() {
       }
 
       if (resource === 'registrations') setPartners(prev => prev.filter(item => item.id !== id));
+      if (resource === 'direct-applications') setDirectApplications(prev => prev.filter(item => item.id !== id));
       if (resource === 'counseling-leads') setCounselingLeads(prev => prev.filter(item => item.id !== id));
       if (resource === 'callback-leads') setCallbackLeads(prev => prev.filter(item => item.id !== id));
       if (resource === 'user-profiles') setUserProfiles(prev => prev.filter(item => item.email !== id));
@@ -218,7 +222,7 @@ export default function AdminPortal() {
   };
 
   const renderDeleteButton = (
-    resource: 'registrations' | 'counseling-leads' | 'callback-leads' | 'user-profiles',
+    resource: 'registrations' | 'direct-applications' | 'counseling-leads' | 'callback-leads' | 'user-profiles',
     id: string,
     label: string
   ) => (
@@ -362,6 +366,20 @@ export default function AdminPortal() {
   });
 
   const pendingUpdatesCount = updateRequests.filter(r => r.status === 'pending').length;
+
+  const filteredDirectApplications = directApplications.filter(app => {
+    const q = searchQuery.toLowerCase();
+    return (
+      (app.contactName || '').toLowerCase().includes(q) ||
+      (app.contactEmail || '').toLowerCase().includes(q) ||
+      (app.contactPhone || '').toLowerCase().includes(q) ||
+      (app.name || '').toLowerCase().includes(q) ||
+      (app.course || app.category || '').toLowerCase().includes(q) ||
+      (app.branch || '').toLowerCase().includes(q) ||
+      (app.location || '').toLowerCase().includes(q) ||
+      (Array.isArray(app.targetColleges) && app.targetColleges.some(c => c.toLowerCase().includes(q)))
+    );
+  });
 
   const filteredCounseling = counselingLeads.filter(c => 
     c.parentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -523,7 +541,7 @@ export default function AdminPortal() {
           </AnimatePresence>
 
           {/* SUMMARY STATISTICS BENTO GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {/* Stat 1: Partner Registrations */}
             <div className="bg-white p-4 border border-slate-100 rounded-2xl flex items-center gap-3">
               <div className="p-2.5 bg-red-50 rounded-xl text-red-600">
@@ -550,7 +568,19 @@ export default function AdminPortal() {
               </div>
             </div>
 
-            {/* Stat 3: Counselling Leads */}
+            {/* Stat 3: Direct Apply Submissions */}
+            <div className="bg-white p-4 border border-slate-100 rounded-2xl flex items-center gap-3">
+              <div className="p-2.5 bg-orange-50 rounded-xl text-[#FA6E00]">
+                <Layers className="h-5 w-5 shrink-0" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Direct Apply</p>
+                <p className="text-lg font-black text-slate-900">{directApplications.length}</p>
+                <p className="text-[9px] text-[#FA6E00] font-bold">Student Apps</p>
+              </div>
+            </div>
+
+            {/* Stat 4: Counselling Leads */}
             <div className="bg-white p-4 border border-slate-100 rounded-2xl flex items-center gap-3">
               <div className="p-2.5 bg-blue-50 rounded-xl text-blue-600">
                 <FileText className="h-5 w-5 shrink-0" />
@@ -562,7 +592,7 @@ export default function AdminPortal() {
               </div>
             </div>
 
-            {/* Stat 4: Callback Inquiries */}
+            {/* Stat 5: Callback Inquiries */}
             <div className="bg-white p-4 border border-slate-100 rounded-2xl flex items-center gap-3">
               <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
                 <Phone className="h-5 w-5 shrink-0" />
@@ -574,7 +604,7 @@ export default function AdminPortal() {
               </div>
             </div>
 
-            {/* Stat 5: Platform Users */}
+            {/* Stat 6: Platform Users */}
             <div className="bg-white p-4 border border-slate-100 rounded-2xl flex items-center gap-3">
               <div className="p-2.5 bg-indigo-50 rounded-xl text-indigo-600">
                 <Users className="h-5 w-5 shrink-0" />
@@ -600,6 +630,18 @@ export default function AdminPortal() {
                 {pendingUpdatesCount > 0 && (
                   <span className="px-1.5 py-0.2 bg-amber-500 text-white rounded-full text-[10px] font-black">
                     {pendingUpdatesCount}
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() => { setActiveSubTab('direct-apply'); setSearchQuery(''); }}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${activeSubTab === 'direct-apply' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                <Layers className="h-4 w-4" />
+                <span>Direct Applications</span>
+                {directApplications.length > 0 && (
+                  <span className="px-1.5 py-0.2 bg-orange-500 text-white rounded-full text-[10px] font-black">
+                    {directApplications.length}
                   </span>
                 )}
               </button>
@@ -640,7 +682,7 @@ export default function AdminPortal() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={`Search ${activeSubTab === 'updates' ? 'update requests...' : activeSubTab === 'requests' ? 'colleges...' : activeSubTab === 'counseling' ? 'leads...' : activeSubTab === 'callbacks' ? 'callbacks...' : 'users...'}`}
+                placeholder={`Search ${activeSubTab === 'updates' ? 'update requests...' : activeSubTab === 'direct-apply' ? 'applications...' : activeSubTab === 'requests' ? 'colleges...' : activeSubTab === 'counseling' ? 'leads...' : activeSubTab === 'callbacks' ? 'callbacks...' : 'users...'}`}
                 className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-red-600"
               />
             </div>
@@ -1279,6 +1321,140 @@ export default function AdminPortal() {
                               {renderDeleteButton('registrations', item.id, item.name)}
                             </div>
                           ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {/* 1b. DIRECT APPLY STUDENT APPLICATIONS */}
+                {activeSubTab === 'direct-apply' && (
+                  <div>
+                    {filteredDirectApplications.length === 0 ? (
+                      <p className="p-8 text-center text-slate-400 italic text-xs">No direct apply applications match search.</p>
+                    ) : (
+                      <>
+                        {/* Desktop Table */}
+                        <div className="hidden md:block overflow-x-auto">
+                          <table className="w-full text-left text-xs text-slate-600 border-collapse">
+                            <thead>
+                              <tr className="bg-slate-50 border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+                                <th className="p-4">Student Info</th>
+                                <th className="p-4">Course &amp; Branch</th>
+                                <th className="p-4">Location &amp; Budget</th>
+                                <th className="p-4">Targeted Colleges</th>
+                                <th className="p-4">Submitted</th>
+                                <th className="p-4 text-right">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {filteredDirectApplications.map((item) => {
+                                const collegeList = Array.isArray(item.targetColleges) && item.targetColleges.length > 0
+                                  ? item.targetColleges
+                                  : item.name.split(',').map(s => s.trim()).filter(Boolean);
+                                return (
+                                  <tr key={item.id} className="border-b border-slate-50 hover:bg-slate-50/50">
+                                    <td className="p-4">
+                                      <p className="font-bold text-slate-900">{item.contactName || 'Student'}</p>
+                                      <p className="text-[10px] text-slate-500 font-mono">{item.contactEmail}</p>
+                                      <p className="text-[10px] font-bold text-red-600">{item.contactPhone}</p>
+                                    </td>
+                                    <td className="p-4">
+                                      <p className="font-bold text-slate-800">{item.course || item.category}</p>
+                                      {item.branch && (
+                                        <p className="text-[10px] text-slate-500 mt-0.5">Branch: {item.branch}</p>
+                                      )}
+                                    </td>
+                                    <td className="p-4">
+                                      <p className="font-medium text-slate-800">{item.location}</p>
+                                      <p className="text-[10px] text-emerald-700 font-bold mt-0.5">
+                                        {item.budget || (item.feePerAnnum ? `₹${item.feePerAnnum.toLocaleString('en-IN')}/yr` : 'Any Budget')}
+                                      </p>
+                                    </td>
+                                    <td className="p-4 max-w-xs">
+                                      <div className="flex flex-wrap gap-1">
+                                        {collegeList.map((colName) => (
+                                          <span
+                                            key={colName}
+                                            className="inline-block rounded-md border border-orange-200 bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-800"
+                                          >
+                                            {colName}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </td>
+                                    <td className="p-4 text-slate-400 text-[10px]">
+                                      {new Date(item.createdAt).toLocaleString()}
+                                    </td>
+                                    <td className="p-4 text-right">
+                                      {renderDeleteButton('direct-applications', item.id, `direct application from ${item.contactName || item.contactEmail}`)}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+
+                        {/* Mobile Cards View */}
+                        <div className="block md:hidden space-y-4 p-4 bg-slate-50/50">
+                          {filteredDirectApplications.map((item) => {
+                            const collegeList = Array.isArray(item.targetColleges) && item.targetColleges.length > 0
+                              ? item.targetColleges
+                              : item.name.split(',').map(s => s.trim()).filter(Boolean);
+                            return (
+                              <div key={item.id} className="bg-white rounded-2xl border border-slate-100 p-4 shadow-2xs space-y-3">
+                                <div className="flex justify-between items-start gap-2">
+                                  <div>
+                                    <h3 className="font-bold text-slate-900 text-sm">{item.contactName || 'Student'}</h3>
+                                    <p className="text-[10px] text-slate-500 font-mono">{item.contactEmail}</p>
+                                    <p className="text-[11px] font-bold text-red-600 mt-0.5">{item.contactPhone}</p>
+                                  </div>
+                                  <span className="px-2 py-0.5 bg-orange-50 text-orange-700 rounded-full text-[9px] font-bold border border-orange-200 shrink-0">
+                                    Direct Apply
+                                  </span>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-2 text-[11px] pt-2 border-t border-slate-50">
+                                  <div>
+                                    <span className="font-bold text-slate-400 uppercase tracking-wider text-[8px] block">Course</span>
+                                    <span className="text-slate-800 font-semibold">{item.course || item.category}</span>
+                                  </div>
+                                  <div>
+                                    <span className="font-bold text-slate-400 uppercase tracking-wider text-[8px] block">Branch</span>
+                                    <span className="text-slate-800 font-medium">{item.branch || 'N/A'}</span>
+                                  </div>
+                                  <div>
+                                    <span className="font-bold text-slate-400 uppercase tracking-wider text-[8px] block">Location</span>
+                                    <span className="text-slate-800 font-medium">{item.location}</span>
+                                  </div>
+                                  <div>
+                                    <span className="font-bold text-slate-400 uppercase tracking-wider text-[8px] block">Budget</span>
+                                    <span className="text-emerald-700 font-bold">{item.budget || 'Any'}</span>
+                                  </div>
+                                </div>
+
+                                <div className="pt-2 border-t border-slate-50">
+                                  <span className="font-bold text-slate-400 uppercase tracking-wider text-[8px] block mb-1.5">
+                                    Targeted Colleges ({collegeList.length})
+                                  </span>
+                                  <div className="flex flex-wrap gap-1">
+                                    {collegeList.map((colName) => (
+                                      <span key={colName} className="rounded-md border border-orange-200 bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-800">
+                                        {colName}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <div className="text-[10px] text-slate-400 pt-1.5 border-t border-slate-50 flex justify-between items-center">
+                                  <span>Submitted:</span>
+                                  <span className="font-mono">{new Date(item.createdAt).toLocaleString()}</span>
+                                </div>
+                                {renderDeleteButton('direct-applications', item.id, `direct application from ${item.contactName || item.contactEmail}`)}
+                              </div>
+                            );
+                          })}
                         </div>
                       </>
                     )}
