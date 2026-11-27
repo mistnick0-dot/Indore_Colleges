@@ -21,7 +21,7 @@ import {
   X, 
   CheckSquare, 
   ExternalLink, 
-  HelpCircle, 
+  Headset,
   Info, 
   Calendar, 
   Mail, 
@@ -411,12 +411,14 @@ export default function Header({
 
               <button
                 onClick={() => setActiveDropdown(activeDropdown === 'profile' ? null : 'profile')}
-                className={`p-1.5 rounded-full hover:bg-slate-100 text-slate-700 transition hidden sm:flex items-center justify-center ${
-                  activeDropdown === 'profile' ? 'bg-slate-100 text-red-600' : ''
+                className={`relative p-2 rounded-full bg-gradient-to-br from-orange-500 to-red-600 text-white shadow-md shadow-orange-500/25 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/35 transition-all hidden sm:flex items-center justify-center cursor-pointer ${
+                  activeDropdown === 'profile' ? 'ring-2 ring-orange-300 ring-offset-1 scale-105' : ''
                 }`}
-                title="Menu & Support"
+                title="Menu & Support Desk"
+                aria-label="Menu & Support Desk"
               >
-                <HelpCircle className="h-6 w-6 stroke-[2]" />
+                <Headset className="h-5 w-5 stroke-[2.2]" />
+                <span aria-hidden="true" className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
               </button>
             </div>
 

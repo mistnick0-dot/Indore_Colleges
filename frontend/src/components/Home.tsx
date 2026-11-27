@@ -725,7 +725,7 @@ export default function Home({
             transition={{ delay: 0.1 }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-black tracking-tight leading-[1.28] font-outfit max-w-5xl mx-auto text-center"
           >
-            <span>Find the best colleges in Indore</span>
+            <span>Find the best colleges of Indore</span>
             <span className="block mt-1 sm:mt-1.5">
               with{' '}
               <span 
@@ -777,16 +777,24 @@ export default function Home({
             <motion.button
               type="button"
               onClick={onOpenCounseling}
-              initial={false}
-              animate={{ scale: [1, 1.08, 1] }}
+              initial={{ scale: 1 }}
+              animate={{
+                scale: [1, 1.09, 1],
+                boxShadow: [
+                  '0 10px 25px -5px rgba(220, 38, 38, 0.45)',
+                  '0 18px 36px -4px rgba(220, 38, 38, 0.72)',
+                  '0 10px 25px -5px rgba(220, 38, 38, 0.45)',
+                ],
+              }}
               transition={{
-                duration: 1.8,
+                duration: 1.05,
                 repeat: Infinity,
+                repeatType: 'loop',
                 ease: 'easeInOut',
               }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.12 }}
               whileTap={{ scale: 0.95 }}
-              className="relative inline-flex bg-red-600 hover:bg-red-500 text-white font-extrabold px-6 py-3 rounded-xl transition-colors duration-200 text-xs sm:text-sm tracking-wider uppercase items-center gap-2 cursor-pointer backdrop-blur-sm shadow-xl shadow-red-600/35 ring-2 ring-red-400/40"
+              className="relative inline-flex bg-red-600 hover:bg-red-500 text-white font-extrabold px-6 py-3 rounded-xl transition-colors duration-200 text-xs sm:text-sm tracking-wider uppercase items-center gap-2 cursor-pointer backdrop-blur-sm ring-2 ring-red-400/50"
             >
               <PhoneCall className="h-4 w-4 animate-bounce" />
               <span>Get Free Counselling</span>

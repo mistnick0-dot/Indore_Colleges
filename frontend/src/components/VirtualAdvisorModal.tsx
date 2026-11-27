@@ -421,7 +421,6 @@ export default function VirtualAdvisorModal({
                   <h3 className="text-sm sm:text-base font-extrabold text-gray-950 mt-0.5">
                     What is the annual fee budget range you are looking for?
                   </h3>
-                  <p className="text-[10px] text-gray-400 mt-0.5">Estimated annual academic and registration charges</p>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-w-xl mx-auto">

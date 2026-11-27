@@ -1029,6 +1029,24 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
 
   // Virtual Advisor State
   const [isAdvisorOpen, setIsAdvisorOpen] = useState(false);
+  const advisorShownRef = React.useRef(false);
+
+  useEffect(() => {
+    if (isAdvisorOpen) {
+      advisorShownRef.current = true;
+    }
+  }, [isAdvisorOpen]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (!advisorShownRef.current) {
+        advisorShownRef.current = true;
+        setIsAdvisorOpen(true);
+      }
+    }, 30000);
+
+    return () => window.clearTimeout(timer);
+  }, []);
   const [callbackName, setCallbackName] = useState('');
   const [callbackPhone, setCallbackPhone] = useState('');
   const [callbackSubmitting, setCallbackSubmitting] = useState(false);
