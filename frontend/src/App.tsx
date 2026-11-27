@@ -20,6 +20,7 @@ import ProfileModal from './components/ProfileModal';
 import AboutUsPage from './components/AboutUsPage';
 import CareersPage from './components/CareersPage';
 import ContactUsPage from './components/ContactUsPage';
+import UsefulInformationPage from './components/UsefulInformationPage';
 import CollegePartnerRegistration from './components/CollegePartnerRegistration';
 import AdminPortal from './components/AdminPortal';
 import { Institute, SearchFilters, UserProfile } from './types';
@@ -316,6 +317,7 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
     '/about',
     '/careers',
     '/contact',
+    '/useful-information',
     '/college-portal',
     '/admin-panel',
   ]);
@@ -386,6 +388,8 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
       title = "Join Our Team - Careers | Indore Colleges";
     } else if (pathname === '/contact') {
       title = "Contact Us & Support | Indore Colleges";
+    } else if (pathname === '/useful-information') {
+      title = "Useful Information: Engineering, MBA, BBA, Paramedical & Certifications | Indore Colleges";
     } else if (pathname === '/college-portal') {
       title = "College Partner Registration Portal | Indore Colleges";
     } else if (pathname === '/admin-panel') {
@@ -395,7 +399,7 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
   })());
 
   const isCategoryPage = Boolean(categorySeo);
-  const publicPagePaths = new Set(['/explore', '/reviews', '/blogs', '/about', '/careers', '/contact']);
+  const publicPagePaths = new Set(['/explore', '/reviews', '/blogs', '/about', '/careers', '/contact', '/useful-information']);
   const routeDescriptions: Record<string, string> = {
     '/reviews': 'Browse Indore college review categories and perspectives from students, Indore Colleges, and college authorities.',
     '/blogs': 'Browse college reviews and admission guides by education category, with perspectives on colleges in Indore.',
@@ -403,6 +407,7 @@ export function getPageSeo(pathname: string, institutes: Institute[]): PageSeo |
     '/about': 'Learn about Indore Colleges and its mission to help students explore institutions and education options in the region.',
     '/careers': 'Explore careers at Indore Colleges and learn about the team and work supporting students and families.',
     '/contact': 'Contact Indore Colleges with questions about fees, affiliation boards, courses, or campus counselling, and find office details.',
+    '/useful-information': 'Explore engineering branch trends, MBA and BBA specializations, paramedical branches, and certification course guides in Indore.',
   };
   const noindexPaths = new Set(['/register', '/dashboard', '/college-portal', '/admin-panel']);
   const canonical = college
@@ -1043,7 +1048,7 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
         advisorShownRef.current = true;
         setIsAdvisorOpen(true);
       }
-    }, 30000);
+    }, 15000);
 
     return () => window.clearTimeout(timer);
   }, []);
@@ -1720,6 +1725,20 @@ export default function App({ initialInstitutes = [] }: { initialInstitutes?: In
                   exit={{ opacity: 0, y: 15 }}
                 >
                   <ContactUsPage />
+                </motion.div>
+              }
+            />
+
+            {/* Useful Information Route */}
+            <Route
+              path="/useful-information"
+              element={
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                >
+                  <UsefulInformationPage />
                 </motion.div>
               }
             />

@@ -621,39 +621,34 @@ export default function Header({
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 text-xs font-semibold text-gray-700">
-                      <div className="p-3 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer" onClick={() => { setActiveTab('about'); setActiveDropdown(null); }}>
-                        <h4 className="font-extrabold text-sm text-gray-900 mb-1 flex items-center gap-1">
+                      <div className="p-3.5 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer flex items-center" onClick={() => { setActiveTab('about'); setActiveDropdown(null); }}>
+                        <h4 className="font-extrabold text-sm text-gray-900 flex items-center gap-1.5">
                           <Info className="h-4 w-4 text-red-600" /> About Us
                         </h4>
-                        <p className="text-[11px] text-gray-500 font-normal leading-snug">Our mission, credentials, and track record in Indore education.</p>
                       </div>
 
-                      <div className="p-3 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer" onClick={() => { setActiveTab('careers'); setActiveDropdown(null); }}>
-                        <h4 className="font-extrabold text-sm text-gray-900 mb-1 flex items-center gap-1">
+                      <div className="p-3.5 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer flex items-center" onClick={() => { setActiveTab('careers'); setActiveDropdown(null); }}>
+                        <h4 className="font-extrabold text-sm text-gray-900 flex items-center gap-1.5">
                           <ShieldCheck className="h-4 w-4 text-emerald-600" /> Careers
                         </h4>
-                        <p className="text-[11px] text-gray-500 font-normal leading-snug">Join our network of elite counselors, admission heads, and guides.</p>
                       </div>
 
-                      <div className="p-3 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer" onClick={() => { setActiveTab('contact'); setActiveDropdown(null); }}>
-                        <h4 className="font-extrabold text-sm text-gray-900 mb-1 flex items-center gap-1">
+                      <div className="p-3.5 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer flex items-center" onClick={() => { setActiveTab('contact'); setActiveDropdown(null); }}>
+                        <h4 className="font-extrabold text-sm text-gray-900 flex items-center gap-1.5">
                           <Mail className="h-4 w-4 text-red-600" /> Contact Us
                         </h4>
-                        <p className="text-[11px] text-gray-500 font-normal leading-snug">Call or visit our Vijay Nagar office. Schedule on-site reviews.</p>
                       </div>
 
-                      <div className="p-3 border border-red-100 rounded-xl bg-red-50/40 hover:bg-red-100/40 transition cursor-pointer" onClick={() => { setActiveTab('admin-panel'); setActiveDropdown(null); }}>
-                        <h4 className="font-extrabold text-sm text-red-600 mb-1 flex items-center gap-1">
+                      <div className="p-3.5 border border-red-100 rounded-xl bg-red-50/40 hover:bg-red-100/40 transition cursor-pointer flex items-center" onClick={() => { setActiveTab('admin-panel'); setActiveDropdown(null); }}>
+                        <h4 className="font-extrabold text-sm text-red-600 flex items-center gap-1.5">
                           <UserCheck className="h-4 w-4 text-red-600" /> Admin Panel
                         </h4>
-                        <p className="text-[11px] text-red-500 font-normal leading-snug">Access the master administrative workspace to handle registrations & approvals.</p>
                       </div>
 
-                      <div className="p-3 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer" onClick={() => setActiveAboutModal('lang')}>
-                        <h4 className="font-extrabold text-sm text-gray-900 mb-1 flex items-center gap-1">
+                      <div className="p-3.5 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition cursor-pointer flex items-center" onClick={() => setActiveAboutModal('lang')}>
+                        <h4 className="font-extrabold text-sm text-gray-900 flex items-center gap-1.5">
                           <Globe className="h-4 w-4 text-amber-600" /> Language: EN
                         </h4>
-                        <p className="text-[11px] text-gray-500 font-normal leading-snug">Change consultation language. Hindi & English supported.</p>
                       </div>
                     </div>
                   </div>

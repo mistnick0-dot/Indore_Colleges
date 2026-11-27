@@ -59,211 +59,37 @@ export default function Footer({
   return (
     <footer id="edupath_main_footer" className="bg-slate-950 text-gray-200 pt-16 pb-8 font-sans border-t border-red-600/20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
-        {/* TOP SECTION: Logo, description, and Higher Ed directories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 pb-12 border-b border-red-600/20">
-          
-          {/* Column 1: Brand & Contacts */}
-          <div className="space-y-5 xl:col-span-1">
-            {/* Elegant Logo matching Header Brand style */}
-            <div 
+
+        {/* TOP CENTERED SECTION: Brand Description & Official Social Channels */}
+        <div className="flex flex-col items-center text-center pb-12 border-b border-red-600/20 space-y-6">
+          <div className="max-w-2xl flex flex-col items-center space-y-4">
+            <div
               onClick={() => {
                 setActiveTab('home');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="flex items-center cursor-pointer select-none group"
+              className="flex items-center justify-center cursor-pointer select-none group"
             >
               <Logo light />
             </div>
 
-            <p className="text-[12px] text-gray-300 leading-relaxed">
-              Indore Colleges is Central India's leading comprehensive college, university, and professional higher education search directory for Indore.
+            <p className="text-xs sm:text-[13px] text-gray-300 leading-relaxed max-w-xl">
+              Indore Colleges is Central India&apos;s leading comprehensive college, university, and professional higher education search directory for Indore.
             </p>
-
-            {/* Contact Items */}
-            <div className="space-y-3 pt-2 text-[12px] text-gray-300">
-              <div className="flex items-center space-x-2.5">
-                <Mail className="h-4.5 w-4.5 text-red-500 shrink-0" />
-                <a href="mailto:Indorecollegeshub@gmail.com" className="hover:text-red-400 hover:underline transition select-all break-all">
-                  Indorecollegeshub@gmail.com
-                </a>
-              </div>
-            </div>
           </div>
 
-          {/* Column 2: Useful University Portals */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600 flex items-center gap-1.5">
-              <span>Useful Portals</span>
-              <span className="text-[10px] bg-red-600/30 text-red-400 px-1.5 py-0.5 rounded font-black">NEW</span>
-            </h4>
-            <ul className="space-y-3 text-[12px] text-gray-300">
-              <li>
-                <a href="https://www.dauniv.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>DAVV Indore Portal</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.rgpv.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>RGPV Tech University</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="http://brauss.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>BRAUSS Social Sciences</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.iiti.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>IITI (IIT Indore)</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.iimidr.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>IIMI (IIM Indore)</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="https://epravesh.mponline.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>MP E-Pravesh Portal</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.ugc.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>UGC Official Portal</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.aicte.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
-                  <span>AICTE Official Portal</span>
-                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition" />
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Engineering & Tech links */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600">
-              Engineering & Tech
-            </h4>
-            <ul className="space-y-3 text-[12px] text-gray-300">
-              <li>
-                <Link to="/explore/engineering" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  IIT Indore Direct Info
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/engineering" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  SGSITS College Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/engineering" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  B.Tech Programs in Indore
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/bca" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Computer Science Majors
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/engineering" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Information Technology Labs
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 4: Business & MBA links */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600">
-              Business & MBA
-            </h4>
-            <ul className="space-y-3 text-[12px] text-gray-300">
-              <li>
-                <Link to="/explore/mba" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  IIM Indore IPM Programs
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/mba" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  MBA Streams in Indore
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/bba" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  BBA Colleges in Indore
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/bba" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Commerce Institutes
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/mba" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Business Administration
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 5: Professional Streams links */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600">
-              Professional Degrees
-            </h4>
-            <ul className="space-y-3 text-[12px] text-gray-300">
-              <li>
-                <Link to="/explore/medical" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Medical Colleges in Indore
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/law" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Law (LL.B / B.A. LL.B)
-                </Link>
-              </li>
-              <li>
-                <Link to="/explore/design" className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Design & Fine Arts
-                </Link>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick('Digital Marketing')} className="hover:text-red-400 hover:underline transition text-left cursor-pointer">
-                  Digital Marketing Certifications
-                </button>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* BOTTOM MIDDLE SECTION: Social Media and Quick Links */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 py-10 text-[12px] text-gray-300">
-          
-          {/* Social Media Links */}
-          <div className="lg:col-span-8 space-y-4">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+          <div className="space-y-3 w-full flex flex-col items-center">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center justify-center gap-2">
               <span>Official Social Channels</span>
               <span className="text-[10px] bg-red-600/30 text-red-400 px-2 py-0.5 rounded font-black">CONNECT</span>
             </h4>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               {/* YouTube Channel */}
-              <a 
-                href="https://www.youtube.com/@Indorecolleges" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center gap-2 px-3 py-2 border border-red-600/40 bg-red-950/30 rounded-lg hover:bg-red-600 hover:border-red-600 text-white transition duration-200 group" 
+              <a
+                href="https://www.youtube.com/@Indorecolleges"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-red-600/40 bg-red-950/30 rounded-lg hover:bg-red-600 hover:border-red-600 text-white transition duration-200 group"
                 title="YouTube - @Indorecolleges"
               >
                 <Youtube className="h-4.5 w-4.5 text-red-500 group-hover:text-white transition shrink-0" />
@@ -274,11 +100,11 @@ export default function Footer({
               </a>
 
               {/* Instagram Profile */}
-              <a 
-                href="https://www.instagram.com/indorecolleges?stkn=bHhwNHpzYjg0Ym4z" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center gap-2 px-3 py-2 border border-pink-500/30 bg-pink-950/20 rounded-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:border-transparent text-white transition duration-200 group" 
+              <a
+                href="https://www.instagram.com/indorecolleges?stkn=bHhwNHpzYjg0Ym4z"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-pink-500/30 bg-pink-950/20 rounded-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:border-transparent text-white transition duration-200 group"
                 title="Instagram - @indorecolleges"
               >
                 <Instagram className="h-4.5 w-4.5 text-pink-400 group-hover:text-white transition shrink-0" />
@@ -289,9 +115,9 @@ export default function Footer({
               </a>
 
               {/* Email Support */}
-              <a 
-                href="mailto:Indorecollegeshub@gmail.com" 
-                className="inline-flex items-center gap-2 px-3 py-2 border border-amber-500/30 bg-amber-950/20 rounded-lg hover:bg-amber-600 hover:border-amber-600 text-white transition duration-200 group" 
+              <a
+                href="mailto:Indorecollegeshub@gmail.com"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-amber-500/30 bg-amber-950/20 rounded-lg hover:bg-amber-600 hover:border-amber-600 text-white transition duration-200 group"
                 title="Email Us: Indorecollegeshub@gmail.com"
               >
                 <Mail className="h-4.5 w-4.5 text-amber-400 group-hover:text-white transition shrink-0" />
@@ -302,18 +128,174 @@ export default function Footer({
               </a>
             </div>
           </div>
+        </div>
 
-          {/* About us / Quick info */}
-          <div className="lg:col-span-4 space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+        {/* FOUR GRID COLUMNS BELOW CENTERED TOP SECTION */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-12 border-b border-red-600/20">
+
+          {/* Column 1: Useful Portals */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600 flex items-center gap-1.5">
+              <span>Useful Portals</span>
+              <span className="text-[10px] bg-red-600/30 text-red-400 px-1.5 py-0.5 rounded font-black">NEW</span>
+            </h4>
+            <ul className="space-y-3 text-[12px] text-gray-300">
+              <li>
+                <a href="https://dte.mponline.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>DTE</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://highereducation.mp.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>Higher Education</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.dauniv.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>DAVV</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.rgpv.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>RGPV</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.ugc.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>UGC</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.aicte.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>AICTE</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://epravesh.mponline.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span>MP E-Pravesh Portal</span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 2: Useful Information */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600">
+              Useful Information
+            </h4>
+            <ul className="space-y-3 text-[12px] text-gray-300">
+              <li>
+                <Link to="/useful-information#about-engineering-branch-trends" className="hover:text-red-400 hover:underline transition text-left block">
+                  About Engineering Branch &amp; Trends
+                </Link>
+              </li>
+              <li>
+                <Link to="/useful-information#about-mba-branch-trends" className="hover:text-red-400 hover:underline transition text-left block">
+                  About MBA Branch &amp; Trends
+                </Link>
+              </li>
+              <li>
+                <Link to="/useful-information#trending-bba-mba-branches" className="hover:text-red-400 hover:underline transition text-left block">
+                  Trending BBA &amp; MBA Branches
+                </Link>
+              </li>
+              <li>
+                <Link to="/useful-information#paramedical-important-branches" className="hover:text-red-400 hover:underline transition text-left block">
+                  Paramedical Important Branches
+                </Link>
+              </li>
+              <li>
+                <Link to="/useful-information#best-engineering-branch" className="hover:text-red-400 hover:underline transition text-left block">
+                  Best Engineering Branch
+                </Link>
+              </li>
+              <li>
+                <Link to="/useful-information#best-certifications-courses" className="hover:text-red-400 hover:underline transition text-left block">
+                  Best Certifications Courses
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Quick Links (Vertical) */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600">
               Quick Links
             </h4>
-            <div className="grid grid-cols-2 gap-2 text-[12px] font-medium text-gray-300">
-              <button onClick={() => { setActiveTab('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">About Us</button>
-              <button onClick={() => { setActiveTab('careers'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">Careers</button>
-              <button onClick={() => { setActiveTab('register'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">Direct Apply</button>
-              <button onClick={() => { setActiveTab('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">Contact Us</button>
-            </div>
+            <ul className="space-y-3 text-[12px] font-medium text-gray-300">
+              <li>
+                <button onClick={() => { setActiveTab('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">
+                  About Us
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActiveTab('careers'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">
+                  Careers
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActiveTab('register'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">
+                  Direct Apply
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActiveTab('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-red-400 hover:underline text-left cursor-pointer">
+                  Contact Us
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: College Info (YouTube Video Links) */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-wider relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-red-600">
+              College Info
+            </h4>
+            <ul className="space-y-3 text-[12px] text-gray-300">
+              <li>
+                <a href="https://www.youtube.com/@Indorecolleges" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span className="flex items-center gap-2">
+                    <Youtube className="h-3.5 w-3.5 text-red-500 shrink-0" />
+                    <span>LNCTS</span>
+                  </span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/@Indorecolleges" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span className="flex items-center gap-2">
+                    <Youtube className="h-3.5 w-3.5 text-red-500 shrink-0" />
+                    <span>MGI</span>
+                  </span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/@Indorecolleges" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span className="flex items-center gap-2">
+                    <Youtube className="h-3.5 w-3.5 text-red-500 shrink-0" />
+                    <span>SGSITS</span>
+                  </span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/@Indorecolleges" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 hover:underline transition flex items-center justify-between group">
+                  <span className="flex items-center gap-2">
+                    <Youtube className="h-3.5 w-3.5 text-red-500 shrink-0" />
+                    <span>ACROPOLIS</span>
+                  </span>
+                  <ExternalLink className="h-3 w-3 text-gray-500 group-hover:text-red-400 transition shrink-0" />
+                </a>
+              </li>
+            </ul>
           </div>
 
         </div>

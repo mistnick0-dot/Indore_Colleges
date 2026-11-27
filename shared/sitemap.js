@@ -20,6 +20,7 @@ const PUBLIC_PAGE_PATHS = [
   '/about',
   '/careers',
   '/contact',
+  '/useful-information',
 ];
 
 const COLLEGE_PATH_PATTERN = /^\/college\/[a-z0-9]+(?:-[a-z0-9]+)*$/;

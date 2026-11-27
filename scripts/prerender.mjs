@@ -36,6 +36,7 @@ const baseRoutes = [
   '/about',
   '/careers',
   '/contact',
+  '/useful-information',
   '/college-portal',
   '/admin-panel',
 ];
