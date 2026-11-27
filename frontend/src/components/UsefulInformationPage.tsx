@@ -6,7 +6,6 @@ interface UsefulTopicSection {
   id: string;
   tag: string;
   question: string;
-  summary: string;
   highlights: string[];
   exploreLink: string;
   exploreLabel: string;
@@ -17,12 +16,15 @@ const USEFUL_TOPICS: UsefulTopicSection[] = [
     id: 'about-engineering-branch-trends',
     tag: 'Engineering Trends',
     question: 'About Engineering Branch & Trends',
-    summary:
-      'Engineering admissions in Indore have evolved beyond traditional specializations toward software systems, applied AI, data engineering, cloud architecture, and interdisciplinary electronics. While Computer Science and IT remain top student choices, core branches such as Mechanical, Civil, Electrical, and Electronics & Communication continue to attract students interested in manufacturing, infrastructure, embedded hardware, and EV ecosystems.',
     highlights: [
-      'High demand for Computer Science & Engineering, AI & Machine Learning, Data Science, Cyber Security, and IoT.',
-      'Strong industrial and core-sector relevance for Mechanical, Civil, Electrical, and Electronics specializations.',
-      'Check AICTE approval, RGPV or university curriculum updates, lab infrastructure, and internship tie-ups before finalizing a branch.'
+      'Engineering admissions in Indore have shifted beyond conventional trades toward software systems and digital engineering.',
+      'Applied AI, Machine Learning, Data Engineering, and Cloud Architecture are among the fastest-growing B.Tech tracks.',
+      'Computer Science & Engineering (CSE) and Information Technology (IT) continue to see the highest student demand.',
+      'Specializations in Cyber Security, Blockchain, and Internet of Things (IoT) are widely offered across Indore campuses.',
+      'Interdisciplinary Electronics & Communication (ECE) remains strong for embedded hardware, VLSI, and telecom roles.',
+      'Core branches—Mechanical, Civil, and Electrical—attract students focused on manufacturing, infrastructure, and EV ecosystems.',
+      'Industry-aligned curricula increasingly integrate coding labs, cloud tools, and minor specializations from early semesters.',
+      'Always verify AICTE approval, RGPV or autonomous university status, lab facilities, and internship tie-ups before choosing.'
     ],
     exploreLink: '/explore/engineering',
     exploreLabel: 'Explore Engineering Colleges in Indore'
@@ -31,12 +33,15 @@ const USEFUL_TOPICS: UsefulTopicSection[] = [
     id: 'about-mba-branch-trends',
     tag: 'MBA Trends',
     question: 'About MBA Branch & Trends',
-    summary:
-      'MBA programs in Indore cater to graduates seeking leadership and analytical roles across corporate finance, digital growth, supply chains, people management, and business analytics. Dual-specialization MBA and AICTE-approved PGDM programs are popular because they combine foundational business strategy with practical industry tools and case studies.',
     highlights: [
-      'Growing adoption of Business Analytics, FinTech, Digital Marketing, and Operations alongside Finance, Marketing, and HR.',
-      'Public options such as DAVV teaching departments alongside private autonomous B-schools and universities accept CMAT, CAT, MAT, or university tests.',
-      'Compare total tuition ROI, specialization electives, corporate mentorship, and verified placement reporting across campuses.'
+      'MBA programs in Indore train graduates for leadership and analytical careers across corporate and startup sectors.',
+      'Dual-specialization MBA tracks remain popular for combining two complementary business disciplines.',
+      'AICTE-approved PGDM programs offer industry-updated case studies, live projects, and practical electives.',
+      'Business Analytics, FinTech, and Digital Growth are growing rapidly alongside traditional MBA streams.',
+      'Finance, Marketing, Human Resource Management (HRM), and Operations remain core pillars of management education.',
+      'Public teaching departments at DAVV as well as autonomous B-schools and private universities offer varied fee tiers.',
+      'Admissions across Indore MBA institutes commonly consider CMAT, CAT, MAT, NMAT, or university entrance pathways.',
+      'Compare total fee ROI, specialization curriculum, corporate mentorship, and verified placement reports before applying.'
     ],
     exploreLink: '/explore/mba',
     exploreLabel: 'Explore MBA Colleges in Indore'
@@ -45,12 +50,15 @@ const USEFUL_TOPICS: UsefulTopicSection[] = [
     id: 'trending-bba-mba-branches',
     tag: 'BBA & MBA',
     question: 'Trending BBA & MBA Branches',
-    summary:
-      'Across both undergraduate BBA and postgraduate MBA programs, employers increasingly look for graduates who combine management fundamentals with quantitative and digital skills. Specialized tracks such as Business Analytics, Banking & Financial Services, E-Commerce, International Business, and Human Resource Analytics are among the fastest-growing choices in Indore.',
     highlights: [
-      'Popular BBA tracks: BBA (Hons.), Foreign Trade, Business Analytics, Banking & Finance, and Hospitality Management.',
-      'Popular MBA tracks: Finance & FinTech, Marketing & Digital Growth, Business Analytics, Supply Chain & Operations, and HRM.',
-      'Look for internships, live corporate projects, Excel/BI tool training, and soft-skills workshops integrated into semesters.'
+      'Employers increasingly prefer management graduates who combine business fundamentals with quantitative and digital skills.',
+      'Trending BBA options in Indore include BBA (Hons.), Foreign Trade, Business Analytics, and Banking & Finance.',
+      'Specialized UG tracks such as E-Commerce, Digital Marketing, and Hospitality Management are gaining steady interest.',
+      'Trending MBA options include Business Analytics, FinTech, Financial Administration, and Marketing Analytics.',
+      'Supply Chain, Logistics, Operations Management, and HR Analytics also see strong corporate relevance.',
+      'Integrated 5-year BBA+MBA pathways appeal to students planning early management specialization.',
+      'Practical proficiency in Excel, Power BI, SQL, and financial modeling boosts readiness across these branches.',
+      'Prioritize programs that include mandatory summer internships, case competitions, and industry workshops.'
     ],
     exploreLink: '/explore/bba',
     exploreLabel: 'Explore BBA & Management Colleges'
@@ -59,12 +67,16 @@ const USEFUL_TOPICS: UsefulTopicSection[] = [
     id: 'paramedical-important-branches',
     tag: 'Paramedical',
     question: 'Paramedical Important Branches',
-    summary:
-      'Paramedical and allied health science programs prepare skilled clinical professionals who support diagnostics, rehabilitation, emergency care, and hospital operations. With expanding multi-specialty hospitals and diagnostic chains across Indore and Madhya Pradesh, practical clinical training is essential when evaluating a paramedical institute.',
     highlights: [
-      'Key degree and diploma branches: BMLT / DMLT (Medical Laboratory Technology), BPT (Physiotherapy), Radiology & Imaging, Optometry, and OT Technician.',
-      'Prioritize institutes attached to active teaching hospitals or equipped diagnostic laboratories for hands-on clinical postings.',
-      'Verify recognition under relevant state paramedical councils or university health science regulatory norms.'
+      'Paramedical programs train skilled allied-health professionals who support diagnostics, emergency care, and rehabilitation.',
+      'BMLT and DMLT (Medical Laboratory Technology) prepare students for pathology, microbiology, and clinical testing labs.',
+      'Bachelor of Physiotherapy (BPT) focuses on physical rehabilitation, orthopedics, sports recovery, and neuro-care.',
+      'Radiology & Medical Imaging Technology covers X-ray, CT, MRI, and diagnostic imaging operations.',
+      'Operation Theatre (OT) Technician and Anesthesia Technology support surgical and critical-care teams.',
+      'Optometry and Ophthalmic Assistance offer dedicated career tracks in vision care and eye clinics.',
+      'Expanding multi-specialty hospitals and diagnostic chains across Indore drive consistent demand for clinical staff.',
+      'Prefer institutes attached to active teaching hospitals that provide regular hands-on clinical postings.',
+      'Verify recognition with relevant state paramedical councils or accredited medical/health science universities.'
     ],
     exploreLink: '/explore/paramedical',
     exploreLabel: 'Explore Paramedical Colleges in Indore'
@@ -73,12 +85,16 @@ const USEFUL_TOPICS: UsefulTopicSection[] = [
     id: 'best-engineering-branch',
     tag: 'Branch Selection',
     question: 'Best Engineering Branch',
-    summary:
-      'The best engineering branch depends on your mathematical comfort, career goals, and interest in software versus physical systems. Computer Science & Engineering and IT suit students targeting software development, cloud, and AI careers, while ECE, Electrical, Mechanical, and Civil suit those aiming for core engineering, PSU exams, VLSI, robotics, or infrastructure.',
     highlights: [
-      'Choose CSE / IT / AI & Data Science if you enjoy coding, algorithms, databases, and product engineering.',
-      'Choose ECE / Electrical for embedded systems, semiconductors, telecom, automation, and power engineering.',
-      'Choose Mechanical / Civil if you are drawn to automotive, manufacturing, CAD/CAM, construction, or public-sector engineering.'
+      'The best engineering branch depends on your aptitude in mathematics, coding interest, and preferred work environment.',
+      'Choose Computer Science & Engineering (CSE) or IT if you enjoy algorithms, software development, and databases.',
+      'AI, Machine Learning, and Data Science suit students drawn to predictive modeling, analytics, and intelligent systems.',
+      'Cyber Security is ideal for learners interested in network defense, ethical hacking, and cloud governance.',
+      'Choose Electronics & Communication (ECE) for VLSI chip design, embedded systems, robotics, and telecom networks.',
+      'Choose Electrical Engineering for power systems, renewable energy, industrial automation, and EV electronics.',
+      'Choose Mechanical Engineering for automotive design, CAD/CAM, thermal systems, and core manufacturing.',
+      'Choose Civil Engineering if you aim for infrastructure, structural engineering, construction, or PSU/GATE pathways.',
+      'Evaluate faculty strength, active labs, and coding/core placement diversity rather than picking by hype alone.'
     ],
     exploreLink: '/explore/engineering',
     exploreLabel: 'Compare Engineering Colleges'
@@ -87,12 +103,16 @@ const USEFUL_TOPICS: UsefulTopicSection[] = [
     id: 'best-certifications-courses',
     tag: 'Certifications',
     question: 'Best Certifications Courses',
-    summary:
-      'Industry-recognized certifications complement college degrees by building practical job readiness during B.Tech, BBA, BCA, B.Com, and MBA studies. Short-term skill tracks work best when paired with real portfolio projects, internships, and domain practice rather than certificates alone.',
     highlights: [
-      'Tech & IT: Full-Stack Web Development, Python & Data Analytics, Cloud Computing (AWS/Azure), Cyber Security, and UI/UX Design.',
-      'Management & Commerce: Financial Modeling & Valuation, NISM Certifications, TallyPrime & GST, Power BI / Tableau, and Digital Marketing.',
-      'Choose structured hands-on courses with capstone projects that align with your degree specialization and target role.'
+      'Skill certifications complement B.Tech, BBA, BCA, B.Com, and MBA degrees by building practical job readiness.',
+      'Full-Stack Web Development (React, Node.js, databases) helps tech students build deployable software portfolios.',
+      'Python, SQL, Power BI, and Tableau certifications strengthen profiles for data analyst and business intelligence roles.',
+      'Cloud Computing credentials (AWS, Microsoft Azure, Google Cloud) validate infrastructure and DevOps foundations.',
+      'Cyber Security and networking certifications support careers in security operations and system administration.',
+      'Finance and commerce students benefit from Financial Modeling, Valuation, NISM modules, and TallyPrime with GST.',
+      'Digital Marketing certifications (SEO, performance ads, analytics) fit marketing-focused BBA and MBA learners.',
+      'UI/UX Design and product prototyping courses offer strong cross-domain value for creative tech roles.',
+      'Always pair certifications with real capstone projects and internships rather than relying on certificates alone.'
     ],
     exploreLink: '/explore',
     exploreLabel: 'Browse Indore Colleges Directory'
@@ -123,22 +143,6 @@ export default function UsefulInformationPage() {
           <h1 className="mt-4 font-outfit text-3xl sm:text-5xl font-black tracking-tight text-[#0F244C]">
             Branch Trends, Career Tracks &amp; Course Guides
           </h1>
-          <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
-            Clear answers to key student questions on engineering branches, BBA/MBA specializations, paramedical streams, and certification courses in Indore.
-          </p>
-
-          {/* Quick Jump Links */}
-          <nav aria-label="Useful information sections" className="mt-6 flex flex-wrap justify-center gap-2">
-            {USEFUL_TOPICS.map((topic) => (
-              <a
-                key={topic.id}
-                href={`#${topic.id}`}
-                className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-bold text-slate-700 shadow-2xs transition hover:border-red-300 hover:bg-red-50 hover:text-red-600"
-              >
-                {topic.question}
-              </a>
-            ))}
-          </nav>
         </header>
 
         {/* Q&A + Video Placeholder Sections */}
@@ -169,11 +173,7 @@ export default function UsefulInformationPage() {
                     {topic.question}
                   </h2>
 
-                  <p className="text-sm sm:text-base leading-relaxed text-slate-600">
-                    {topic.summary}
-                  </p>
-
-                  <ul className="space-y-2 pt-1 text-xs sm:text-sm text-slate-700">
+                  <ul className="space-y-2.5 pt-1 text-xs sm:text-sm text-slate-700">
                     {topic.highlights.map((item) => (
                       <li key={item} className="flex items-start gap-2.5">
                         <BookOpen className="h-4 w-4 text-red-600 shrink-0 mt-0.5" />
