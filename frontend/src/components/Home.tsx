@@ -801,7 +801,6 @@ export default function Home({
                 'jaipuria-indore'
               ],
               'MBA': [
-                'malwa-group-of-institutes',
                 'ims-davv',
                 'iips-davv',
                 'jaipuria-indore',
@@ -810,7 +809,8 @@ export default function Home({
                 'ips-ibmr',
                 'medi-caps-university',
                 'sage-university',
-                'acropolis'
+                'acropolis',
+                'malwa-group-of-institutes'
               ],
               'BCA': [
                 'pimr',
