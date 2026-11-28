@@ -8,7 +8,6 @@ import { motion } from 'motion/react';
 import Logo from './Logo';
 import { 
   Mail, 
-  Phone, 
   MapPin, 
   Clock, 
   Send, 

@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Sparkles, AlertCircle } from 'lucide-react';
+import { X, Send, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { LogoIcon } from './Logo';
 import { ChatMessage } from '../types';

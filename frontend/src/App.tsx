@@ -23,10 +23,10 @@ import ContactUsPage from './components/ContactUsPage';
 import UsefulInformationPage from './components/UsefulInformationPage';
 import CollegePartnerRegistration from './components/CollegePartnerRegistration';
 import AdminPortal from './components/AdminPortal';
-import { Institute, SearchFilters, UserProfile } from './types';
-import { Search, MapPin, Award, IndianRupee, HelpCircle, PhoneCall, Check, X, Compass, ChevronRight, HelpCircle as HelpIcon, Cpu, Briefcase, Laptop, Scale, HeartPulse, Palette, TrendingUp, ChevronLeft, Sparkles, GraduationCap } from 'lucide-react';
+import { Institute, UserProfile } from './types';
+import { Search, MapPin, Award, PhoneCall, Check, X, ChevronRight, ChevronLeft, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { INDORE_INSTITUTES, INDORE_LOCATIONS, INDORE_LOCALITY_GROUPS, CATEGORIES, BOARDS } from './data/indoreData';
+import { INDORE_INSTITUTES, INDORE_LOCALITY_GROUPS } from './data/indoreData';
 import { preserveRepositoryInstituteImages } from './utils/instituteImages';
 
 export function getInstituteZone(locationStr: string): string {

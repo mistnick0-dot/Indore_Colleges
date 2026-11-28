@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CounselingRequest } from '../types';
-import { Calendar, Clock, User, Phone, Mail, CheckCircle, FileText, RefreshCw, Sparkles } from 'lucide-react';
+import { Calendar, Clock, User, Phone, Mail, CheckCircle, FileText, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { LogoIcon } from './Logo';

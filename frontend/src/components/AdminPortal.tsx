@@ -4,12 +4,8 @@ import {
   ShieldAlert, 
   Lock, 
   Mail, 
-  User, 
   Building, 
   Phone, 
-  MapPin, 
-  Calendar, 
-  Clock, 
   CheckCircle, 
   XCircle, 
   Clock3, 
@@ -17,8 +13,6 @@ import {
   Layers, 
   FileText, 
   ExternalLink,
-  ChevronRight,
-  TrendingUp,
   Search,
   Check,
   X,
@@ -26,8 +20,7 @@ import {
   ArrowRight,
   Edit3,
   AlertCircle,
-  Sparkles,
-  Globe
+  Sparkles
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CollegeUpdateRequest, SchoolRegistrationRequest } from '../types';

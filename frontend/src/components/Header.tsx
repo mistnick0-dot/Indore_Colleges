@@ -3,37 +3,26 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Compass, 
-  GraduationCap, 
-  School, 
   BookOpen, 
-  Sparkles, 
   UserCheck, 
   Heart, 
   ShoppingCart, 
   User, 
   Globe, 
-  ChevronDown, 
   ChevronRight,
-  Phone, 
   ArrowRight, 
   Search, 
   Menu, 
   X, 
   CheckSquare, 
-  ExternalLink, 
   Headset,
   Info, 
-  Calendar, 
   Mail, 
-  PhoneCall, 
   Award, 
   Star, 
-  ListFilter, 
   Trash2, 
   ShieldCheck, 
   Eye, 
-  MessageSquare,
-  Sparkle,
   Youtube,
   Instagram
 } from 'lucide-react';
@@ -88,14 +77,12 @@ export default function Header({
   // Navigation states
   const [activeDropdown, setActiveDropdown] = useState<'schools' | 'boarding' | 'colleges' | 'profile' | 'favorites' | 'cart' | 'blogs' | 'camps' | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mobileAccordion, setMobileAccordion] = useState<'schools' | 'boarding' | 'colleges' | 'more' | null>(null);
   
   // Modal/Overlay states
   const [activeBlog, setActiveBlog] = useState<{ title: string; date: string; readTime: string; content: string[] } | null>(null);
   const [activeAboutModal, setActiveAboutModal] = useState<'about' | 'careers' | 'contact' | 'lang' | null>(null);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
   const [isBulkCallbackOpen, setIsBulkCallbackOpen] = useState(false);
-  const [campInterestRegistered, setCampInterestRegistered] = useState(false);
   
   // Form submission states for bulk callback
   const [bulkName, setBulkName] = useState('');
@@ -103,17 +90,9 @@ export default function Header({
   const [bulkSubmitting, setBulkSubmitting] = useState(false);
   const [bulkSuccess, setBulkSuccess] = useState(false);
 
-  // Scroll & Header Search & Announcement Ticker states
+  // Scroll & Header Search states
   const [isScrolled, setIsScrolled] = useState(false);
-  const [tickerIndex, setTickerIndex] = useState(0);
   const [headerSearchInput, setHeaderSearchInput] = useState('');
-
-  const TICKER_ANNOUNCEMENTS = [
-    "🔥 MP E-Pravesh & DAVV CET 2026-27: Counselling & Direct Admissions Active!",
-    "🎓 100% Free 1-on-1 Expert College Counseling & Cutoff Analysis for Indore Students",
-    "⭐ Explore 50+ Verified Colleges: IIT Indore, IIM Indore, SGSITS, DAVV & SUAS",
-    "💼 Placement Reports & Scholarship Fee Waiver Breakdown Available Now"
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,13 +101,6 @@ export default function Header({
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTickerIndex((prev) => (prev + 1) % TICKER_ANNOUNCEMENTS.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [TICKER_ANNOUNCEMENTS.length]);
 
   const handleHeaderSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();

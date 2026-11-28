@@ -3,19 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-  MapPin, 
-  Navigation, 
   Compass, 
   Layers, 
   Globe, 
-  Building2, 
   Sparkles, 
   Check, 
   ExternalLink,
   Map,
-  BookOpen,
   Info
 } from 'lucide-react';
 import { Institute } from '../types';

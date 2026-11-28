@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Logo from './Logo';
 import { 
   X, 
-  ChevronRight, 
-  ChevronLeft, 
   GraduationCap, 
   Building2, 
   Sparkles, 
   Check, 
-  User, 
-  Phone, 
-  MapPin, 
-  Calendar,
-  Layers,
-  IndianRupee,
-  HelpCircle,
-  Clock,
   ArrowRight,
   Cpu,
   Briefcase,

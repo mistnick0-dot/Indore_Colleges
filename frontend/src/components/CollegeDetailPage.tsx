@@ -3,28 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { Institute } from '../types';
 import {
   ArrowLeft, 
-  MapPin, 
-  Award, 
-  IndianRupee, 
   Calendar, 
   Check, 
   Mail, 
   PhoneCall, 
   Heart, 
   ShoppingCart, 
-  Clock, 
   ShieldCheck, 
-  Bookmark,
-  ExternalLink,
   GraduationCap,
   Video,
-  Compass,
   Download,
   Play,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { LogoIcon } from './Logo';
 import { INDORE_INSTITUTES } from '../data/indoreData';
 
 interface CollegeDetailPageProps {
@@ -66,14 +57,6 @@ export default function CollegeDetailPage({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [institute.id]);
 
-  const formatFee = (fee: number) => {
-    if (fee <= 0) return 'Contact college';
-    if (fee >= 100000) {
-      return `₹${(fee / 100000).toFixed(2)} Lakh`;
-    }
-    return `₹${fee.toLocaleString('en-IN')}`;
-  };
-
   const handleInfoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setInfoSubmitting(true);
@@ -107,20 +90,6 @@ export default function CollegeDetailPage({
       setInfoError('Unable to submit your request. Please try again.');
     } finally {
       setInfoSubmitting(false);
-    }
-  };
-
-  const scrollToSection = (id: string, tabKey: typeof activeTab) => {
-    setActiveTab(tabKey);
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
     }
   };
 

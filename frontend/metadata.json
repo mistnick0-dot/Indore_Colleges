@@ -1,6 +1,0 @@
-{
-  "name": "Indore Colleges",
-  "description": "Premium counseling and college/university exploration portal for Indore, featuring direct matchmaking, feedback reviews, offline request storage, and an AI-powered academic advisor 'ORB'.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

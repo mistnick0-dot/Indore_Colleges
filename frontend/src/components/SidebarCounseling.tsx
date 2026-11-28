@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Calendar, Clock, User, Phone, Mail, FileText, CheckCircle, X } from 'lucide-react';
+import { Calendar, Clock, User, Phone, FileText, CheckCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Institute } from '../types';
 

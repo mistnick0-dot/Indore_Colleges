@@ -7,14 +7,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { 
-  Phone, 
   Mail,
   Instagram, 
-  Facebook, 
-  Linkedin, 
   Youtube, 
-  MessageCircle, 
-  Globe,
   ExternalLink 
 } from 'lucide-react';
 
@@ -35,26 +30,6 @@ export default function Footer({
   setSelectedLocation,
   setSearchQuery
 }: FooterProps) {
-
-  const handleLinkClick = (category: string, board: string = 'All') => {
-    setInstituteTypeFilter('college');
-    setSelectedCategory(category);
-    setSelectedBoard(board);
-    setSelectedLocation('All');
-    setSearchQuery('');
-    setActiveTab('explore');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBoardOnlyClick = (board: string) => {
-    setInstituteTypeFilter('college');
-    setSelectedCategory('All');
-    setSelectedBoard(board);
-    setSelectedLocation('All');
-    setSearchQuery('');
-    setActiveTab('explore');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <footer id="edupath_main_footer" className="bg-slate-950 text-gray-200 pt-14 pb-10 font-sans border-t border-red-600/20">

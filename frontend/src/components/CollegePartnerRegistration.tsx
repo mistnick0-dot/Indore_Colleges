@@ -14,7 +14,6 @@ import {
   FileText, 
   Award, 
   BookOpen, 
-  User, 
   Settings, 
   Clock, 
   Check,

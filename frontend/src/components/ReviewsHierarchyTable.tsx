@@ -11,9 +11,7 @@ import {
   ShieldCheck, 
   Users,
   ArrowLeft,
-  ChevronLeft,
   ChevronRight,
-  Clock,
   Play,
   Pause,
   Volume2,
@@ -23,7 +21,6 @@ import {
   Flame,
   Film,
   X,
-  CheckCircle2,
   ExternalLink,
   Youtube,
   Info

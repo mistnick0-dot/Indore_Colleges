@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { User, LogOut, Trash2, Save, Calendar, Mail, BookOpen, Heart, ShoppingBag, X, Loader2 } from 'lucide-react';
-import { UserProfile, Institute, CounselingRequest, CallbackRequest } from '../types';
+import { User, LogOut, Trash2, Save, Calendar, Mail, Heart, ShoppingBag, X, Loader2 } from 'lucide-react';
+import { UserProfile, CounselingRequest, CallbackRequest } from '../types';
 import { INDORE_INSTITUTES } from '../data/indoreData';
 
 interface ProfileModalProps {

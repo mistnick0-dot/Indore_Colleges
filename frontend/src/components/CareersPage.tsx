@@ -14,7 +14,6 @@ import {
   Heart, 
   Users, 
   Smile, 
-  Award,
   UploadCloud,
   CheckCircle2
 } from 'lucide-react';

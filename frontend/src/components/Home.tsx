@@ -1,36 +1,25 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Search, 
   MapPin, 
   Star, 
   Check, 
   Send, 
   ArrowUpRight, 
-  BookOpen, 
   Users, 
   PhoneCall, 
   Mail,
   Compass, 
-  HelpCircle, 
-  Award, 
-  Quote,
   CheckCircle2,
-  MessageSquare,
   GraduationCap,
   Calendar,
-  ChevronRight,
-  TrendingUp,
-  Building,
-  Heart,
-  ExternalLink,
-  Globe
+  ChevronRight
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import Logo, { LogoIcon } from './Logo';
+import { LogoIcon } from './Logo';
 import IntroVideoSection from './IntroVideoSection';
 import StreamSelector from './StreamSelector';
-import { INDORE_INSTITUTES, INDORE_LOCATIONS, INDORE_LOCALITY_GROUPS, CATEGORIES } from '../data/indoreData';
+import { INDORE_INSTITUTES, INDORE_LOCALITY_GROUPS } from '../data/indoreData';
 import { Institute } from '../types';
 
 const SEARCHED_COURSE_TABS = [
@@ -190,12 +179,6 @@ export default function Home({
   onViewCollegeDetail,
   onViewLocality
 }: HomeProps) {
-  // Search card states (CarDekho style)
-  const [searchMode, setSearchMode] = useState<'college' | 'course'>('college');
-  const [searchOption, setSearchOption] = useState<'budget' | 'stream'>('budget');
-  const [selectedBudgetVal, setSelectedBudgetVal] = useState('All');
-  const [selectedStreamVal, setSelectedStreamVal] = useState('All');
-  const [selectedLocationVal, setSelectedLocationVal] = useState('All');
   // CarDekho style Searched Colleges tab state
   const [activeSearchedTab, setActiveSearchedTab] = useState<SearchedCourseTab>('Engineering');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -324,64 +307,6 @@ export default function Home({
     return () => clearInterval(timer);
   }, [heroBackgrounds.length]);
 
-  const handleFeaturedClick = (id: string) => {
-    const matched = INDORE_INSTITUTES.find(inst => inst.id === id);
-    if (matched && onViewCollegeDetail) {
-      onViewCollegeDetail(matched);
-    } else {
-      setSearchQuery('');
-      setInstituteTypeFilter('college');
-      setActiveTab('explore');
-    }
-  };
-
-  const handleFormSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setInstituteTypeFilter('college');
-
-    // Handle stream selection
-    if (selectedStreamVal && selectedStreamVal !== 'All') {
-      setSelectedCategory(selectedStreamVal);
-      if (setSelectedStream) {
-        const catLower = selectedStreamVal.toLowerCase();
-        if (catLower.includes('engineering')) setSelectedStream('engineering');
-        else if (catLower.includes('management')) setSelectedStream('mba');
-        else if (catLower.includes('medical')) setSelectedStream('medical');
-        else if (catLower.includes('design')) setSelectedStream('design');
-        else setSelectedStream(null);
-      }
-    } else {
-      setSelectedCategory('All');
-      if (setSelectedStream) setSelectedStream(null);
-    }
-
-    // Handle location selection
-    if (selectedLocationVal && selectedLocationVal !== 'All') {
-      setSelectedLocation(selectedLocationVal);
-    } else {
-      setSelectedLocation('All');
-    }
-
-    // Handle budget limit
-    if (setMaxFee) {
-      if (selectedBudgetVal === '1lakh') setMaxFee(100000);
-      else if (selectedBudgetVal === '2lakh') setMaxFee(200000);
-      else if (selectedBudgetVal === '5lakh') setMaxFee(500000);
-      else if (selectedBudgetVal === '10lakh') setMaxFee(1000000);
-      else setMaxFee(1500000); // Max fee limit
-    }
-
-    setSearchQuery('');
-    setActiveTab('explore');
-
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-  };
-
-  // Search input state
-  const [localSearch, setLocalSearch] = useState('');
-  
   // Schedule a Meeting Form State
   const [formName, setFormName] = useState('');
   const [formPhone, setFormPhone] = useState('');
@@ -399,38 +324,6 @@ export default function Home({
 
   // Review filter state
   const [reviewFilter, setReviewFilter] = useState<'all' | 'students' | 'parents'>('all');
-
-  // Action helpers
-  const handleHeroSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!localSearch.trim()) return;
-    setSearchQuery(localSearch);
-    setInstituteTypeFilter('college');
-    setActiveTab('explore');
-    // Scroll to directory
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-  };
-
-  const handleCategoryClick = (category: string, type: 'school' | 'college' = 'college') => {
-    setInstituteTypeFilter('college');
-    setSelectedCategory(category);
-    setSelectedBoard('All');
-    setSelectedLocation('All');
-    setSearchQuery('');
-    if (setSelectedStream) {
-      const catLower = category.toLowerCase();
-      if (catLower.includes('engineering')) setSelectedStream('engineering');
-      else if (catLower.includes('management')) setSelectedStream('mba');
-      else if (catLower.includes('medical')) setSelectedStream('medical');
-      else if (catLower.includes('design')) setSelectedStream('design');
-    }
-    setActiveTab('explore');
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-  };
 
   const handleLocalityClick = (locality: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

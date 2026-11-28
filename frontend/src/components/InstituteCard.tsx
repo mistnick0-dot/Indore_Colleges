@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Institute, Review } from '../types';
-import { Star, MapPin, Award, IndianRupee, Calendar, Check, Send, ChevronDown, ChevronUp, MessageSquare, PhoneCall, Heart, ShoppingCart, Info } from 'lucide-react';
+import { Star, MapPin, Award, IndianRupee, Calendar, Check, Send, ChevronDown, ChevronUp, MessageSquare, Heart, ShoppingCart, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface InstituteCardProps {
