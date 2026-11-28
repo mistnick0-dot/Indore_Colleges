@@ -865,6 +865,27 @@ function ExploreRoute({
                     );
                   })()}
                 </div>
+
+                {selectedStream === 'engineering' && (
+                  <div className="max-w-4xl mx-auto w-full">
+                    <details className="group rounded-2xl border border-gray-200/70 bg-white shadow-xs">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-2xl px-5 py-4 text-left text-sm font-bold text-gray-900 transition hover:bg-gray-50/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 [&::-webkit-details-marker]:hidden">
+                        <h2 className="text-sm sm:text-base font-extrabold text-gray-900">
+                          About Engineering Colleges in Indore
+                        </h2>
+                        <ChevronRight
+                          aria-hidden="true"
+                          className="h-4 w-4 shrink-0 text-gray-500 transition-transform duration-200 group-open:rotate-90"
+                        />
+                      </summary>
+                      <div className="border-t border-gray-100 px-5 py-4 text-xs sm:text-sm leading-relaxed text-gray-600">
+                        <p>
+                          Explore the Best Engineering Colleges in Indore featured in this Top 10 spotlight, covering private universities, an autonomous institute, and RGPV-affiliated campuses across key corridors like Rau, Bypass Road, Sanwer Road, and Vijay Nagar. Whether comparing B.Tech Colleges in Indore for Computer Science, AI and Data Science, Electronics, Mechanical, or Civil Engineering, applicants can review listed annual tuition benchmarks and admission pathways such as JEE Main, MP DTE counseling, MU-SAT, or Skill-CAT directly on each profile.
+                        </p>
+                      </div>
+                    </details>
+                  </div>
+                )}
               </div>
             )}
           </div>
