@@ -655,31 +655,24 @@ export default function RegisterSchool() {
                 ) : (
                   <div className="max-h-60 overflow-y-auto rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
                     {filteredColleges.map((col) => {
-                      const effectiveFee = getEffectiveAnnualFee(col, selectedCourseOpt);
-                      const feeTag = effectiveFee > 0 ? `₹${effectiveFee.toLocaleString('en-IN')}/yr` : 'Contact college';
                       const isChecked = selectedCollegeNames.includes(col.name);
                       return (
                         <label
                           key={col.id}
-                          className={`flex items-center justify-between gap-3 px-3.5 py-2.5 cursor-pointer transition ${
+                          className={`flex items-center gap-2.5 px-3.5 py-2.5 cursor-pointer transition ${
                             isChecked ? 'bg-red-50/60' : 'hover:bg-gray-50'
                           }`}
                         >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={() => toggleCollegeSelection(col.name)}
-                              className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500 shrink-0 cursor-pointer"
-                            />
-                            <div className="min-w-0">
-                              <span className="block font-bold text-gray-900 truncate">{col.name}</span>
-                              <span className="block text-[11px] text-gray-500">{col.location}</span>
-                            </div>
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => toggleCollegeSelection(col.name)}
+                            className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500 shrink-0 cursor-pointer"
+                          />
+                          <div className="min-w-0">
+                            <span className="block font-bold text-gray-900 truncate">{col.name}</span>
+                            <span className="block text-[11px] text-gray-500">{col.location}</span>
                           </div>
-                          <span className="shrink-0 rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-700">
-                            {feeTag}
-                          </span>
                         </label>
                       );
                     })}
