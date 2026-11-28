@@ -475,41 +475,34 @@ export default function CollegeDetailPage({
                 </div>
 
                 {/* Salary Package Metrics */}
-                {institute.placements.metrics?.length ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {institute.placements.metrics.map((metric, idx) => (
-                      <div key={idx} className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 text-center">
-                        <span className="block text-xl sm:text-2xl font-black text-slate-800 mt-1 tabular-nums">
-                          {metric.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="bg-emerald-50 border border-emerald-200/80 rounded-xl p-4 text-center">
-                    <span className="block text-xl sm:text-2xl font-black text-emerald-900 tabular-nums">
-                      {institute.placements.highest}
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+                      Highest Package
+                    </span>
+                    <span className="block text-xl sm:text-2xl font-black text-emerald-900 mt-1 tabular-nums">
+                      {institute.placements.highest || 'Not Disclosed'}
                     </span>
                   </div>
 
-                  {institute.placements.average && (
                   <div className="bg-rose-50 border border-rose-200/80 rounded-xl p-4 text-center">
-                    <span className="block text-xl sm:text-2xl font-black text-rose-900 tabular-nums">
-                      {institute.placements.average}
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-rose-700">
+                      Average Package
+                    </span>
+                    <span className="block text-xl sm:text-2xl font-black text-rose-900 mt-1 tabular-nums">
+                      {institute.placements.average || 'Not Disclosed'}
                     </span>
                   </div>
-                  )}
 
-                  {institute.placements.lowest && (
-                    <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 text-center col-span-2 sm:col-span-1">
-                      <span className="block text-xl sm:text-2xl font-black text-slate-800 tabular-nums">
-                        {institute.placements.lowest}
-                      </span>
-                    </div>
-                  )}
+                  <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 text-center">
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      Lowest Package
+                    </span>
+                    <span className="block text-xl sm:text-2xl font-black text-slate-800 mt-1 tabular-nums">
+                      {institute.placements.lowest || 'Not Disclosed'}
+                    </span>
+                  </div>
                 </div>
-                )}
 
               </section>
             )}

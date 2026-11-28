@@ -278,7 +278,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     placements: {
       highest: 'INR 1.37 Crore',
       average: 'INR 23.91 LPA',
-      lowest: 'INR 10.00 LPA (MTech Median)',
+      lowest: 'INR 6.00 LPA',
       recruiters: [
         'Google',
         'Amazon',
@@ -409,7 +409,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     placements: {
       highest: 'INR 82.54 LPA',
       average: 'INR 27.27 LPA',
-      lowest: 'INR 25.00 LPA (Median Package)',
+      lowest: 'Not Disclosed (Median: INR 25.00 LPA)',
       recruiters: [
         'Everest Group',
         'EY',
@@ -591,7 +591,9 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: '₹44.5 LPA',
+      highest: 'INR 44.50 LPA',
+      average: 'INR 7.00 LPA',
+      lowest: 'INR 3.00 LPA',
       recruiters: [
         'Amazon',
         'Google',
@@ -745,9 +747,9 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 12.00 LPA',
-      average: 'INR 5.60 LPA (Median Package)',
-      lowest: 'INR 4.00 LPA',
+      highest: 'INR 72.00 LPA',
+      average: 'INR 5.31 LPA - 5.60 LPA',
+      lowest: 'INR 3.00 LPA - 4.00 LPA',
       recruiters: [
         'TCS',
         'Wipro',
@@ -873,6 +875,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     placements: {
       highest: 'INR 12.00 LPA',
       average: 'INR 4.50 LPA',
+      lowest: 'INR 3.00 LPA',
       recruiters: [
         'TCS',
         'Capgemini',
@@ -1017,7 +1020,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     ],
     placements: {
       highest: 'INR 20.00 LPA',
-      average: 'INR 5.50 LPA (Estimated)',
+      average: 'INR 5.50 LPA',
       lowest: 'INR 3.50 LPA',
       recruiters: [
         'Royal Enfield',
@@ -1229,7 +1232,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     placements: {
       highest: 'INR 47.00 LPA',
       average: 'INR 5.56 LPA',
-      lowest: 'INR 5.85 LPA (Median Package)',
+      lowest: 'INR 2.50 LPA',
       recruiters: [
         'IMPETUS',
         'IBM',
@@ -1410,8 +1413,8 @@ export const INDORE_INSTITUTES: Institute[] = [
     ],
     placements: {
       highest: 'INR 1.50 Crore',
-      average: 'INR 4.53 LPA (PG Median)',
-      lowest: 'INR 2.85 LPA (UG Median)',
+      average: 'INR 4.53 LPA - 5.00 LPA',
+      lowest: 'INR 2.85 LPA',
       recruiters: [
         'Salesforce',
         'TCS',
@@ -1551,9 +1554,9 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 10.00 LPA',
-      average: 'INR 7.95 LPA',
-      lowest: 'INR 5.40 LPA (B.Tech Highest)',
+      highest: 'INR 15.00 LPA',
+      average: 'INR 7.95 LPA - 11.30 LPA',
+      lowest: 'INR 3.10 LPA',
       recruiters: [
         'KPMG',
         'Grant Thornton',
@@ -1731,7 +1734,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     ],
     placements: {
       highest: 'INR 10.89 LPA',
-      average: 'INR 5.00 LPA (Estimated)',
+      average: 'INR 3.50 LPA - 5.00 LPA',
       lowest: 'INR 1.89 LPA',
       recruiters: [
         'Tata Technologies',
@@ -5598,7 +5601,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 7.20 LPA - 9.00 LPA (Portal Listings)',
+      highest: 'INR 7.20 LPA - 9.00 LPA',
       average: 'INR 3.50 LPA',
       lowest: 'INR 2.40 LPA',
       recruiters: [
@@ -5704,7 +5707,7 @@ export const INDORE_INSTITUTES: Institute[] = [
     ],
     placements: {
       highest: 'INR 10.50 LPA',
-      average: 'INR 2.50 LPA - 4.20 LPA (Portal Listings)',
+      average: 'INR 2.50 LPA - 4.20 LPA',
       lowest: 'INR 2.30 LPA - 2.80 LPA',
       recruiters: [
         'TCS',
@@ -6174,7 +6177,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 3.00 LPA - 4.50 LPA (Portal Listings)',
+      highest: 'INR 3.00 LPA - 4.50 LPA',
       average: 'INR 2.00 LPA - 3.00 LPA',
       lowest: 'INR 1.80 LPA',
       recruiters: ['Local & Regional Employers', 'IT & Service Firms']
@@ -6258,7 +6261,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 15.00 LPA - 16.00 LPA (Portal Listings)',
+      highest: 'INR 15.00 LPA - 16.00 LPA',
       average: 'INR 5.38 LPA - 6.50 LPA',
       lowest: 'INR 4.00 LPA',
       recruiters: [
@@ -6458,7 +6461,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 4.50 LPA - 6.00 LPA (Portal Listings)',
+      highest: 'INR 4.50 LPA - 6.00 LPA',
       average: 'INR 2.50 LPA - 3.50 LPA',
       lowest: 'INR 1.80 LPA',
       recruiters: ['TCS', 'Infosys', 'Wipro', 'Regional & Startup Employers']
@@ -6545,7 +6548,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 6.00 LPA - 8.00 LPA (Portal Listings)',
+      highest: 'INR 6.00 LPA - 8.00 LPA',
       average: 'INR 3.00 LPA - 4.00 LPA',
       lowest: 'INR 2.00 LPA',
       recruiters: ['Tech Mahindra', 'ICICI Bank', 'HCL Technologies', 'Mphasis', 'Birlasoft']
@@ -6629,7 +6632,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 6.60 LPA - 8.00 LPA (Portal Listings)',
+      highest: 'INR 6.60 LPA - 8.00 LPA',
       average: 'INR 2.50 LPA - 4.00 LPA',
       lowest: 'INR 2.00 LPA',
       recruiters: [
@@ -6720,7 +6723,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 4.50 LPA - 6.00 LPA (Portal Listings)',
+      highest: 'INR 4.50 LPA - 6.00 LPA',
       average: 'INR 2.50 LPA - 3.50 LPA',
       lowest: 'INR 1.80 LPA',
       recruiters: ['Syntel', 'Hexaware', 'Zensar', 'Aspire Systems', 'Phoenix Maritime Services']
@@ -6798,7 +6801,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 4.50 LPA - 6.00 LPA (Portal Listings)',
+      highest: 'INR 4.50 LPA - 6.00 LPA',
       average: 'INR 2.50 LPA - 3.50 LPA',
       lowest: 'INR 1.80 LPA',
       recruiters: ['Local & Regional Employers', 'IT & Commerce Firms']
@@ -6903,7 +6906,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 5.00 LPA - 10.00 LPA (Portal Listings)',
+      highest: 'INR 5.00 LPA - 10.00 LPA',
       average: 'INR 2.50 LPA - 3.50 LPA',
       lowest: 'INR 1.80 LPA',
       recruiters: ['Local & Regional Employers', 'Commerce & Service Firms']
@@ -6981,7 +6984,7 @@ export const INDORE_INSTITUTES: Institute[] = [
       }
     ],
     placements: {
-      highest: 'INR 4.50 LPA - 6.00 LPA (Portal Listings)',
+      highest: 'INR 4.50 LPA - 6.00 LPA',
       average: 'INR 2.50 LPA - 3.50 LPA',
       lowest: 'INR 1.80 LPA',
       recruiters: ['Local & Regional Employers', 'Commerce & Service Firms']
@@ -7044,6 +7047,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       { name: 'Master of Business Administration (MBA)', duration: '2 years', fees: 'Contact institute for current fees' },
       { name: 'Master of Business Administration in Hospital Administration (MBA-HA)', duration: '2 years', fees: 'Contact institute for current fees' }
     ],
+    placements: {
+      highest: 'INR 12.00 LPA',
+      average: 'INR 4.50 LPA',
+      lowest: 'INR 3.00 LPA',
+      recruiters: ['TCS', 'Infosys', 'Wipro', 'Accenture', 'Capgemini', 'HCL Technologies', 'Tech Mahindra']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7083,6 +7092,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       },
       { name: 'Doctor of Pharmacy (Pharm.D)', duration: '6 Years', fees: 'Contact institute for current fees' }
     ],
+    placements: {
+      highest: 'INR 12.00 LPA',
+      average: 'INR 4.50 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['Cipla', 'Sun Pharma', 'Lupin', 'Mankind Pharma', 'IPCA Laboratories', 'Piramal Pharma', 'Nestlé']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7122,6 +7137,12 @@ export const INDORE_INSTITUTES: Institute[] = [
         specializations: ['Pharmaceutics', 'Pharmacognosy']
       }
     ],
+    placements: {
+      highest: 'INR 7.00 LPA',
+      average: 'INR 3.00 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['Sun Pharma', 'Cipla', 'Lupin', 'Piramal Healthcare', 'Nestlé India', 'Abbott Healthcare', 'TCS', 'Glenmark']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7158,6 +7179,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       { name: 'Master of Pharmacy (M.Pharm)', duration: '2 Years', fees: 'Contact institute for current fees' },
       { name: 'Doctor of Pharmacy (Pharm.D)', duration: '6 Years', fees: 'Contact institute for current fees' }
     ],
+    placements: {
+      highest: 'INR 12.00 LPA',
+      average: 'INR 3.50 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['Sun Pharma', 'Cipla', 'Lupin', 'Abbott', 'Pfizer', 'Glenmark', 'Mankind Pharma', 'IPCA Laboratories']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7197,6 +7224,12 @@ export const INDORE_INSTITUTES: Institute[] = [
         specializations: ['Pharmaceutics']
       }
     ],
+    placements: {
+      highest: 'INR 6.33 LPA',
+      average: 'INR 3.50 LPA',
+      lowest: 'INR 2.00 LPA',
+      recruiters: ['Cipla', 'Sun Pharma', "Dr. Reddy's Laboratories", 'Lupin', 'Mankind Pharma', 'Glenmark', 'Nestlé', 'Torrent Pharma']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7242,6 +7275,12 @@ export const INDORE_INSTITUTES: Institute[] = [
         specializations: ['Pharmaceutical Management']
       }
     ],
+    placements: {
+      highest: 'INR 20.00 LPA',
+      average: 'INR 3.50 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['Novo Nordisk', 'Mankind Pharma', 'Macleods Pharmaceuticals', 'Sun Pharma', 'Cipla', 'IPCA Laboratories', 'Glenmark']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7276,6 +7315,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       { name: 'Master of Arts (M.A.)', duration: '2 Years', fees: 'Contact institute for current fees' },
       { name: 'PGDCA', duration: '1 Year', fees: 'Contact institute for current fees' }
     ],
+    placements: {
+      highest: 'INR 5.00 LPA - 7.00 LPA',
+      average: 'INR 2.40 LPA - 4.50 LPA',
+      lowest: 'INR 1.50 LPA',
+      recruiters: ['ICICI Bank', 'Amazon', 'HDFC Bank', 'Regional Finance & Commerce Firms']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7327,6 +7372,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       },
       { name: 'PGDCA', duration: '1 Year', fees: 'Contact institute for current fees' }
     ],
+    placements: {
+      highest: 'INR 10.00 LPA - 14.00 LPA',
+      average: 'INR 3.50 LPA - 4.00 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['TCS', 'Wipro', 'Capgemini', 'Amazon', 'Flipkart', 'YES Bank', 'Jaro Education']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7369,6 +7420,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       },
       { name: 'Master of Commerce (M.Com)', duration: '2 Years', fees: 'Approx. ₹13,000 - ₹46,000/year' }
     ],
+    placements: {
+      highest: 'INR 8.00 LPA - 10.00 LPA',
+      average: 'INR 3.40 LPA - 4.50 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['TCS', 'Infosys', 'Wipro', 'Accenture', 'Capgemini', 'Lupin', 'IPCA Laboratories']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7408,6 +7465,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       { name: 'Diploma in Pharmacy (D.Pharm)', duration: '2 Years', fees: 'Approx. ₹60,000/year' },
       { name: 'LL.B. (Hons.) / B.A. LL.B. (Hons.) / LL.M.', fees: 'Contact institute for current fees' }
     ],
+    placements: {
+      highest: 'INR 12.50 LPA',
+      average: 'INR 3.50 LPA - 4.80 LPA',
+      lowest: 'INR 1.80 LPA',
+      recruiters: ['ICICI Bank', 'HDFC Bank', 'Kotak Mahindra Bank', 'IDFC First Bank', 'Regional Pharma & IT Firms']
+    },
     isDirectoryVerified: false
   },
   {
@@ -7443,6 +7506,12 @@ export const INDORE_INSTITUTES: Institute[] = [
       { name: 'Bachelor of Arts (B.A.)', duration: '3 Years', fees: 'Approx. ₹35,000 - ₹70,000/year' },
       { name: 'Bachelor of Education (B.Ed)', duration: '2 Years', fees: 'Approx. ₹64,000 Total' }
     ],
+    placements: {
+      highest: 'INR 7.00 LPA - 8.50 LPA',
+      average: 'INR 3.50 LPA - 4.20 LPA',
+      lowest: 'INR 1.50 LPA',
+      recruiters: ['TCS', 'Infosys', 'Wipro', 'Accenture', 'Deloitte', 'Flipkart']
+    },
     isDirectoryVerified: false
   }
 ];
