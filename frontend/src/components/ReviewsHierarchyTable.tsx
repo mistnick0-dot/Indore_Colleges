@@ -471,9 +471,21 @@ export default function ReviewsHierarchyTable() {
 
             {/* 2. REVIEW PERSPECTIVES */}
           <div>
-            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-slate-900 mb-5 text-center">
+            <h2 className={`text-xl sm:text-2xl font-black uppercase tracking-wider text-slate-900 ${activeCategory === 'Technical College' ? 'mb-2' : 'mb-5'} text-center`}>
               REVIEWS
             </h2>
+            {activeCategory === 'Technical College' && (
+              <p className="mb-5 text-center text-sm text-slate-600">
+                Compare B.Tech programmes, campus profiles, and admission routes alongside these reviews:{' '}
+                <Link
+                  to="/explore/engineering"
+                  className="font-semibold text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                >
+                  Explore Engineering Colleges in Indore
+                </Link>
+                .
+              </p>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {REVIEW_PERSPECTIVES.map((persp) => {

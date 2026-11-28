@@ -735,6 +735,18 @@ function ExploreRoute({
               </motion.div>
             ))}
           </div>
+          {['bypass-road', 'sanwer-ujjain-road', 'khandwa-road', 'indore-city'].includes(localitySlug || '') && (
+            <p className="text-center text-sm text-gray-600">
+              Comparing B.Tech campuses across Indore?{' '}
+              <Link
+                to="/explore/engineering"
+                className="font-semibold text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+              >
+                Explore Top 10 Engineering Colleges in Indore
+              </Link>
+              .
+            </p>
+          )}
         </section>
       </motion.div>
     );
@@ -878,9 +890,67 @@ function ExploreRoute({
                           className="h-4 w-4 shrink-0 text-gray-500 transition-transform duration-200 group-open:rotate-90"
                         />
                       </summary>
-                      <div className="border-t border-gray-100 px-5 py-4 text-xs sm:text-sm leading-relaxed text-gray-600">
+                      <div className="space-y-3 border-t border-gray-100 px-5 py-4 text-xs sm:text-sm leading-relaxed text-gray-600">
                         <p>
-                          Explore the Best Engineering Colleges in Indore featured in this Top 10 spotlight, covering private universities, an autonomous institute, and RGPV-affiliated campuses across key corridors like Rau, Bypass Road, Sanwer Road, and Vijay Nagar. Whether comparing B.Tech Colleges in Indore for Computer Science, AI and Data Science, Electronics, Mechanical, or Civil Engineering, applicants can review listed annual tuition benchmarks and admission pathways such as JEE Main, MP DTE counseling, MU-SAT, or Skill-CAT directly on each profile.
+                          Explore the Top 10 spotlight of Best Engineering Colleges in Indore across campuses located along Rau, Bypass Road, Ralamandal, Limbodi, Sanwer Road, Super Corridor, Khandwa Road, and Vijay Nagar. Across these 10 directory profiles, listed B.Tech Colleges in Indore cover areas such as Computer Science and Engineering, Information Technology / Computer Science and Information Technology, Artificial Intelligence and Machine Learning, Data Science, Cyber Security and Internet of Things, Robotics and Automation, Electronics and Communication Engineering, Electrical Engineering, Mechanical Engineering, and Civil Engineering, alongside postgraduate engineering options on select campuses. Branch offerings differ by institute, and no single campus should be assumed to offer every listed specialization.
+                        </p>
+                        <p>
+                          <strong className="font-semibold text-gray-800">Admission Pathways:</strong> Directory profiles reference multiple admission routes across institutions, including JEE Main and MP DTE counselling for several colleges, Class 12 merit where listed, GATE for certain postgraduate engineering programmes, and university or institute-level tests such as MU-SAT and Skill-CAT. Eligibility criteria, applicable entrance tests, and admission schedules vary by institution and programme, so students should check each college&apos;s latest official admission notification before applying.
+                        </p>
+                        <p>
+                          <strong className="font-semibold text-gray-800">Directory Note:</strong> Listed specializations and programme details reflect information currently recorded in the directory profiles and do not guarantee current-year admission availability; current-year branch availability and seat intake must be confirmed directly with the respective institution.
+                        </p>
+                        <p>
+                          <strong className="font-semibold text-gray-800">Related Resources:</strong> Read more about{' '}
+                          <Link
+                            to="/useful-information#about-engineering-branch-trends"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Engineering Branch Trends
+                          </Link>
+                          ,{' '}
+                          <Link
+                            to="/useful-information#best-engineering-branch"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Explore Engineering Branch Options
+                          </Link>
+                          , or browse{' '}
+                          <Link
+                            to="/reviews/technical-college"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Engineering College Reviews
+                          </Link>
+                          . You can also explore campuses by corridor, including{' '}
+                          <Link
+                            to="/locality/bypass-road"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Colleges on Bypass Road
+                          </Link>
+                          ,{' '}
+                          <Link
+                            to="/locality/sanwer-ujjain-road"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Colleges on Sanwer and Ujjain Road
+                          </Link>
+                          ,{' '}
+                          <Link
+                            to="/locality/khandwa-road"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Colleges on Khandwa Road
+                          </Link>
+                          , and{' '}
+                          <Link
+                            to="/locality/indore-city"
+                            className="font-medium text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                          >
+                            Colleges in Indore City
+                          </Link>
+                          .
                         </p>
                       </div>
                     </details>

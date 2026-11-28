@@ -123,14 +123,18 @@ const SEARCHED_COURSE_TABS = [
 
 type SearchedCourseTab = (typeof SEARCHED_COURSE_TABS)[number]['id'];
 
-const HOME_FAQS = [
+const HOME_FAQS: ReadonlyArray<{ question: string; answer: string; link?: { to: string; label: string } }> = [
   {
     question: 'How can I find the best colleges in Indore?',
     answer: 'You can explore colleges on IndoreColleges.in by course, review available college profiles and compare information such as courses, fees, eligibility and placements.'
   },
   {
     question: 'Which are the best engineering colleges in Indore?',
-    answer: 'Explore the engineering colleges listed on IndoreColleges.in and compare their courses, admission requirements, facilities and available placement information.'
+    answer: 'Explore the engineering colleges listed on IndoreColleges.in and compare their courses, admission requirements, facilities and available placement information.',
+    link: {
+      to: '/explore/engineering',
+      label: 'Explore the Top 10 Engineering Colleges in Indore'
+    }
   },
   {
     question: 'How can I compare MBA colleges in Indore?',
@@ -148,7 +152,7 @@ const HOME_FAQS = [
     question: 'What should I check before selecting a college?',
     answer: 'Review accreditation, course recognition, fees, eligibility, infrastructure, faculty information, location and verified placement records before making a decision.'
   }
-] as const;
+];
 
 interface HomeProps {
   setActiveTab: (tab: 'home' | 'explore' | 'register' | 'dashboard' | 'browse-campus' | 'blogs' | 'about' | 'careers' | 'contact' | 'college-portal' | 'admin-panel') => void;
@@ -1816,6 +1820,18 @@ export default function Home({
                     className="px-4 pb-4 text-sm leading-6 text-gray-600"
                   >
                     {faq.answer}
+                    {faq.link && (
+                      <>
+                        {' '}
+                        <Link
+                          to={faq.link.to}
+                          className="font-semibold text-red-600 underline decoration-red-500/30 underline-offset-2 hover:text-red-700"
+                        >
+                          {faq.link.label}
+                        </Link>
+                        .
+                      </>
+                    )}
                   </div>
                 </div>
               );

@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
@@ -2563,13 +2562,14 @@ Instructions:
   });
 
   // Vite development vs production asset delivery
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
-  } else {
+  } else if (process.env.NODE_ENV === 'production') {
     const distPath = path.join(process.cwd(), 'dist');
     const notFoundPath = path.join(distPath, '404.html');
     if (fs.existsSync(distPath)) {
